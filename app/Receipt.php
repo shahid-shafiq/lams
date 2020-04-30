@@ -67,23 +67,7 @@ class Receipt extends Model
       $receipt->account = 1;
   }
 
-  public static function InfaqDescription($fd, $td) {
-    
-    if ($fd->year == $td->year) {
-        if ($fd->month == $td->month) {
-            $des = "انفاق برائے " . $this->monthUrdu($fd->month) . " " . $fd->year;   
-        } else {
-            $des = " " . "انفاق " . $this->monthUrdu($fd->month) . " " . "تا" . " " . $this->monthUrdu($td->month) . " " . $fd->year; 
-        }
-    } else {
-        $des = " " . "انفاق برائے ";
-        $des .= " " . $this->monthUrdu($fd->month) . " " . $fd->year;
-        $des .= " " . "تا ";
-        $des .= " " . $this->monthUrdu($td->month) . " " . $td->year; 
-    }
-    
-    return $des;
-}
+  
 
   /*
   public function income($pid, $site) {
@@ -142,26 +126,6 @@ order by r.department_id, r.account_id;
       return $fee;
   }
 
-  public function monthUrdu($m) {
-      $urnames = array(
-          1 => "جنوری",
-          2 => "فروری",
-          3 => "مارچ",
-          4 => "اپریل",
-          5 => "مئی",
-          6 => "جون",
-          7 => "جولائی",
-          8 => "اگست",
-          9 => "ستمبر",
-          10 => "اکتوبر",
-          11 => "نومبر",
-          12 => "دسمبر",
-      );
-      
-      return $urnames[$m];
-  }
-
-  
 
   public function datestr($da) {
       $ds = $da['year'] . '-' . $da['month'] . '-01';

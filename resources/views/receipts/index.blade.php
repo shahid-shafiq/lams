@@ -2,6 +2,28 @@
 
 @section('content')
 
+<?php
+
+use App\Custom\Urdutils;
+use Carbon\Carbon;
+
+/*
+$f = "2020-01";
+$d = "2020-03";
+
+$cf = new Carbon($f);
+$cd = Carbon::createFromDate($d)->lastOfMonth();
+print($cd->toDateString().'<br>');
+
+print(Urdutils::InfaqDescription($cf, $cd)."<br>");
+
+print($cf->toDateString().'<br>');
+//print($cd->toDateString());
+print($cd->lastOfMonth()->toDateString());
+*/
+?>
+
+
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">

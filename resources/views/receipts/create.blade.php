@@ -81,7 +81,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Title:</strong>
-                <input type="text" class="form-control" name="title" placeholder="Title">
+                <input type="text" id="title" class="form-control" name="title" placeholder="Title">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -145,13 +145,13 @@
         <div class="col-xs-3 col-sm-3 col-md-3">
             <div class="form-group">
                 <strong>From:</strong>
-                <input type="date" name="fdate" value="{{$receipt->fdate}}" class="form-control" placeholder="Date">
+                <input type="month" name="fdate" value="{{$receipt->fdate}}" class="form-control" placeholder="Date">
             </div>
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3">
             <div class="form-group">
                 <strong>To:</strong>
-                <input type="date" name="tdate" value="{{$receipt->tdate}}" class="form-control" placeholder="Date">
+                <input type="month" name="tdate" value="{{$receipt->tdate}}" class="form-control" placeholder="Date">
             </div>
         </div>
       </div>
@@ -245,6 +245,9 @@
       mbs.value = mbo[f].value;
       console.log(f >=0 ? 'FOUND' : 'NOT');
 
+      //set field related data
+      var title = mbo[f].text + ' - ' + mbo[f].value + '';
+      $('#title').val(title);
       $('#member').val(mbo[f].value);
       $('#regno').val(mbo[f].value);
   });

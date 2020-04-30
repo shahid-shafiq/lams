@@ -11,6 +11,9 @@ use App\Member;
 use App\Course;
 use App\Payment;
 
+use Carbon\Carbon;
+use App\Custom\Urdutils;
+
 class ReceiptController extends Controller
 {
   /* API
@@ -102,14 +105,30 @@ class ReceiptController extends Controller
       ]);
 
       $inc = $request->get('income');
-      if ($inc == '2') {
+
+      if ($inc == '3') {
+        // FEE
+        $receipt->account_id = $request->get('course');
+        
+      } else if ($inc == '2') {
         // INFAAQ
+
+        $fd = Carbon::createFromDate($request->get('fdate'));
+        $td = Carbon::createFromDate($request->get('tdate'));
+
+        if ($fd > $td) {
+          // swap dates
+          $tmp = $fd;
+          $fd = $td;
+          $td = $tmp;
+        }
+
         $receipt->m_id = $request->get('member');
-        $receipt->fdate = $request->get('fdate');
-        $receipt->tdate = $request->get('tdate');
-        $receipt->title = '';
-        $receipt->description = '';
-        $receipt->account = 1;
+        $receipt->fdate = $fd->firstOfMonth()->toDateString();
+        $receipt->tdate = $td->lastOfMonth()->toDateString();
+        
+        $receipt->description = Urdutils::InfaqDescription($fd, $td);
+        $receipt->account_id = 1;
       }
 
       /*
