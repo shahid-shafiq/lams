@@ -20,7 +20,6 @@ class ReceiptController extends Controller
     public function index() {
       return Receipt::paginate();
     }
-  */
   private $pid;
   private $sid;
 
@@ -32,13 +31,10 @@ class ReceiptController extends Controller
       $this->sid = session()->get('site.id');
       return $next($request);
     });
-
   }
+  */
 
   public function index(Request $request) {
-    $this->pid = $request->session()->get('period.id');
-    $this->sid = $request->session()->get('site.id');
-
     $receipts = Receipt::where(['site_id' => $this->sid, 'period_id' => $this->pid])->get();
     return view('receipts.index', ['receipts' => $receipts]);
   }

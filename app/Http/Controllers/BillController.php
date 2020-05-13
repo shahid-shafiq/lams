@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Bill;
 
-class BillsController extends Controller
+class BillController extends Controller
 {
-  public function index() {
-    $bills = Bill::where(['period_id' => 92, 'site_id' => 4])->get();
-    //return view('bills.index', ['bills' => $bills]);
+  
+  public function index() { 
+    $bills = Bill::where(['site_id' => $this->sid, 'period_id' => $this->pid])->get();
     return view('bills.index', ['title' => 'Bills', 'bills' => $bills]);
   }
 

@@ -33,7 +33,7 @@ Route::get('members/{id}/infaaq', 'MemberController@infaaq');
 
 Route::resource('periods', 'PeriodController', ['only' => ['index', 'store', 'show']]);
 Route::resource('receipts', 'ReceiptController', ['only' => ['index', 'store', 'show']]);
-Route::resource('members', 'MemberController', ['only' => ['index', 'store', 'show']]);
+Route::resource('members', 'api\MemberController', ['only' => ['index', 'store', 'show']]);
 Route::resource('people', 'PersonController', ['only' => ['index', 'store', 'show']]);
 
 //Route::resource('members.infaaq', 'InfaaqController', ['only' => ['index', 'store', 'show']]);

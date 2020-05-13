@@ -1,0 +1,66 @@
+body {
+  padding: 0;
+  margin: 0;
+  background: #f2f6e9;
+}
+/*--- navigation bar ---*/
+.navbar {
+  background:#6ab446;
+}
+.nav-link,
+.navbar-brand {
+  color: #fff;
+  cursor: pointer;
+}
+.nav-link {
+  margin-right: 1em !important;
+}
+.nav-link:hover {
+  color: #000;
+}
+.navbar-collapse {
+  justify-content: flex-end;
+}
+
+.header {
+  background-image: url('/images/watermark.png');
+  background-size: 296px 296px;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+}
+
+.search-box {
+  position: relative;        
+  float: right;
+}
+.search-box input {
+  height: 34px;
+  border-radius: 20px;
+  padding-left: 35px;
+  border-color: #ddd;
+  box-shadow: none;
+}
+.search-box input:focus {
+border-color: #3FBAE4;
+}
+.search-box i {
+  color: #a0a5b1;
+  position: absolute;
+  font-size: 19px;
+  top: 8px;
+  left: 10px;
+}
+
+table.table td a.view {
+  color: rgb(66, 180, 233);
+}
+table.table td a.edit {
+  color: rgb(255, 225, 137);
+}
+table.table td a.delete {
+  color: rgb(230, 114, 88);
+}
+table.table td i {
+  font-size: 19px;
+}

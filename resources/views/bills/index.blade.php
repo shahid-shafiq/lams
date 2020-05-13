@@ -1,24 +1,40 @@
-@extends('bills.layout')
+@extends('layout')
 
 @section('content')
-<div class="row">
-    <div class="col-lg-12 margin-tb">
-        <div class="pull-left">
-            <h2>Laravel Demo</h2>
+
+<div class="container">
+  <div class="table-wrapper">
+    <div class="table-title">
+      <div class="row">
+        <div class="col-sm-6"><h2>Bills</h2></div>
+        
+        <div class="col-sm-4">
+          <div class="search-box">
+            <i class="material-icons">&#xE8B6;</i>
+            <input id="myInput" class="form-control" type="text" placeholder="Search&hellip;">
+          </div>
         </div>
         <div class="pull-right">
             <a class="btn btn-success" href="{{ route('bills.create') }}">New Bill</a>
         </div>
+      </div>
     </div>
-</div>
 
-<table class="table table-bordered">
+  @if ($bills->count() < 1)
+  <div class="row">
+  NO BILLS
+  </div>
+  @else
+  <div  style="height:80vh; overflow:auto">
+
+<table id="myTable" class="table table-striped table-bordered table-hover table-sm">
   <tr>
     <td>Id</td>
     <td>Date</td>
     <td>Title</td>
     <td>Description</td>
     <td>Amount</td>
+    <th>Actions</th>
   </tr>
   @foreach ($bills as $bill)
   <tr>
@@ -28,9 +44,10 @@
     <td>{{ $bill->description }}</td>
     <td>{{ $bill->amount }}</td>
     <td>
+      <a href="{{ route('bills.show',$bill->id) }}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">pageview</i></a>
+      <a href="{{ route('bills.edit',$bill->id) }}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">edit</i></a>
+      <a href="{{ route('bills.destroy', $bill->id) }}" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">delete</i></a>
       <form action="{{ route('bills.destroy', $bill->id) }}" method="POST">
-        <a class="btn btn-info" href="{{ route('bills.show',$bill->id) }}">Show</a>
-        <a class="btn btn-primary" href="{{ route('bills.edit',$bill->id) }}">Edit</a>
         {{-- @csrf  
         @method('DELETE') ---}}
 
@@ -42,4 +59,6 @@
   @endforeach
 </table>
 
-#endsection
+@endif
+
+@endsection

@@ -14,11 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('accounts');
+    return view('home');
 });
 
 //Route::resource('bills', 'BillsController');
 //Route::get('bills', 'BillsController@index');
 
 Route::resource('receipts', 'ReceiptController');
+Route::resource('bills', 'BillController');
+Route::resource('members', 'MemberController');
 Route::get('site', 'SiteController@index');
