@@ -8,12 +8,12 @@ use App\Person;
 class PersonController extends Controller
 {
   public function index() {
-    return Person::all();
+    return view('people.index', ['people' => Person::all()]);
   }
 
   public function show($id) {
     $person = Person::findOrFail($id);
-    return $person;
+    return view('people.show', ['person' => $person]);
   }
 
   /*

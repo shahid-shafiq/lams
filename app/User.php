@@ -39,4 +39,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function period() {
+      return $this->belongsTo('App\Period');
+    }
+
+    public function site() {
+      return $this->belongsTo('App\Site');
+    }
 }

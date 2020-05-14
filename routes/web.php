@@ -23,4 +23,11 @@ Route::get('/', function () {
 Route::resource('receipts', 'ReceiptController');
 Route::resource('bills', 'BillController');
 Route::resource('members', 'MemberController');
+
+Route::resource('people', 'PersonController');
+Route::resource('users', 'UserController');
+Route::resource('periods', 'PeriodController');
+Route::resource('balances', 'BalanceController');
+
 Route::get('site', 'SiteController@index');
+Route::get('admin', 'AdminController@index');

@@ -35,19 +35,16 @@
         <a class="nav-link" href="/">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/receipts">Receipts</a>
+        <a class="nav-link" href="/users">Users</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/bills">Bills</a>
+        <a class="nav-link" href="/people">People</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/members">Members</a>
+        <a class="nav-link" href="/periods">Periods</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/reports">Reports</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/admin">Admin</a>
+        <a class="nav-link" href="/balances">Balances</a>
       </li>
     </ul>
   </div>
