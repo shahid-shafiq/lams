@@ -4,7 +4,11 @@
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
+        @if ($mode == 'edit')
+        <h2>Edit Receipt</h2>
+        @else
             <h2>Add New Receipt</h2>
+        @endif
         </div>
         <div class="pull-right">
             <a class="btn btn-primary" href="{{ route('receipts.index') }}"> Back</a>
@@ -22,15 +26,24 @@
         </ul>
     </div>
 @endif
-   
+
+
+@if ($mode == 'edit')
+<form action="{{ route('receipts.update', $receipt->id) }}" method="POST">
+@else
 <form action="{{ route('receipts.store') }}" method="POST">
+@endif
     {{ csrf_field() }}
   
      <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
                 <strong>No:</strong>
+                @if ($mode == 'edit')
+                <input type="text" readonly name="no" value="{{$receipt->no}}" class="form-control" placeholder="Receipt no.">
+                @else
                 <input type="text" name="no" value="{{$receipt->no}}" class="form-control" placeholder="Receipt no.">
+                @endif
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6">
@@ -44,7 +57,11 @@
                 <strong>Department:</strong>
                 <select name="department" value="{{$receipt->department_id}}" class="form-control" placeholder="Department">
                 @foreach ($departments as $item)
-                  <option value="{{$item->id}}">{{$item->title}}</option>
+                    <option value="{{$item->id}}" 
+                        @if ($item->id ===  $receipt->department_id)
+                            selected
+                        @endif
+                    >{{$item->title}}</option>
                 @endforeach
                 </select>
             </div>
@@ -54,7 +71,11 @@
                 <strong>Income:</strong>
                 <select name="income" id="income" value="{{$receipt->income_id}}" class="form-control" placeholder="Receipt no.">
                 @foreach ($incomes as $item)
-                  <option value="{{$item->id}}">{{$item->title}}</option>
+                    <option value="{{$item->id}}" 
+                        @if ($item->id ===  $receipt->income_id)
+                            selected
+                        @endif
+                    >{{$item->title}}</option>
                 @endforeach
                 </select>
             </div>
@@ -64,7 +85,11 @@
                 <strong>Account:</strong>
                 <select name="account" value="{{$receipt->account_id}}" class="form-control" placeholder="Account">
                 @foreach ($accounts as $item)
-                  <option value="{{$item->id}}">{{$item->title}}</option>
+                    <option value="{{$item->id}}" 
+                        @if ($item->id ===  $receipt->account_id)
+                            selected
+                        @endif
+                    >{{$item->title}}</option>
                 @endforeach
                 </select>
             </div>
@@ -73,7 +98,11 @@
                 <strong>Course:</strong>
                 <select name="course" value="{{$receipt->account_id}}" class="form-control" placeholder="Course">
                 @foreach ($courses as $item)
-                  <option value="{{$item->id}}">{{$item->title}}</option>
+                    <option value="{{$item->id}}" 
+                        @if ($item->id ===  $receipt->account_id)
+                            selected
+                        @endif
+                    >{{$item->title}}</option>
                 @endforeach
                 </select>
             </div>

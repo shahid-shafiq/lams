@@ -5,102 +5,117 @@
 @section('sidebar')
   @parent
 
-  <p>This is appended to the master sidebar.</p>
 @endsection  
 
 @section('content')
     <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2> Show Receipts</h2>
+        <div class="col-xs-3 col-sm-3 col-md-3 margin-tb">
+            <div class="">
+                <h2>Receipts</h2>
             </div>
-            <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('receipts.index') }}"> Back</a>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 margin-tb">
+            <div class="">
+                <a class="btn btn-sm btn-primary" href="{{ route('receipts.index') }}"> Back</a>
             </div>
         </div>
     </div>
    
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-4 col-sm-4 col-md-4">
             <div class="form-group">
                 <strong>No:</strong>
                 {{ $receipt->no }}
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-4 col-sm-4 col-md-4">
             <div class="form-group">
                 <strong>Date:</strong>
                 {{ $receipt->rdate }}
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+    </div>
+
+    <div class="row">
+        <div class="col-xs-4 col-sm-4 col-md-4">
             <div class="form-group">
                 <strong>Title:</strong>
                 {{ $receipt->title }}
             </div>
         </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-8 col-sm-8 col-md-8">
             <div class="form-group">
                 <strong>Description:</strong>
                 {{ $receipt->description }}
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+    </div>
+
+    <div class="row">
+        <div class="col-xs-4 col-sm-4 col-md-4">
+            <div class="form-group">
+                <strong>Department:</strong>
+                {{ $receipt->department->title }}
+            </div>
+        </div>
+
+        <div class="col-xs-4 col-sm-4 col-md-4">
             <div class="form-group">
                 <strong>Amount:</strong>
                 {{ $receipt->amount }}
             </div>
         </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-4 col-sm-4 col-md-4">
             <div class="form-group">
-                <strong>Department:</strong>
-                {{ $receipt->department_id }}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Site:</strong>
-                {{ $receipt->site_id }}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Period:</strong>
-                {{ $receipt->period_id }}
+                <strong>Payment:</strong>
+                {{ $receipt->payment->title }}
             </div>
         </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-4 col-sm-4 col-md-4">
             <div class="form-group">
                 <strong>Income:</strong>
-                {{ $receipt->income_id }}
+                {{ $receipt->income->title }}
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+
+        @if ($receipt->income_id === 3)
+        <div class="col-xs-4 col-sm-4 col-md-4">
             <div class="form-group">
                 <strong>Account:</strong>
                 {{ $receipt->account_id }}
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        @endif
+    </div>
+
+    @if ($receipt->income_id === 2)
+    <div class="row">
+        <div class="col-xs-4 col-sm-4 col-md-4">
             <div class="form-group">
                 <strong>Memeber:</strong>
-                {{ $receipt->m_id }}
+                {{ sprintf("AKQ/M/%'.03d", $receipt->member->regno) }}
+                {{ $receipt->member->person->fullname }}
+                <?php 
+                //print($receipt->member); 
+                ?>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-4 col-sm-4 col-md-4">
             <div class="form-group">
-                <strong>FDate:</strong>
+                <strong>From:</strong>
                 {{ $receipt->fdate }}
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-4 col-sm-4 col-md-4">
             <div class="form-group">
-                <strong>TDate:</strong>
+                <strong>To:</strong>
                 {{ $receipt->tdate }}
             </div>
         </div>
     </div>
+    @endif
+
 @endsection

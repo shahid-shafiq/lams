@@ -20,10 +20,10 @@
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>
-        </div>
+        </div>route('bills.update',$bill->id)
     @endif
   
-    <form action="{{ route('bills.update',$bill->id) }}" method="POST">
+    <form action="{{  }}" method="POST">
         {{ csrf_field() }}
         {{ method_field('PATCH') }}
    

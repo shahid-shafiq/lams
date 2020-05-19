@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Bill;
+use App\Department;
+use App\Expense;
+use App\Account;
+use App\Member;
+use App\Course;
+use App\Payment;
 
 class BillController extends Controller
 {
@@ -14,7 +20,17 @@ class BillController extends Controller
   }
 
   public function create() {
-    return view('bills.create', ['title' => 'Bills']);
+    $bill = Bill::newBill($this->sid, $this->pid);
+
+    return view('bills.create', [
+      'title' => 'Bills',
+      'bill' => $bill,
+      'mode' => 'create',
+      'departments' => Department::all(),
+      'accounts' => Account::all(),
+      'payments' => Payment::all(),
+      'expenses' => Expense::all(),
+      ]);
   }
 
   public function store(Request $request) {
@@ -36,9 +52,17 @@ class BillController extends Controller
   }
 
   public function edit($id) {
-      $bill = Bill::find($id);
-      $title = 'Bills';
-      return view('bills.edit',compact('bill','id', 'title'));
+      $bill = Bill::findOrFail($id);
+
+      return view('bills.create', [
+        'title' => 'Bills',
+        'mode' => 'edit',
+        'bill' => $bill,
+        'departments' => Department::all(),
+        'accounts' => Account::all(),
+        'payments' => Payment::all(),
+        'expenses' => Expense::all(),
+        ]);
   }
 
   public function update($id) {

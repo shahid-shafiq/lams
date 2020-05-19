@@ -32,22 +32,22 @@
   <div class="collapse navbar-collapse" id="main-navigation">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="{{ route('home') }}">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/receipts">Receipts</a>
+        <a class="nav-link" href="{{ route('receipts.index') }}">Receipts</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/bills">Bills</a>
+        <a class="nav-link" href="{{ route('bills.index') }}">Bills</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/members">Members</a>
+        <a class="nav-link" href="{{ route('members.index') }}">Members</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/reports">Reports</a>
+        <a class="nav-link" href="{{ route('reports') }}">Reports</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/admin">Admin</a>
+        <a class="nav-link" href="{{ route('admin') }}">Admin</a>
       </li>
     </ul>
   </div>

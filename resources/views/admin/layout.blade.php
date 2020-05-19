@@ -32,19 +32,19 @@
   <div class="collapse navbar-collapse" id="main-navigation">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="{{ route('home') }}">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/users">Users</a>
+        <a class="nav-link" href="{{ route('users.index') }}">Users</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/people">People</a>
+        <a class="nav-link" href="{{ route('people.index') }}">People</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/periods">Periods</a>
+        <a class="nav-link" href="{{ route('periods.index') }}">Periods</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/balances">Balances</a>
+        <a class="nav-link" href="{{ route('balances.index') }}">Balances</a>
       </li>
     </ul>
   </div>

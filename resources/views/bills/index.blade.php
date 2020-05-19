@@ -29,7 +29,7 @@
 
 <table id="myTable" class="table table-striped table-bordered table-hover table-sm">
   <tr>
-    <td>Id</td>
+    <td>No</td>
     <td>Date</td>
     <td>Title</td>
     <td>Description</td>
@@ -38,7 +38,7 @@
   </tr>
   @foreach ($bills as $bill)
   <tr>
-    <td>{{ $bill->id }}</td>
+    <td>{{ $bill->no }}</td>
     <td>{{ $bill->bdate }}</td>
     <td>{{ $bill->title }}</td>
     <td>{{ $bill->description }}</td>

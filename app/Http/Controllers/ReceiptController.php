@@ -48,19 +48,10 @@ class ReceiptController extends Controller
   public function create() {
     $receipt = Receipt::newReceipt($this->sid, $this->pid);
     $receipt->rdate = date('Y-m-d');
-    /*
-    $members = Member::where('status', '<>', 'D')->
-      join('people', 'people.id', 'members.person_id')->
-      select('members.regno', 'people.fullname')->
-      orderBy('people.fullname')->get();
-    foreach ($members as $m) {  
-      echo $m->fullname . "<br>";
-    }
-    return;
-    */
 
     return view('receipts.create', [
       'receipt' => $receipt,
+      'mode' => 'create',
       'departments' => Department::all(),
       'accounts' => Account::all(),
       'payments' => Payment::all(),
@@ -69,6 +60,49 @@ class ReceiptController extends Controller
       'members' => Member::memberListNames(),
       'regnos' => Member::memberListReg()
       ]);
+  }
+
+  public function patchData(Receipt $receipt, Request $request) {
+    $receipt = new Receipt([
+      'no' => $request->get('no'),
+      'rdate' => $request->get('rdate'),
+      'title' => $request->get('title'),
+      'description' => $request->get('description'),
+      'amount' => $request->get('amount'),
+      'payment_id' => $request->get('payment'),
+      'income_id' => $request->get('income'),
+      'department_id' => $request->get('department'),
+      'period_id' => $this->pid,
+      'site_id' => $this->sid,
+      'account_id' => $request->get('account'),
+    ]);
+
+    $inc = $request->get('income');
+
+    if ($inc == '3') {
+      // FEE
+      $receipt->account_id = $request->get('course');
+      
+    } else if ($inc == '2') {
+      // INFAAQ
+
+      $fd = Carbon::createFromDate($request->get('fdate'));
+      $td = Carbon::createFromDate($request->get('tdate'));
+
+      if ($fd > $td) {
+        // swap dates
+        $tmp = $fd;
+        $fd = $td;
+        $td = $tmp;
+      }
+
+      $receipt->m_id = $request->get('member');
+      $receipt->fdate = $fd->firstOfMonth()->toDateString();
+      $receipt->tdate = $td->lastOfMonth()->toDateString();
+      
+      $receipt->description = Urdutils::InfaqDescription($fd, $td);
+      $receipt->account_id = 1;
+    }
   }
 
   /**
@@ -161,7 +195,19 @@ class ReceiptController extends Controller
      */
     public function edit($id)
     {
-        //
+      $receipt = Receipt::findOrFail($id);
+  
+      return view('receipts.create', [
+        'mode' => 'edit',
+        'receipt' => $receipt,
+        'departments' => Department::all(),
+        'accounts' => Account::all(),
+        'payments' => Payment::all(),
+        'incomes' => Income::all(),
+        'courses' => Course::all(),
+        'members' => Member::memberListNames(),
+        'regnos' => Member::memberListReg()
+        ]);
     }
 
     /**

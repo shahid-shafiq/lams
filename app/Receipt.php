@@ -25,6 +25,23 @@ class Receipt extends Model
     return $this->belongsTo('App\Payment');
   }
 
+  public function department() {
+    return $this->belongsTo('App\Department');
+  }
+
+  public function fee() {
+    return $this->belongsTo('App\Account');
+  }
+
+  public function income() {
+    return $this->belongsTo('App\Income');
+  }
+
+  public function member() {
+    return $this->belongsTo('App\Member', 'm_id', 'regno');
+  }
+
+
 
   public static function currDate($sid, $pid) {
     $row = Receipt::where(
