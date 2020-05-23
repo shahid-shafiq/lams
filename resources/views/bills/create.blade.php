@@ -29,6 +29,7 @@
    
 @if ($mode == 'edit')
 <form action="{{ route('bills.update', $bill->id) }}" method="POST">
+@method('PATCH')
 @else
 <form action="{{ route('bills.store') }}" method="POST">
 @endif
@@ -48,7 +49,7 @@
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
                 <strong>Date:</strong>
-                <input type="date" name="rdate" value="{{$bill->bdate}}" class="form-control" placeholder="receipt date">
+                <input type="date" name="bdate" value="{{$bill->bdate}}" class="form-control">
             </div>
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4">
@@ -68,7 +69,7 @@
         <div class="col-xs-4 col-sm-4 col-md-4">
             <div class="form-group">
                 <strong>Income:</strong>
-                <select name="income" id="income" class="form-control" placeholder="Receipt no.">
+                <select name="expense" id="expense" class="form-control" placeholder="Receipt no.">
                 @foreach ($expenses as $item)
                     <option value="{{$item->id}}" 
                         @if ($item->id ===  $bill->expense_id)

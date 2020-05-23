@@ -35,20 +35,34 @@ class BillController extends Controller
 
   public function store(Request $request) {
     $request->validate([
-      'name' => 'required',
-      'email' => 'required',
+      'title' => 'required',
+      'no' => 'required',
     ]);
 
-    Bills::create($request->all());
+    $bill = new Bill([
+      'no' => $request->get('no'),
+      'bdate' => $request->get('bdate'),
+      'title' => $request->get('title'),
+      'description' => $request->get('description'),
+      'amount' => $request->get('amount'),
+      'payment_id' => $request->get('payment'),
+      'expense_id' => $request->get('expense'),
+      'department_id' => $request->get('department'),
+      'period_id' => $this->pid,
+      'site_id' => $this->sid,
+      'account_id' => $request->get('account'),
+    ]);
 
+
+    $bill->save();
     return redirect()->route('bills.index')
-            ->with('success','User created successfully.');
+            ->with('success','Bill posted successfully.');
   }
 
   public function show($id) {
       $bill = Bill::find($id);
-      $title = 'Bills';
-      return view('bills.show',compact('bill', 'title'));
+      $title = 'Bill';
+      return view('bills.show', ['bill' => $bill, 'title' => $title]);
   }
 
   public function edit($id) {
@@ -65,25 +79,33 @@ class BillController extends Controller
         ]);
   }
 
-  public function update($id) {
-    $bill = Bill::find($id);
-    $bill->name = request('name');
-    $bill->email = request('email');
-    $bill->save();
-    $request->validate([
-      'name' => 'required',
-      'email' => 'required',
-    ]);
-    $bill->update($request->all());
+  public function update(Request $request, $id) {
+    $bill = Bill::findOrFail($id);
 
+    $bill->fill([
+      'no' => $request->get('no'),
+      'bdate' => $request->get('bdate'),
+      'title' => $request->get('title'),
+      'description' => $request->get('description'),
+      'amount' => $request->get('amount'),
+      'payment_id' => $request->get('payment'),
+      'expense_id' => $request->get('expense'),
+      'department_id' => $request->get('department'),
+      'period_id' => $this->pid,
+      'site_id' => $this->sid,
+      'account_id' => $request->get('account'),
+    ]);
+
+
+    $bill->save();
     return redirect()->route('bills.index')
-            ->with('success','User updated successfully');
+            ->with('success','Bill posted successfully.');
   }
 
   public function destroy($id) {
-    Bills::find($id)->delete();
-  
+    $bill = Bill::findOrFail($id);
+    $bill->delete();
     return redirect()->route('bills.index')
-              ->with('success','User deleted successfully');
+              ->with('success','Bill deleted successfully');
   }
 }

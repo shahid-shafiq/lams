@@ -6,12 +6,15 @@
   <div class="table-wrapper">
     <div class="table-title">
       <div class="row">
-        <div class="col-sm-8"><h2>Members</h2></div>
+        <div class="col-sm-6"><h2>Members</h2></div>
         <div class="col-sm-4">
           <div class="search-box">
             <i class="material-icons">&#xE8B6;</i>
             <input id="myInput" class="form-control" type="text" placeholder="Search&hellip;">
           </div>
+        </div>
+        <div class="pull-right">
+            <a class="btn btn-success" href="{{ route('members.create') }}">New Member</a>
         </div>
       </div>
     </div>
@@ -39,10 +42,16 @@
       <td>{{ $member->person->fullname }}</td>
       <td>{{ $member->pledge }}</td>
       <td>
-        <!-- &#xE417; -->
-        <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">pageview</i></a>
-        <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">edit</i></a>
-        <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">delete</i></a>
+      <form action="{{ route('members.destroy', $member->id) }}" method="POST">
+        {{ csrf_field() }}
+        {{ method_field('DELETE') }}
+
+        <a href="{{ route('members.show', $member->id) }}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">pageview</i></a>
+        <a href="{{ route('members.edit', $member->id) }}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">edit</i></a>
+        <input class="material-icons delete btn-outline-danger" style="border:none" type="submit" value="delete"></input>
+
+        
+      </form>
       </td>
   </tr>
   @endforeach

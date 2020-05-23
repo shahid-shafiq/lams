@@ -63,18 +63,19 @@ print($cd->lastOfMonth()->toDateString());
     <td>{{ $receipt->rdate }}</td>
     <td>{{ $receipt->title }}</td>
     <td>{{ $receipt->description }}</td>
-    <td>{{ $receipt->amount }}</td>
+    <td>{{ $receipt->amount }}
+      <x-payicon size="5" payment="{{$receipt->payment->id }}"/>
+    </td>
     <td>
-        <!-- &#xE417; -->
-      <a href="{{ route('receipts.show',$receipt->id) }}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">pageview</i></a>
-      <a href="{{ route('receipts.edit',$receipt->id) }}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">edit</i></a>
-      <a href="{{ route('receipts.destroy', $receipt->id) }}" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">delete</i></a>
       <form action="{{ route('receipts.destroy', $receipt->id) }}" method="POST">
-        {{-- @csrf  
-        @method('DELETE') ---}}
-
         {{ csrf_field() }}
         {{ method_field('DELETE') }}
+
+        <a href="{{ route('receipts.show', $receipt->id) }}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">pageview</i></a>
+        <a href="{{ route('receipts.edit', $receipt->id) }}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">edit</i></a>
+        <input class="material-icons delete btn-outline-danger" style="border:none" 
+        onclick="return confirm('Delete record?')" type="submit" value="delete"></input>
+        
       </form>
     </td>
   </tr>

@@ -15,6 +15,22 @@ class Bill extends Model
     'period_id', 'site_id'
   ];
 
+  public function payment() {
+    return $this->belongsTo('App\Payment');
+  }
+
+  public function department() {
+    return $this->belongsTo('App\Department');
+  }
+
+  public function account() {
+    return $this->belongsTo('App\Account');
+  }
+
+  public function expense() {
+    return $this->belongsTo('App\Expense');
+  }
+
   public static function currDate($sid, $pid) {
     $row = Bill::where(
       ['period_id' => $pid, 'site_id' => $sid])

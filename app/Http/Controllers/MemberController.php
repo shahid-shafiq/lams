@@ -17,7 +17,17 @@ class MemberController extends Controller
 
     public function show($mid) {
       $member = Member::findOrFail($mid);
-      return $member;
+      return view('members.show', ['member' => $member]);
+    }
+
+    public function create() {
+      $member = Member::newMember();
+      return view('members.create', [
+        'title' => 'Member',
+        'mode' => 'create',
+        'member' => $member,
+        'people' => Person::orderBy('fullname')->get(),
+        ]);
     }
 
     public function destroy($id)
@@ -27,7 +37,13 @@ class MemberController extends Controller
 
     public function edit($id)
     {
-        //
+      $member = Member::findOrFail($id);
+      return view('members.create', [
+        'title' => 'Member',
+        'mode' => 'edit',
+        'member' => $member,
+        'people' => Person::orderBy('fullname')->get(),
+        ]);
     }
 
     public function person($mid) {

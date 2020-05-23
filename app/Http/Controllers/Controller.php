@@ -31,8 +31,8 @@ class Controller extends BaseController
       $this->middleware(function($request, $next) {
 
         session(['user.name' => 'admin']);
-        session(['period.id' => '92']);
-        session(['site.id' => '1']);
+        session(['period.id' => '94']);
+        session(['site.id' => '2']);
 
         //$this->pid = session()->get('period.id');
         $this->pid = $request->session()->get('period.id');

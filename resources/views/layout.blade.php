@@ -23,7 +23,7 @@
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-3">
   <a class="navbar-brand mr-3" href="#">
-  <img style="width:28px;" src="images/logo.png" />
+  <img style="width:28px;" src="{{ asset('images/logo.png') }}" />
   <span class="text-light">AKQ</span>
   </a>
   <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">

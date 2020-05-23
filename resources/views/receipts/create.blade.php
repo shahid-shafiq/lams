@@ -1,4 +1,8 @@
 @extends('layout')
+
+@php
+use Carbon\Carbon;
+@endphp
   
 @section('content')
 <div class="row">
@@ -30,6 +34,7 @@
 
 @if ($mode == 'edit')
 <form action="{{ route('receipts.update', $receipt->id) }}" method="POST">
+@method('PATCH')
 @else
 <form action="{{ route('receipts.store') }}" method="POST">
 @endif
@@ -110,13 +115,13 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Title:</strong>
-                <input type="text" id="title" class="form-control" name="title" placeholder="Title">
+                <input type="text" id="title" value="{{$receipt->title}}" class="form-control" name="title" placeholder="Title">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Description:</strong>
-                <input type="text" class="form-control" name="description" placeholder="Description">
+                <input type="text" class="form-control" value="{{$receipt->description}}" name="description" placeholder="Description">
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6">
@@ -130,7 +135,11 @@
                 <strong>Payment:</strong>
                 <select name="payment" value="{{$receipt->payment_id}}" class="form-control" placeholder="Payment">
                 @foreach ($payments as $item)
-                  <option value="{{$item->id}}">{{$item->title}}</option>
+                  <option value="{{$item->id}}" 
+                        @if ($item->id ===  $receipt->payment_id)
+                            selected
+                        @endif
+                    >{{$item->title}}</option>
                 @endforeach
                 </select>
             </div>
@@ -142,7 +151,13 @@
         <div class="col-xs-4 col-sm-4 col-md-4">
             <div class="form-group">
                 <strong>Member:</strong>
-                <input type="text" name="members" list="memberList" id="members" value="{{$receipt->m_id}}" class="form-control" placeholder="Member">
+                <?php
+                    $memval = "";
+                    if ($receipt->member) {
+                        $memval = $receipt->member->person->fullname;
+                    }
+                ?>
+                <input type="text" name="members" list="memberList" id="members" value="{{ $memval }}" class="form-control" placeholder="Member">
                 <datalist id="memberList">
                 @foreach ($members as $item)
                   <option value="{{$item->fullname}}"></option>
@@ -156,7 +171,9 @@
                 <strong>Member:</strong>
                 <select type="select" name="member" id="member" value="{{$receipt->m_id}}" class="form-control" placeholder="Member">
                 @foreach ($members as $item)
-                  <option value="{{$item->regno}}">{{$item->fullname}}</option>
+                  <option value="{{$item->regno}}"
+                  {{ $item->regno == $receipt->m_id ? 'selected' : ''}}
+                  >{{$item->fullname}}</option>
                 @endforeach
                 </select>
             </div>
@@ -166,7 +183,10 @@
                 <strong>&nbsp;</strong>
                 <select type="select" name="regno" id="regno" value="{{$receipt->m_id}}" class="form-control" placeholder="Member">
                 @foreach ($regnos as $item)
-                  <option value="{{$item->regno}}">{{$item->regno}}</option>
+                  <option value="{{$item->regno}}" 
+                  {{ $item->regno == $receipt->m_id ? 'selected' : ''}}
+                  >{{$item->regno}}</option>
+                  
                 @endforeach
                 </select>
             </div>
@@ -174,26 +194,37 @@
         <div class="col-xs-3 col-sm-3 col-md-3">
             <div class="form-group">
                 <strong>From:</strong>
-                <input type="month" name="fdate" value="{{$receipt->fdate}}" class="form-control" placeholder="Date">
+                <input type="month" name="fdate" value="{{Carbon::createFromDate($receipt->fdate)->format('Y-m')}}" class="form-control" placeholder="Date">
             </div>
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3">
             <div class="form-group">
                 <strong>To:</strong>
-                <input type="month" name="tdate" value="{{$receipt->tdate}}" class="form-control" placeholder="Date">
+                <input type="month" name="tdate" value="{{Carbon::createFromDate($receipt->tdate)->format('Y-m')}}" class="form-control" placeholder="Date">
             </div>
         </div>
       </div>
 
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">{{ $mode == 'edit' ? 'Update' : 'Submit' }}</button>
         </div>
     </div>
 </form>
 
 <script>
  $(document).ready(function() {
+
+
+    // Check the value of income type
+    const inf = "General";
+    let selinc = $('#income')[0].options[$('#income')[0].selectedIndex].text;
+    console.log(selinc);
+    if (selinc != inf) {
+        updateIncomeUI(selinc);
+
+        // select correct member values
+    }
 
   function enableAccount() {
     //$('#account select').prop("disabled", false);  
@@ -219,10 +250,7 @@
     $('#infaaq').hide();
   }
 
-  $("#income").on('change', function(e) {
-      let idx = e.target.selectedIndex;
-      let inc = this.options[idx].text;
-
+  function updateIncomeUI(inc) {
       // clear Fee/Infaaq controls
       disableInfaaqReceipt();
       disableFeeReceipt();
@@ -234,6 +262,13 @@
         enableInfaaqReceipt();
         console.log('Enabling infaaq');
       }
+  }
+
+  $("#income").on('change', function(e) {
+      let idx = e.target.selectedIndex;
+      let inc = this.options[idx].text;
+
+      updateIncomeUI(inc);    
       return;
 
         console.log( "income changed" );
@@ -254,8 +289,6 @@
       console.log( this.options[e.target.selectedIndex].value );
       $('#regno').val(this.options[idx].value);
   });
-
-
 
   $('#members').on('change', function(e) {
       console.log( e.target.value );
@@ -292,6 +325,11 @@
       let mbs = $('#member')[0];
       let mbo = mbs.options[mbs.selectedIndex];
       $('#members').val(mbo.text);
+
+      var title = mbo.text + ' - ' + mbo.value + '';
+      $('#title').val(title);
+
+      console.log('Title set to :: ' + title)
   });
 
  });

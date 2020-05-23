@@ -42,17 +42,19 @@
     <td>{{ $bill->bdate }}</td>
     <td>{{ $bill->title }}</td>
     <td>{{ $bill->description }}</td>
-    <td>{{ $bill->amount }}</td>
+    <td>{{ $bill->amount }}
+      <x-payicon size="5" payment="{{$bill->payment->id }}"/>
+    </td>
     <td>
-      <a href="{{ route('bills.show',$bill->id) }}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">pageview</i></a>
-      <a href="{{ route('bills.edit',$bill->id) }}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">edit</i></a>
-      <a href="{{ route('bills.destroy', $bill->id) }}" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">delete</i></a>
       <form action="{{ route('bills.destroy', $bill->id) }}" method="POST">
-        {{-- @csrf  
-        @method('DELETE') ---}}
-
         {{ csrf_field() }}
         {{ method_field('DELETE') }}
+
+        <a href="{{ route('bills.show',$bill->id) }}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">pageview</i></a>
+        <a href="{{ route('bills.edit',$bill->id) }}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">edit</i></a>
+        <input class="material-icons delete btn-outline-danger" style="border:none" 
+        onclick="return confirm('Delete record?')" type="submit" value="delete"></input>
+        
       </form>
     </td>
   </tr>

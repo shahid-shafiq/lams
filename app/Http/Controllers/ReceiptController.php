@@ -36,13 +36,15 @@ class ReceiptController extends Controller
 
   public function index(Request $request) {
     $receipts = Receipt::where(['site_id' => $this->sid, 'period_id' => $this->pid])->get();
-    return view('receipts.index', ['receipts' => $receipts]);
+    return view('receipts.index', [
+      'title' => 'Receipts',
+      'receipts' => $receipts]);
   }
 
   public function show($id) {
     $receipt = Receipt::findOrFail($id);
 
-    return view('receipts.show', ['receipt' => $receipt]);
+    return view('receipts.show', ['title' => 'Receipts', 'receipt' => $receipt]);
   }
 
   public function create() {
@@ -50,6 +52,7 @@ class ReceiptController extends Controller
     $receipt->rdate = date('Y-m-d');
 
     return view('receipts.create', [
+      'title' => 'Receipt',
       'receipt' => $receipt,
       'mode' => 'create',
       'departments' => Department::all(),
@@ -160,28 +163,7 @@ class ReceiptController extends Controller
         $receipt->description = Urdutils::InfaqDescription($fd, $td);
         $receipt->account_id = 1;
       }
-
-      /*
-      $receipt = new Receipt([
-          'no' => $request->get('no'),
-          'rdate' => $request->get('rdate'),
-          'title' => $request->get('title'),
-          'description' => $request->get('description'),
-          'amount' => $request->get('amount'),
-
-          'payment_id' => $request->get('payment'),
-          'income_id' => $request->get('income'),
-          'account_id' => $request->get('account'),
-          'department_id' => $request->get('department'),
-          'period_id' => $this->pid,
-          'site_id' => $this->sid,
-
-          'm_id' => $request->get('member'),
-          'fdate' => $request->get('fdate'),
-          'tdate' => $request->get('tdate'),
-      ]);
-      */
-
+      
       //return view('receipts.show', ['receipt' => $receipt]);
       $receipt->save();
       return redirect('/receipts')->with('success', 'Receipt saved!');
@@ -198,6 +180,7 @@ class ReceiptController extends Controller
       $receipt = Receipt::findOrFail($id);
   
       return view('receipts.create', [
+        'title' => 'Receipt',
         'mode' => 'edit',
         'receipt' => $receipt,
         'departments' => Department::all(),
@@ -219,7 +202,57 @@ class ReceiptController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $request->validate([
+        'rdate'=>'required',
+        'title'=>'required',
+        'amount'=>'required'
+      ]);
+
+      // field values required for all types of receipts
+      $receipt = Receipt::findOrFail($id);
+      $receipt->fill([
+        'no' => $request->get('no'),
+        'rdate' => $request->get('rdate'),
+        'title' => $request->get('title'),
+        'description' => $request->get('description'),
+        'amount' => $request->get('amount'),
+        'payment_id' => $request->get('payment'),
+        'income_id' => $request->get('income'),
+        'department_id' => $request->get('department'),
+        'account_id' => $request->get('account'),
+      ]);
+
+      $inc = $request->get('income');
+
+      if ($inc == '3') {
+        // FEE
+        $receipt->account_id = $request->get('course');
+        
+      } else if ($inc == '2') {
+        // INFAAQ
+
+        $fd = Carbon::createFromDate($request->get('fdate'));
+        $td = Carbon::createFromDate($request->get('tdate'));
+
+        if ($fd > $td) {
+          // swap dates
+          $tmp = $fd;
+          $fd = $td;
+          $td = $tmp;
+        }
+
+        $receipt->m_id = $request->get('member');
+        $receipt->fdate = $fd->firstOfMonth()->toDateString();
+        $receipt->tdate = $td->lastOfMonth()->toDateString();
+        
+        $receipt->description = Urdutils::InfaqDescription($fd, $td);
+        $receipt->account_id = 1;
+
+        //echo $receipt->title;
+      }
+
+      $receipt->save();
+      return redirect('/receipts')->with('success', 'Receipt updated!');
     }
 
     /**
@@ -230,7 +263,11 @@ class ReceiptController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $receipt = Receipt::findOrFail($id);
+        //echo "Destroy record ".$receipt;
+        $receipt->delete();
+        return redirect()->route('receipts.index')
+              ->with('success','Bill deleted successfully');
     }
 }
  
