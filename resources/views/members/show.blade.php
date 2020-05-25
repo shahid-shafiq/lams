@@ -2,6 +2,7 @@
 
 @section('content')
 
+{{-- $member --}}
 <div class="row">
     <div class="col-xs-3 col-sm-3 col-md-3 margin-tb">
         <div class="">
@@ -89,6 +90,7 @@
     </div>
 </div>
 
+@if ($member->receipts->count())
 <div class="row">
     <div class="col-xs-3 col-sm-3 col-md-3 margin-tb">
         <div class="">
@@ -126,6 +128,7 @@
         </tbody>
     </table>
 </div>
+@endif
 
 </div>
 

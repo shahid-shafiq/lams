@@ -30,9 +30,34 @@ class MemberController extends Controller
         ]);
     }
 
+    public function store(Request $request) {
+      $request->validate([
+        'person_id'=>'required',
+        'regno'=>'required',
+      ]);
+  
+      // field values required for all types of receipts
+      $member = new Member([
+        'person_id' => $request->get('person_id'),
+        'pledge' => $request->get('pledge'),
+        'status' => $request->get('status'),
+        'regno' => $request->get('regno'),
+        'appdate' => $request->get('appdate'),
+        'regdate' => $request->get('regdate'),
+      ]);
+  
+      //return view('members.show', ['member' => $member]);
+      $member->save();
+      return redirect()->route('members.index')
+                ->with('success','Member added successfully');
+    }
+
     public function destroy($id)
     {
-        //
+      $member = Member::findOrFail($id);
+      $member->delete();
+      return redirect()->route('members.index')
+            ->with('success','Member deleted successfully');
     }
 
     public function edit($id)
@@ -44,6 +69,27 @@ class MemberController extends Controller
         'member' => $member,
         'people' => Person::orderBy('fullname')->get(),
         ]);
+    }
+
+    public function update(Request $request, $id) {
+      $request->validate([
+        'person_id'=>'required',
+        'regno'=>'required',
+      ]);
+  
+      $member = Member::findOrFail($id);
+      $member->fill([
+        'person_id' => $request->get('person_id'),
+        'pledge' => $request->get('pledge'),
+        'status' => $request->get('status'),
+        'appdate' => $request->get('appdate'),
+        'regdate' => $request->get('regdate'),
+      ]);
+  
+      //return view('members.show', ['member' => $member]);
+      $member->save();
+      return redirect()->route('members.index')
+                ->with('success','Member updated successfully');
     }
 
     public function person($mid) {

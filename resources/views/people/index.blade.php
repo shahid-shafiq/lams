@@ -6,12 +6,15 @@
   <div class="table-wrapper">
     <div class="table-title">
       <div class="row">
-        <div class="col-sm-8"><h2>People</h2></div>
+        <div class="col-sm-6"><h2>People</h2></div>
         <div class="col-sm-4">
           <div class="search-box">
             <i class="material-icons">&#xE8B6;</i>
             <input id="myInput" class="form-control" type="text" placeholder="Search&hellip;">
           </div>
+        </div>
+        <div class="pull-right">
+            <a class="btn btn-success" href="{{ route('persons.create') }}">New Person</a>
         </div>
       </div>
     </div>
@@ -43,16 +46,14 @@
       <td>{{ $person->address }}</td>
       <td>{{ $person->city }}</td>
       <td>
-        <form action="{{ route('people.destroy', $person->id) }}" method="POST">
-        {{-- @csrf  
-        @method('DELETE') ---}}
-        <a href="{{ route('people.show',$person->id) }}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">pageview</i></a>
-        <a href="{{ route('people.edit',$person->id) }}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">edit</i></a>
-        <a href="{{ route('people.destroy',$person->id) }}" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">delete</i></a>
-
-        {{ csrf_field() }}
-        {{ method_field('DELETE') }}
-      </form>
+        <form action="{{ route('persons.destroy', $person->id) }}" method="POST">
+          {{ csrf_field() }}
+          {{ method_field('DELETE') }}
+          <a href="{{ route('persons.show',$person->id) }}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">pageview</i></a>
+          <a href="{{ route('persons.edit',$person->id) }}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">edit</i></a>
+          <input class="material-icons delete btn-outline-danger" style="border:none" 
+          onclick="return confirm('Delete record?')" type="submit" value="delete"></input>
+        </form>
       </td>
   </tr>
   @endforeach

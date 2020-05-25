@@ -30,7 +30,7 @@
     </div>
 @endif
 
-
+{{-- $member --}}
 @if ($mode == 'edit')
 <form action="{{ route('members.update', $member->id) }}" method="POST">
 @method('PATCH')
@@ -56,7 +56,7 @@
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
                 <strong>Registration Date:</strong>
-                <input type="date" readonly name="regdate" value="{{$member->regdsate}}" class="form-control">
+                <input type="date" readonly name="regdate" value="{{$member->regdate}}" class="form-control">
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6">
@@ -68,15 +68,22 @@
     </div>
     
     <div class="row">
-        <div class="col-xs-4 col-sm-4 col-md-4">
+        <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
                 <strong>Member:</strong>
-                <input type="text" name="person" list="peopleList" id="person" class="form-control" placeholder="Person">
+                <input type="text" name="persons" list="peopleList" id="persons" class="form-control" placeholder="Person">
                 <datalist id="peopleList">
                 @foreach ($people as $item)
                 <option value="{{$item->fullname}}"></option>
                 @endforeach
                 </datalist>
+            </div>
+            <div class="form-group" style="display:none">
+                <select type="text" name="person_id" id="person" class="form-control">
+                @foreach ($people as $item)
+                <option value="{{$item->id}}" {{ $item->id == $member->person_id ? 'selected' : '' }} >{{$item->fullname}}</option>
+                @endforeach
+                </select>
             </div>
         </div>
     </div>
@@ -85,7 +92,7 @@
 
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">{{ $mode == 'edit' ? 'Update' : 'Submit' }}</button>
         </div>
     </div>
 </form>
@@ -93,71 +100,14 @@
 <script>
  $(document).ready(function() {
 
-  function enableAccount() {
-    //$('#account select').prop("disabled", false);  
-  }
+     // initialize
+    let selinc = $('#person')[0].options[$('#person')[0].selectedIndex].text;
+    console.log(selinc);
+    $(persons).val(selinc);
 
-  function enableFeeReceipt() {
-    disableInfaaqReceipt();
-    //$('#account').hide();
-    $('#course').show();
-  }
-
-  function disableFeeReceipt() {
-    //$('#account').show();
-    $('#course').hide();
-  }
-
-  function enableInfaaqReceipt() {
-    disableFeeReceipt();
-    $('#infaaq').show();
-  }
-
-  function disableInfaaqReceipt() {
-    $('#infaaq').hide();
-  }
-
-  $("#income").on('change', function(e) {
-      let idx = e.target.selectedIndex;
-      let inc = this.options[idx].text;
-
-      // clear Fee/Infaaq controls
-      disableInfaaqReceipt();
-      disableFeeReceipt();
-
-      if (inc == 'Fee') {
-        console.log('Enabling courses');
-        enableFeeReceipt();
-      } else if (inc == 'Infaq') {
-        enableInfaaqReceipt();
-        console.log('Enabling infaaq');
-      }
-      return;
-
-        console.log( "income changed" );
-        console.log(  idx );
-        console.log( this.options[e.target.selectedIndex].text );
-        console.log( this.options[e.target.selectedIndex].value );
-  });
-
-  function selectMember(reg) {
-
-  }
-
-  $('#member').on('change', function(e) {
-      let idx = e.target.selectedIndex;
-      let inc = this.options[idx].text;
-
-      console.log( this.options[e.target.selectedIndex].text );
-      console.log( this.options[e.target.selectedIndex].value );
-      $('#regno').val(this.options[idx].value);
-  });
-
-
-
-  $('#members').on('change', function(e) {
+  $('#persons').on('change', function(e) {
       console.log( e.target.value );
-      let mbs = $('#member')[0];
+      let mbs = $('#person')[0];
       let mbo = mbs.options;
       let f = -1;
       for (i = 0; i < mbo.length; i++) {
@@ -173,23 +123,7 @@
       console.log(f >=0 ? 'FOUND' : 'NOT');
 
       //set field related data
-      var title = mbo[f].text + ' - ' + mbo[f].value + '';
-      $('#title').val(title);
-      $('#member').val(mbo[f].value);
-      $('#regno').val(mbo[f].value);
-  });
-
-  $('#regno').on('change', function(e) {
-      let idx = e.target.selectedIndex;
-      let inc = this.options[idx].text;
-
-      console.log( this.options[e.target.selectedIndex].text );
-      console.log( this.options[e.target.selectedIndex].value );
-      $('#member').val(this.options[idx].value);
-
-      let mbs = $('#member')[0];
-      let mbo = mbs.options[mbs.selectedIndex];
-      $('#members').val(mbo.text);
+      $('#person').val(mbo[f].value);
   });
 
  });

@@ -48,7 +48,8 @@
 
         <a href="{{ route('members.show', $member->id) }}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">pageview</i></a>
         <a href="{{ route('members.edit', $member->id) }}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">edit</i></a>
-        <input class="material-icons delete btn-outline-danger" style="border:none" type="submit" value="delete"></input>
+        <input class="material-icons delete btn-outline-danger" style="border:none" 
+          onclick="return confirm('Delete record?')" type="submit" value="delete"></input>
 
         
       </form>

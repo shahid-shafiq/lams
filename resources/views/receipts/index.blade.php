@@ -74,7 +74,7 @@ print($cd->lastOfMonth()->toDateString());
         <a href="{{ route('receipts.show', $receipt->id) }}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">pageview</i></a>
         <a href="{{ route('receipts.edit', $receipt->id) }}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">edit</i></a>
         <input class="material-icons delete btn-outline-danger" style="border:none" 
-        onclick="return confirm('Delete record?')" type="submit" value="delete"></input>
+          onclick="return confirm('Delete record?')" type="submit" value="delete"></input>
         
       </form>
     </td>

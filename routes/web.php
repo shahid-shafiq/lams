@@ -24,7 +24,7 @@ Route::resource('receipts', 'ReceiptController');
 Route::resource('bills', 'BillController');
 Route::resource('members', 'MemberController');
 
-Route::resource('people', 'PersonController');
+Route::resource('persons', 'PersonController');
 Route::resource('users', 'UserController');
 Route::resource('periods', 'PeriodController');
 Route::resource('balances', 'BalanceController');
