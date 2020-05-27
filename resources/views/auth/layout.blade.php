@@ -21,46 +21,27 @@
   <script src="{{ asset('/js/main.js') }}"></script>
 </head>
 <body>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-3">
-  <a class="navbar-brand mr-3" href="#">
-    <img style="width:28px;" src="{{asset('images/logo.png')}}" />
-    <span class="text-light">AKQ</span>
-  </a>
-  <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="main-navigation">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('home') }}">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('users.index') }}">Users</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('persons.index') }}">People</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('periods.index') }}">Periods</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('balances.index') }}">Balances</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+
 
 @section('sidebar')
 
 @show
   
-<div class="container">
-    @yield('content')
+<div style="display:flex; align-items: center; width:100%; height:100vh">
+  <div class='container col-4 p-0 align-middle' style='border: 1px solid #eee; box-shadow: 3px 3px 5px #888888;'>
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+      <img style="width:21px;" src="images/logo.png" />
+      <span class="text-light">AKQ</span>
+    </nav>
+    <div class="row">
+      @yield('content')
+    </div>
+    <footer class="flex-bottom bg-dark text-light text-center" style="font-size:0.75rem">
+      <div id="copyright">&copy; Copyright 2020 AKQ Islamabad</div>
+    </footer>
+  </div>
 </div>
-   
-<footer class="fixed-bottom bg-dark text-light text-center">
-  <div id="copyright">&copy; Copyright 2020 Anjuman Khaddam ul Quran Islamabad</div>
-</footer>
+
 
 </body>
 </html>

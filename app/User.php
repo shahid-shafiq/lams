@@ -10,7 +10,7 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    const CREATED_AT = 'creation';
+    const CREATED_AT = 'created';
     const UPDATED_AT = 'modified';
 
     /**
@@ -19,7 +19,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'username', 'password', 'role', 
+        'active', 'site_id', 'period_id', 'locale'
     ];
 
     /**

@@ -16,23 +16,11 @@ use App\Custom\Urdutils;
 
 class ReceiptController extends Controller
 {
-  /* API
-    public function index() {
-      return Receipt::paginate();
-    }
-  private $pid;
-  private $sid;
-
+  
   public function __construct() {
-    parent::__construct();
-
-    $this->middleware(function($request, $next) {
-      $this->pid = session()->get('period.id');
-      $this->sid = session()->get('site.id');
-      return $next($request);
-    });
+    $this->middleware('auth');
   }
-  */
+
 
   public function index(Request $request) {
     $receipts = Receipt::where(['site_id' => $this->sid, 'period_id' => $this->pid])->get();

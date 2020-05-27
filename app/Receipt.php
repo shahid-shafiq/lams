@@ -41,8 +41,6 @@ class Receipt extends Model
     return $this->belongsTo('App\Member', 'm_id', 'regno');
   }
 
-
-
   public static function currDate($sid, $pid) {
     $row = Receipt::where(
       ['site_id' => $sid, 'period_id' => $pid])

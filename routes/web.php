@@ -20,6 +20,10 @@ Route::get('/', function () {
 //Route::resource('bills', 'BillsController');
 //Route::get('bills', 'BillsController@index');
 
+Route::get('login', 'UserController@login')->name('login');
+Route::get('logout', 'UserController@logout')->name('logout');
+Route::post('login', 'UserController@authenticate')->name('authenticate');
+
 Route::resource('receipts', 'ReceiptController');
 Route::resource('bills', 'BillController');
 Route::resource('members', 'MemberController');
@@ -30,5 +34,6 @@ Route::resource('periods', 'PeriodController');
 Route::resource('balances', 'BalanceController');
 
 Route::get('site', 'SiteController@index');
-Route::get('admin', 'AdminController@index')->name('admin');
+Route::get('admin', ['middleware'=>'auth', 'uses'=>'AdminController@index'])->name('admin');
 Route::get('reports', 'ReportController@index')->name('reports');
+Route::POST('balances/setup/{period}', 'BalanceController@setup')->name('balances.setup');

@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Auth;
 
 class Controller extends BaseController
 {
@@ -30,9 +31,14 @@ class Controller extends BaseController
 
       $this->middleware(function($request, $next) {
 
-        session(['user.name' => 'admin']);
-        session(['period.id' => '94']);
-        session(['site.id' => '2']);
+        //echo Auth::user();
+        if (Auth::user()) {
+          
+        } else {
+          //session(['user.name' => 'admin']);
+          //session(['period.id' => '94']);
+          //session(['site.id' => '2']);
+        }
 
         //$this->pid = session()->get('period.id');
         $this->pid = $request->session()->get('period.id');

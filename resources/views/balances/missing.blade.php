@@ -6,28 +6,28 @@
   <div class="table-wrapper">
     <div class="table-title">
       <div class="row">
-        <div class="col-sm-6"><h2>Balances</h2></div>
+        <div class="col-sm-6"><h2>Missing Balances</h2></div>
         <div class="col-sm-4">
           <div class="search-box">
             <i class="material-icons">&#xE8B6;</i>
             <input id="myInput" class="form-control" type="text" placeholder="Search&hellip;">
           </div>
         </div>
-        @if (true | !$current)
+        {{--
         <div class="pull-right">
-            <a class="btn btn-success" href="{{ route('balances.create') }}">Setup Balance</a>
+            <a class="btn btn-success" href="{{ route('balances.create') }}">Setup All</a>
         </div>
-        @endif
+        --}}
       </div>
     </div>
   
   @if ($balances->count() < 1)
   <div class="row">
-  NO BALANCES
+  NO MISSING BALANCES
   </div>
   @else
 
-
+  {{-- ($balances[1]) --}}
   <div style="height:80vh; overflow:auto">
     <table id="myTable" class="table table-striped table-bordered table-hover table-sm">
       <thead>
@@ -41,15 +41,20 @@
         </tr>
       </thead>
       <tbody>
-      @foreach ($balances as $bal)
+      @foreach ($balances as $bal)  
         <tr class="data">
-          <td>{{ $bal->period ? $bal->period->title : '' }}</td>
+          <td>{{ $bal->title }}</td>
           <td>{{ $bal->opening }}</td>
           <td>{{ $bal->income }}</td>
           <td>{{ $bal->expense }}</td>
           <td>{{ $bal->balance }}</td>
-          @if ($bal->id)
-          <td><a href="{{ route('balances.edit',$bal->id) }}" class="show" title="Edit" data-toggle="tooltip"><i class="material-icons">edit</i></a></td>
+          <td>
+          @if (!$bal->period_id)
+          <form action="{{ route('balances.setup', $bal->id) }}" method="POST">
+          {{ csrf_field() }}
+          <input class="material-icons btn-outline-primary" style="border:none" type="submit" value="add_box"></input>
+          </td>
+          </form>
           @endif
       </tr>
       @endforeach
