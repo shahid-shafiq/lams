@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Receipt extends Model
 {
@@ -82,24 +83,16 @@ class Receipt extends Model
       $receipt->account = 1;
   }
 
-  
-
-  /*
-  public function income($pid, $site) {
-      $query = $this->find();
-      $income = $query
-              //->contain(['Departments', 'Incomes'])
-              ->select([
-                  'income_id', 'department_id',
-                  //'dept_title' => 'Departments.title',
-                  //'inc_title' => 'Incomes.title',
-                  'income_sum' => $query->func()->sum('amount'), ])
-              ->where(['Receipts.period_id' => $pid, 'Receipts.site_id' => $site])
-              ->group(['department_id', 'income_id',])->all();
+  public static function periodIncome($sid, $pid) {
+      $income = Receipt::
+        groupBy(['income_id', 'department_id'])
+        ->select(['income_id', 'department_id', DB::Raw('sum(amount) as income_sum')])
+        ->where(['period_id' => $sid, 'site_id' => $pid])
+        ->get();
       
-      $isum = $this->find()
-              ->where(['Receipts.period_id' => $pid, 'Receipts.site_id' => $site])
-              ->select(['total' => $query->func()->sum('amount')])->first()['total'];
+      $isum = Receipt::
+              where(['period_id' => $pid, 'site_id' => $sid])
+              ->sum('amount');
       
       $income->isum = $isum;
       

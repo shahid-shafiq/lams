@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Bill extends Model
 {
@@ -65,4 +66,21 @@ class Bill extends Model
       
       return $bill;
   }
+
+  public static function periodExpense($sid, $pid) {
+    $expense = Bill::
+            select([
+                'expense_id', 'department_id',
+                DB::Raw('sum(amount) as expense_sum')])
+            ->where(['period_id' => $pid, 'site_id' => $sid])
+            ->groupby(['department_id', 'expense_id',])->get();
+    
+    $esum = Bill::
+            where(['period_id' => $pid, 'site_id' => $sid])
+            ->sum('amount');
+            
+    $expense->esum = $esum;
+    
+    return $expense;
+}
 }
