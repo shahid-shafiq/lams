@@ -30,6 +30,10 @@ class Receipt extends Model
     return $this->belongsTo('App\Department');
   }
 
+  public function course() {
+    return $this->belongsTo('App\Course', 'account_id');
+  }
+
   public function fee() {
     return $this->belongsTo('App\Account');
   }
@@ -105,36 +109,23 @@ left join courses c on r.account_id = c.id
 where site_id = 4 and period_id = 88
 group by r.account_id, r.departfeeDetailment_id
 order by r.department_id, r.account_id;
- * /
+ */
 
-  public function feeDetail($pid, $site) {
-      $feeid = 3;
-      $query = $this->find();
-      $fee = $query
-              //->contain(['Departments', 'Incomes'])
-              ->select([
+  public static function feeDetail($sid, $pid) {
+      $FEE = 3;
+      $fee = Receipt::
+              select([
                   'department_id', 'account_id',
-                  'c.title', 'd.title',
-                  'sum' => $query->func()->sum('amount')])
-              ->join([
-                  'c' => [
-                      'table' => 'courses', 
-                      'type' => 'INNER', 
-                      'conditions' => 'c.id = Receipts.`account_id`']
-              ])
-              ->join([
-                  'd' => [
-                      'table' => 'departments', 
-                      'type' => 'INNER', 
-                      'conditions' => 'd.id = Receipts.`department_id`']
-              ])
-              ->where(['Receipts.income_id' => $feeid, 'Receipts.period_id' => $pid, 'Receipts.site_id' => $site])
-              ->group(['department_id', 'account_id',])->all();
+                  DB::Raw('sum(amount) as sum')])
+              ->where(['income_id' => $FEE, 'period_id' => $pid, 'site_id' => $sid])
+              ->groupBy('department_id')
+              ->groupBy('account_id')
+              ->get();
         
       return $fee;
   }
 
-
+/*
   public function datestr($da) {
       $ds = $da['year'] . '-' . $da['month'] . '-01';
       return new \DateTime($ds);

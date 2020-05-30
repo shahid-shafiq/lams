@@ -46,4 +46,12 @@ class Controller extends BaseController
         return $next($request);
       });
     }
+
+    public function setSite($id) {
+      session(['site.id' => $id]);
+    }
+
+    public function setPeriod($id) {
+      session(['period.id' => $id]);
+    }
 }

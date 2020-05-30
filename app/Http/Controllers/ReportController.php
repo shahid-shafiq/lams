@@ -14,6 +14,11 @@ use DB;
 
 class ReportController extends Controller
 {
+    public function __construct() {
+        parent::__construct();
+        $this->middleware('auth');
+    }
+
     private function selectPeriod(Request $request) {
         $pid = $request->get('pid');
         $session = $request->getSession();

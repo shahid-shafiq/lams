@@ -1,81 +1,31 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layout')
 
-        <title>Laravel - Hello</title>
+<?php
+ $data = ["A" => 'Alpha', 'B' => 'Beta', 'C'=>'Gamma'];
+?>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+@section('content')
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
 
-            .full-height {
-                height: 100vh;
-            }
+<div>This is home</div>
+<x-select type="B" :data="$data">Cusome Component</x-select>
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+@if (Auth::user())
+<div>
+<?php
+    $user = Auth::user();
+    echo $user->username;
+?>
+    <h2>You are!</h2>
+    <p>{{ session()->get('user.name') }}</p>
+    <p>{{ session()->get('period.id') }}</p>
+    <p>{{ session()->get('site.id') }}</p>
+</div>
 
-            .position-ref {
-                position: relative;
-            }
+<a class="btn btn-primary" href="{{ route('logout') }}">Logout</a>
+@else
+<a class="btn btn-primary" href="{{ route('login') }}">Login</a>
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
+@endif
 
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 46px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            
-
-            <div class="content">
-                <div class="title m-b-md">
-                    AKQ Accounting Management System
-                </div>
-
-                <div class="links">
-                    
-                </div>
-            </div>
-        </div>
-    </body>
-</html>
+@endsection

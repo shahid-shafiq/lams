@@ -26,6 +26,11 @@
   <img style="width:28px;" src="{{ asset('images/logo.png') }}" />
   <span class="text-light">AKQ</span>
   </a>
+  @auth
+  <a class="navbar-brand mr-3" href="{{ route('profile') }}">
+  <i class="material-icons">account_circle</i>
+  </a>
+  @endauth
   <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -46,8 +51,19 @@
       <li class="nav-item">
         <a class="nav-link" href="{{ route('reports') }}">Reports</a>
       </li>
+@auth
+<?php
+$isadmin = Auth::user()->role == 'admin';
+?>
+{{$isadmin}}
+@if ($isadmin)
       <li class="nav-item">
         <a class="nav-link" href="{{ route('admin') }}">Admin</a>
+      </li>
+@endif
+@endauth
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('logout') }}"><i class="material-icons">power_settings_new</i></a>
       </li>
     </ul>
   </div>

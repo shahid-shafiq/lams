@@ -7,6 +7,11 @@ use App\Period;
 
 class PeriodController extends Controller
 {
+  public function __construct() {
+    parent::__construct();
+    $this->middleware('auth');
+  }
+
     public function index() {
       return view('periods.index', [
         'title' => 'Periods',

@@ -9,6 +9,11 @@ use App\Person;
 
 class MemberController extends Controller
 {
+  public function __construct() {
+    parent::__construct();
+    $this->middleware('auth');
+  }
+    
     public function index() {
       $members = Member::where('status', '<>', 'D')->
         orWhereNull('status')->get();

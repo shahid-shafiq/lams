@@ -8,6 +8,11 @@ use App\Period;
 
 class BalanceController extends Controller
 {
+  public function __construct() {
+    parent::__construct();
+    $this->middleware('auth');
+  }
+  
   public function index() {
     $current = Balance::where(['site_id' => $this->sid, 'period_id' => $this->pid])->first();
 

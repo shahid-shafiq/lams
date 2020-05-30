@@ -6,13 +6,16 @@
   <div class="table-wrapper">
     <div class="table-title">
       <div class="row">
-        <div class="col-sm-8"><h2>Users</h2></div>
+        <div class="col-sm-6"><h2>Users</h2></div>
         <div class="col-sm-4">
           <div class="search-box">
             <i class="material-icons">&#xE8B6;</i>
             <input id="myInput" class="form-control" type="text" placeholder="Search&hellip;">
           </div>
         </div>
+        <div class="pull-right">
+            <a class="btn btn-success" href="{{ route('users.create') }}">New User</a>
+          </div>
       </div>
     </div>
   

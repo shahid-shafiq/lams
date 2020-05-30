@@ -48,4 +48,8 @@ class User extends Authenticatable
     public function site() {
       return $this->belongsTo('App\Site');
     }
+
+    public function profile() {
+      return $this->hasOne('App\Profile');
+    }
 }

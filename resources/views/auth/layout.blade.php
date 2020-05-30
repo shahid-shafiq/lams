@@ -27,13 +27,16 @@
 
 @show
   
-<div style="display:flex; align-items: center; width:100%; height:100vh">
-  <div class='container col-4 p-0 align-middle' style='border: 1px solid #eee; box-shadow: 3px 3px 5px #888888;'>
+<div style="display:flex; align-items: center; width:100%; height:100vh; background-color:#ccc">
+  <div class='container col-4 p-0 align-middle' style='
+    border: 1px solid #eee;
+    box-shadow: 3px 3px 5px #888888; 
+    background-color:#eee'>
     <nav class="navbar navbar-expand navbar-dark bg-dark">
       <img style="width:21px;" src="images/logo.png" />
       <span class="text-light">AKQ</span>
     </nav>
-    <div class="row">
+    <div class="row justify-content-center" style="padding-left:0; margin-left:0; margin-right:0rem">
       @yield('content')
     </div>
     <footer class="flex-bottom bg-dark text-light text-center" style="font-size:0.75rem">
