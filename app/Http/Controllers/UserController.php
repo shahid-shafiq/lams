@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Period;
 use App\Site;
@@ -26,8 +27,10 @@ class UserController extends Controller
     $user = new User([
       'period_id' => $this->pid,
       'site_id' => $this->sid,
-      'locale' => 'en_US'
+      'locale' => 'en_US',
+      'role' => 'user'
     ]);
+
     return view('users.create', [
       'title' => 'User',
       'mode' => 'create',
@@ -37,16 +40,52 @@ class UserController extends Controller
     ]);
   }
 
+  public function edit($id) {
+    $user = User::findOrFail($id);
+    return view('users.create', [
+      'title' => 'User',
+      'mode' => 'edit',
+      'user' => $user,
+      'sites' => Site::get(),
+      'periods' => Period::orderBy('id', 'desc')->get(),
+    ]);
+  }
+
   public function store(Request $request) {
     $user = new User([
-      'username' => $request->get('username'),
-      'password' => $request->get('password'),
-      'site_id' => $request->get('site_id'),
-      'period_id' => $request->get('period_id'),
-      'locale' => $request->get('locale'),
+      'username' => $request->username,
+      'password' => Hash::make($request->password),
+      'site_id' => $request->site,
+      'period_id' => $request->period,
+      'locale' => $request->locale,
     ]);
 
     $user->save();
+    $user->profile()->create([
+      'locale' => $request->locale,
+      'period_id' => $request->period,
+    ]);
+
+    return redirect( route('users.index') );
+  }
+
+  public function update(Request $request, $id) {
+    $user = User::findOrFail($id);
+    $user->fill([
+      'password' => Hash::make($request->password),
+      'site_id' => $request->site,
+      'period_id' => $request->period,
+      'locale' => $request->locale,
+    ]);
+
+    $user->save();
+    $profile = $user->profile;
+    $profile->fill([
+      'locale' => $request->locale,
+      'period_id' => $request->period,
+    ]);
+    $profile->save();
+
     return redirect( route('users.index') );
   }
 
