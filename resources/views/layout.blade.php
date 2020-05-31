@@ -27,9 +27,12 @@
   <span class="text-light">AKQ</span>
   </a>
   @auth
-  <a class="navbar-brand mr-3" href="{{ route('profile') }}">
+  <a class="text-white" href="{{ route('profile') }}">
   <i class="material-icons">account_circle</i>
   </a>
+  <span class="ml-2 text-white bold"><strong>{{ Auth::user()->username }}</strong></span>
+  <span class="ml-2 text-white bold"><strong>{{ Auth::user()->site->title }}</strong></span>
+  <span class="ml-2 text-primary"><strong>{{ Auth::user()->profile->period->title }}</strong></span>
   @endauth
   <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
     <span class="navbar-toggler-icon"></span>

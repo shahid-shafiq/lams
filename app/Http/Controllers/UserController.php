@@ -72,11 +72,14 @@ class UserController extends Controller
   public function update(Request $request, $id) {
     $user = User::findOrFail($id);
     $user->fill([
-      'password' => Hash::make($request->password),
       'site_id' => $request->site,
       'period_id' => $request->period,
       'locale' => $request->locale,
     ]);
+
+    if ($user->password != $request->password) {
+      $user->password = Hash::make($request->password);
+    }
 
     $user->save();
     $profile = $user->profile;
@@ -93,6 +96,13 @@ class UserController extends Controller
     $periods = Period::orderBy('id', 'desc')->get();
     $sites = Site::get();
 
+    // create profile if not found
+    if (Auth::user()->profile == null) {
+      Auth::user()->profile()->create([
+        'period_id' => $this->pid,
+      ]);
+    }
+
     return view('users.profile', [
       'title' => 'Profile',
       'periods' => $periods,
@@ -100,6 +110,7 @@ class UserController extends Controller
       'site' => Site::find($this->sid),
       'period' => Period::find($this->pid),
       'user' => Auth::user(),
+      'locales' => ['en_US' => 'English', 'ur_PK' => 'Urdu'],
     ]);
   }
 
@@ -109,16 +120,16 @@ class UserController extends Controller
     $period = $request->get('period');
 
     $this->setPeriod($period);
-    $this->setSite($site);
+    if ($site) $this->setSite($site);
 
     $profile = Auth::user()->profile;
     if ($profile) {
       $profile->fill([
         'period_id' => $period,
-        'receipts_pagesize' => $period,
-        'bills_pagesize' => $period,
-        'vouchers_pagesize' => $period,
-        'locale' => $locale,
+        'receipts_pagesize' => $request->receipt_pagesize,
+        'bills_pagesize' => $request->receipt_pagesize,
+        'vouchers_pagesize' => $request->voucher_pagesize,
+        'locale' => $request->receipt_pagesize,
       ]);
 
       $profile->save();

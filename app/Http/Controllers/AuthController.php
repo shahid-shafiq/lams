@@ -27,6 +27,11 @@ class AuthController extends Controller
 
             $user = Auth::user();
 
+            if ($user->profile) {
+                $user->profile->period_id = $user->period_id;
+                $user->profile->save();
+            }
+
             session(['user.name' => $user->username]);
             session(['period.id' => $user->period_id]);
             session(['site.id' => $user->site_id]);

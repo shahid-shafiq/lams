@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('layout')
 
 @section('content')
 
@@ -44,8 +44,11 @@
           </select>
       </div>
     </div>
-  </div>
+@else
+<input type="hidden" name="site" value="{{$site->id}}"/>
 @endif
+
+</div>
 
   <div class="row">
     <div class="col-xs-4 col-sm-4 col-md-4">
@@ -67,8 +70,23 @@
     <div class="col-xs-4 col-sm-4 col-md-4">
       <div class="form-group">
           <strong>Bill-Rows per Voucher:</strong>
-          <input name="bill_pagesize" type="number" value="{{ $user->profile->vouchers_pagesize }}" class="form-control" placeholder="Receipts per Pgae">
+          <input name="voucher_pagesize" type="number" value="{{ $user->profile->vouchers_pagesize }}" class="form-control" placeholder="Receipts per Pgae">
           </select>
+      </div>
+    </div>
+
+    <div class="col-xs-4 col-sm-4 col-md-4">
+      <div class="form-group">
+        <strong>Language:</strong>
+        <select name="localelocale" class="form-control">
+        @foreach ($locales as $key=>$val)
+            <option value="{{$key}}" 
+                @if ($key ===  $user->profile->locale)
+                    selected
+                @endif
+            >{{$val}}</option>
+        @endforeach
+        </select>
       </div>
     </div>
   </div>

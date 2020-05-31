@@ -76,7 +76,8 @@ class ReportController extends Controller
                 'period' => $this->period,
                 'ixr' => $ixr,
                 'pid' => $pid,
-                'site' => $site
+                'site' => $site,
+                'profile' => Auth::user()->profile,
                 ]), 200)
                 ->header('Content-Type', 'application/pdf');
         } else {
