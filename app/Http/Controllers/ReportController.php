@@ -104,6 +104,7 @@ class ReportController extends Controller
                 view('reports.pdf.income', [
                 'period' => $this->period,
                 'data' => $receipts->toArray(),
+                'profile' => Auth::user()->profile,
                 'site' => $site
                 ]), 200)
                 ->header('Content-Type', 'application/pdf');
@@ -131,6 +132,7 @@ class ReportController extends Controller
                 view('reports.pdf.expense', [
                     'period' => $this->period,
                     'data' => $bills->toArray(),
+                    'profile' => Auth::user()->profile,
                     'site' => $site
                 ]), 200)
                 ->header('Content-Type', 'application/pdf');
@@ -158,6 +160,7 @@ class ReportController extends Controller
                 view('reports.pdf.vouchers', [
                     'period' => $this->period,
                     'data' => $bills->toArray(),
+                    'profile' => Auth::user()->profile,
                     'site' => $site
                 ]), 200)
                 ->header('Content-Type', 'application/pdf');

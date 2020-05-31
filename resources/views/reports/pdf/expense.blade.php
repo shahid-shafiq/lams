@@ -11,11 +11,22 @@ $pdf = new mPDF([
 $pdf->SetTitle('Expenses');
 $pdf->SetFont('Arial', 'B', 15);
 
+$height = 842; // A4 Page height (pt)
+$hft = 2.5 * 72; // header footer title (pt)
+$area = $height-$hft; // remaining area
+$lh = 17*1.4; // line height
+$maxlines = floor($area/$lh); // maximum lines
+$lines = $profile->receipts_pagesize | 23;
+echo "Profile lines = ".$lines;
+if ($lines > $maxlines) {
+    $lines = $maxlines;
+}
+
 $p = explode(" ", $period->title);
 $m = $p[0];
 $y = $p[1];
 $count = sizeof($data);
-$rows = 23;
+$rows = $lines;
 $pages = (int)ceil($count/$rows);
 
 // widow orphan control
