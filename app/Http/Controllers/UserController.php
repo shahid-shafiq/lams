@@ -127,7 +127,7 @@ class UserController extends Controller
       $profile->fill([
         'period_id' => $period,
         'receipts_pagesize' => $request->receipt_pagesize,
-        'bills_pagesize' => $request->receipt_pagesize,
+        'bills_pagesize' => $request->bill_pagesize,
         'vouchers_pagesize' => $request->voucher_pagesize,
         'locale' => $request->receipt_pagesize,
       ]);

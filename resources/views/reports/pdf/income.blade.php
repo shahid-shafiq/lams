@@ -16,8 +16,7 @@ $hft = 2.5 * 72; // header footer title (pt)
 $area = $height-$hft; // remaining area
 $lh = 17*1.4; // line height
 $maxlines = floor($area/$lh); // maximum lines
-$lines = $profile->receipts_pagesize | 23;
-echo "Profile lines = ".$lines;
+$lines = $profile->receipts_pagesize;
 if ($lines > $maxlines) {
     $lines = $maxlines;
 }

@@ -149,6 +149,7 @@ class ReportController extends Controller
     public function vouchers(Request $request, $output = null)
     {      
         $pid = $this->selectPeriod($request);
+        $profile = Auth::user()->profile;
         
         if ($output === 'pdf') {
             $bills = Bill::where(['period_id' => $pid, 'site_id' => $this->sid])
@@ -160,14 +161,14 @@ class ReportController extends Controller
                 view('reports.pdf.vouchers', [
                     'period' => $this->period,
                     'data' => $bills->toArray(),
-                    'profile' => Auth::user()->profile,
+                    'profile' => $profile,
                     'site' => $site
                 ]), 200)
                 ->header('Content-Type', 'application/pdf');
         } else {
             $bills = Bill::where(['period_id' => $pid, 'site_id' => $this->sid])
             ->orderby('no', 'asc')
-            ->paginate(11);
+            ->paginate($profile->vouchers_pagesize);
 
             return view('reports.vouchers', [
                 'title' => 'Reports',

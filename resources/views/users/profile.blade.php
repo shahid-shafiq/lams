@@ -62,7 +62,7 @@
     <div class="col-xs-4 col-sm-4 col-md-4">
       <div class="form-group">
           <strong>Bill-Rows per Page:</strong>
-          <input name="bill_pagesize" type="number" value="{{ $user->profile->bills_pagesize }}" class="form-control" placeholder="Receipts per Pgae">
+          <input name="bill_pagesize" type="number" value="{{ $user->profile->bills_pagesize }}" class="form-control" placeholder="Bills per Pgae">
           </select>
       </div>
     </div>
