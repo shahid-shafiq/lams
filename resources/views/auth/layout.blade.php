@@ -28,7 +28,7 @@
 @show
   
 <div style="display:flex; align-items: center; width:100%; height:100vh; background-color:#ccc">
-  <div class='container col-4 p-0 align-middle' style='
+  <div class='container col-8 col-md-6 p-0 align-middle' style='
     border: 1px solid #eee;
     box-shadow: 3px 3px 5px #888888; 
     background-color:#eee'>

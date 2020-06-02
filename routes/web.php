@@ -19,6 +19,19 @@ Route::get('/', function () {
 })->name('home')->middleware('auth');
 */
 
+Route::get('/hello', function() {
+    return view('hello');
+});
+
+// ajax testing
+Route::get('/mlist','InfaaqController@mlist');
+Route::get('/getmsg','InfaaqController@hi');
+Route::post('/getmsg','InfaaqController@hello')->name('ajaxRequest.post');
+
+ // AJAX
+
+
+ // routes
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/fee', 'HomeController@feedetail')->name('home.feedetail');
 Route::get('/profile', 'UserController@profile')->name('profile');

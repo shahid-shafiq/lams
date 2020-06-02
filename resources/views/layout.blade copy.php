@@ -21,15 +21,23 @@
   <script src="{{ asset('/js/main.js') }}"></script>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <img style="width:18px; margin-right:0.5rem" src="{{ asset('images/logo.png') }}">
-  <a class="navbar-brand" href="#">AKQ</a>
- 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" href="#">
+    <img style="width:28px;" src="{{ asset('images/logo.png') }}" />
+    <span class="text-light">AKQ</span>
+  </a>
+  @auth
+  <a class="text-white" href="{{ route('profile') }}">
+  <i class="material-icons">account_circle</i>
+  </a>
+  <span class="ml-2 text-white bold"><strong>{{ Auth::user()->username }}</strong></span>
+  <span class="ml-2 text-white bold"><strong>{{ Auth::user()->site->title }}</strong></span>
+  <span class="ml-2 text-primary"><strong>{{ Auth::user()->profile->period->title }}</strong></span>
+  @endauth
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse" id="main-navigation">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a class="nav-link" href="{{ route('home') }}">Home</a>
@@ -46,56 +54,36 @@
       <li class="nav-item">
         <a class="nav-link" href="{{ route('reports') }}">Reports</a>
       </li>
-
-    @auth
-    <?php
-    $isadmin = Auth::user()->role == 'admin';
-    ?>
-    {{$isadmin}}
-    @if ($isadmin)
+@auth
+<?php
+$isadmin = Auth::user()->role == 'admin';
+?>
+{{$isadmin}}
+@if ($isadmin)
       <li class="nav-item">
         <a class="nav-link" href="{{ route('admin') }}">Admin</a>
       </li>
-    @endif
-    @endauth
-     
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
+@endif
+@endauth
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('logout') }}"><i class="material-icons">power_settings_new</i></a>
       </li>
     </ul>
-    @auth
-    <div class="ml-2">
-      <a class="text-white" href="{{ route('profile') }}"><i class="material-icons">account_circle</i></a>
-    </div>
-    <div class="ml-2">
-      <a class="text-white" href="{{ route('logout') }}"><i class="material-icons">power_settings_new</i></a>
-    </div>
-    @endauth
   </div>
 </nav>
-<div class="container-flex bg-secondary">
-@auth
-  <div class="ml-3 d-inline">
-    <span class="text-white bold"><strong>{{ Auth::user()->username }}</strong></span>
-    <span class="ml-2 text-white bold"><strong>{{ Auth::user()->site->title }}</strong></span>
-    <span class="ml-2 mb-2 text-primary"><strong>{{ Auth::user()->profile->period->title }}</strong></span>
-  </div>
-  @endauth
-</div>
 
+@section('sidebar')
+
+@show
+  
 <div class="container">
     @yield('content')
 </div>
-
-
+   
+   <!-- fixed-bottom bg-dark text-light text-center 
+   <div id="copyright">&copy; Copyright 2020 Anjuman Khaddam ul Quran Islamabad</div>
+   
+   -->
 <footer class="footer">
   <div class="fixed-bottom bg-dark text-light text-center">
   <span class="d-md-none" style="font-size: 0.7rem">Copyright &copy; 2020 Anjuman Khaddam ul Quran Islamabad</span>

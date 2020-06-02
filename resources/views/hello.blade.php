@@ -21,10 +21,17 @@
   <script src="{{ asset('/js/main.js') }}"></script>
 </head>
 <body>
+
+@auth
+  <?php
+  $isadmin = Auth::user()->role == 'admin';
+  ?>
+@endauth
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <img style="width:18px; margin-right:0.5rem" src="{{ asset('images/logo.png') }}">
   <a class="navbar-brand" href="#">AKQ</a>
- 
+
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -48,31 +55,15 @@
       </li>
 
     @auth
-    <?php
-    $isadmin = Auth::user()->role == 'admin';
-    ?>
-    {{$isadmin}}
     @if ($isadmin)
       <li class="nav-item">
         <a class="nav-link" href="{{ route('admin') }}">Admin</a>
       </li>
     @endif
     @endauth
-     
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
     </ul>
     @auth
-    <div class="ml-2">
+    <div>
       <a class="text-white" href="{{ route('profile') }}"><i class="material-icons">account_circle</i></a>
     </div>
     <div class="ml-2">

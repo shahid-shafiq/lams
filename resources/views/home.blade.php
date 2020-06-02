@@ -36,31 +36,31 @@
 </div>
 </div>
 
-<div class="row justify-content-center">
-    <div class="row col-sm-6 justify-content-around">
-    <div class="card border-success mr-2 shadow">
-        <div class="card-header bg-success text-white ">Total Income</div>
-        <div class="card-body">
-            <h5 class="card-title">{{ number_format($incomes->isum) }}</h5>
-            <p class="card-text"></p>
+<div class="row d-none d-md-flex justify-content-center">
+    <div class="row col-md-8 col-lg-6 justify-content-around">
+        <div class="card border-success mr-2 shadow">
+            <div class="card-header bg-success text-white ">Total Income</div>
+            <div class="card-body">
+                <h5 class="card-title">{{ number_format($incomes->isum) }}</h5>
+                <p class="card-text"></p>
+            </div>
         </div>
-    </div>
 
-    <div class="card border-danger mr-2 shadow">
-        <div class="card-header bg-danger text-white">Total Expense</div>
-        <div class="card-body">
-            <h5 class="card-title">{{ number_format($expenses->esum) }}</h5>
-            <p class="card-text"></p>
+        <div class="card border-danger mr-2 shadow">
+            <div class="card-header bg-danger text-white">Total Expense</div>
+            <div class="card-body">
+                <h5 class="card-title">{{ number_format($expenses->esum) }}</h5>
+                <p class="card-text"></p>
+            </div>
         </div>
-    </div>
 
-    <div class="card border-info mr-2 shadow">
-        <div class="card-header bg-info text-white">Net Profit</div>
-        <div class="card-body">
-            <h5 class="card-title">{{ number_format($incomes->isum-$expenses->esum) }}</h5>
-            <p class="card-text"></p>
+        <div class="card border-info mr-2 shadow">
+            <div class="card-header bg-info text-white">Net Profit</div>
+            <div class="card-body">
+                <h5 class="card-title">{{ number_format($incomes->isum-$expenses->esum) }}</h5>
+                <p class="card-text"></p>
+            </div>
         </div>
-    </div>
     </div>
 </div>
 
