@@ -5,6 +5,8 @@
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
             <h2>Laravel Demo</h2>
+            echo __('messages.welcome');
+            echo __('I love programming.');
         </div>
         <div class="pull-right">
         <a class="btn btn-success" href="{{ route('bills.create') }}">New Bill</a>

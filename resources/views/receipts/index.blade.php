@@ -1,6 +1,5 @@
 @extends('layout')
 
-@section('content')
 
 <?php
 
@@ -23,65 +22,116 @@ print($cd->lastOfMonth()->toDateString());
 */
 ?>
 
+@section('sidebar')
+
+@endsection
+
+
+
+@section('content')
+
 <div class="container">
-  <div class="table-wrapper">
-    <div class="table-title">
-      <div class="row">
-        <div class="col-sm-6"><h2>Receipts</h2></div>
-        
-        <div class="col-sm-4">
-          <div class="search-box">
-            <i class="material-icons">&#xE8B6;</i>
-            <input id="myInput" class="form-control" type="text" placeholder="Search&hellip;">
+  <div class="row p-1">
+    <div class="row col-4">
+      <div class="col d-none d-lg-inline"><h2>Receipts</h2></div>
+      <div class="col">
+      
+        <div class="dropdown ">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{ ($filter == 0) ? 'All' :
+             (($filter == 2) ? 'Infaaq' : 'Fee')
+            }}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="{{ route('receipts.index', 'filter=all') }}">All
+            @if ($filter == 0)
+            <i class="material-icons">done</i>
+            @endif</a>
+            <a class="dropdown-item" href="{{ route('receipts.index', 'filter=infaaq') }}">Infaaq
+            @if ($filter == 2)
+            <i class="material-icons">done</i>
+            @endif</a>
+            <a class="dropdown-item" href="{{ route('receipts.index', 'filter=fee') }}">Fee
+            @if ($filter == 3)
+            <i class="material-icons">done</i>
+            @endif</a>
+            </a>
           </div>
-        </div>
-        <div class="pull-right">
-            <a class="btn btn-success" href="{{ route('receipts.create') }}">New Receipt</a>
         </div>
       </div>
     </div>
-
-  @if ($receipts->count() < 1)
-  <div class="row">
-  NO RECEIPTS
+    <div class="row col-4">
+      <div class="search-box mt-1">
+        <i class="material-icons">&#xE8B6;</i>
+        <input id="myInput" class="form-control" type="text" placeholder="Search&hellip;">
+      </div>
+    </div>
+    <div class="col-4 text-right">
+      <div class="col">
+        <a class="btn btn-success" href="{{ route('receipts.create') }}">New Receipt</a>
+      </div>
+    </div>
   </div>
-  @else
-  <div  style="height:80vh; overflow:auto">
 
-<table id="myTable" class="table table-striped table-bordered table-hover table-sm">
-  <tr>
-    <th>No</th>
-    <th>Date</th>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Amount</th>
-    <th>Actions</th>
-  </tr>
-  @foreach ($receipts as $receipt)
-  <tr>
-    <td>{{ $receipt->no }}</td>
-    <td>{{ $receipt->rdate }}</td>
-    <td>{{ $receipt->title }}</td>
-    <td>{{ $receipt->description }}</td>
-    <td>{{ $receipt->amount }}
-      <x-payicon size="5" payment="{{$receipt->payment->id }}"/>
-    </td>
-    <td>
-      <form action="{{ route('receipts.destroy', $receipt->id) }}" method="POST">
-        {{ csrf_field() }}
-        {{ method_field('DELETE') }}
+<!-- Table Row -->
+@if ($receipts->count() < 1)
+  <div class="row">
+NO RECEIPTS
+  </div>
+@else
+  <div style="height:80vh; overflow:auto">
 
-        <a href="{{ route('receipts.show', $receipt->id) }}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">pageview</i></a>
-        <a href="{{ route('receipts.edit', $receipt->id) }}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">edit</i></a>
-        <input class="material-icons delete btn-outline-danger" style="border:none" 
-          onclick="return confirm('Delete record?')" type="submit" value="delete"></input>
-        
-      </form>
-    </td>
-  </tr>
-  @endforeach
-</table>
+  <table id="myTable" class="table table-striped table-bordered table-hover table-sm">
+    <tr>
+      <th>No</th>
+      <th>Date</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Amount</th>
+      <th>Actions</th>
+    </tr>
+    @foreach ($receipts as $receipt)
+    <tr class="data">
+      <td>{{ $receipt->no }}</td>
+      <td>{{ $receipt->rdate }}</td>
+      <td>{{ $receipt->title }}</td>
+      <td>{{ $receipt->description }}</td>
+      <td>{{ $receipt->amount }}
+        <x-payicon size="5" payment="{{$receipt->payment->id }}"/>
+      </td>
+      <td>
+        <form action="{{ route('receipts.destroy', $receipt->id) }}" method="POST">
+          {{ csrf_field() }}
+          {{ method_field('DELETE') }}
 
+          <a href="{{ route('receipts.show', $receipt->id) }}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">pageview</i></a>
+          <a href="{{ route('receipts.edit', $receipt->id) }}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">edit</i></a>
+          <input class="material-icons delete btn-outline-danger" style="border:none" 
+            onclick="return confirm('Delete record?')" type="submit" value="delete"></input>
+          
+        </form>
+      </td>
+    </tr>
+    @endforeach
+  </table>
+  </div>
 @endif
+</div>
+
+<script>
+  $(document).ready(function() {
+    $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#myTable tr.data").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+
+    function refresh(obj) { self.location.search = '?filter='+ obj.value; }
+  });
+    
+  
+  console.log('Ok');
+</script>
 
 @endsection

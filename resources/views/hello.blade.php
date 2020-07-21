@@ -22,76 +22,113 @@
 </head>
 <body>
 
-@auth
-  <?php
-  $isadmin = Auth::user()->role == 'admin';
-  ?>
-@endauth
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <img style="width:18px; margin-right:0.5rem" src="{{ asset('images/logo.png') }}">
-  <a class="navbar-brand" href="#">AKQ</a>
-
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('home') }}">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('receipts.index') }}">Receipts</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('bills.index') }}">Bills</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('members.index') }}">Members</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('reports') }}">Reports</a>
-      </li>
-
-    @auth
-    @if ($isadmin)
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin') }}">Admin</a>
-      </li>
-    @endif
-    @endauth
-    </ul>
-    @auth
-    <div>
-      <a class="text-white" href="{{ route('profile') }}"><i class="material-icons">account_circle</i></a>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">AKQ</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="ml-2">
-      <a class="text-white" href="{{ route('logout') }}"><i class="material-icons">power_settings_new</i></a>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <!-- Jumbotron Header -->
+    <header class="jumbotron my-4">
+      <h1 class="display-3">A Warm Welcome!</h1>
+      {{ __('labels.Username') }}
+      {{ __('Password') }}
+      <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
+      <a href="#" class="btn btn-primary btn-lg">Call to action!</a>
+    </header>
+
+    <!-- Page Features -->
+    <div class="row text-center">
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100">
+          <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+          <div class="card-body">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Find Out More!</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100">
+          <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+          <div class="card-body">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Find Out More!</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100">
+          <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+          <div class="card-body">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Find Out More!</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100">
+          <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+          <div class="card-body">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Find Out More!</a>
+          </div>
+        </div>
+      </div>
+
     </div>
-    @endauth
+    <!-- /.row -->
+
   </div>
-</nav>
-<div class="container-flex bg-secondary">
-@auth
-  <div class="ml-3 d-inline">
-    <span class="text-white bold"><strong>{{ Auth::user()->username }}</strong></span>
-    <span class="ml-2 text-white bold"><strong>{{ Auth::user()->site->title }}</strong></span>
-    <span class="ml-2 mb-2 text-primary"><strong>{{ Auth::user()->profile->period->title }}</strong></span>
-  </div>
-  @endauth
-</div>
+  <!-- /.container -->
 
-<div class="container">
-    @yield('content')
-</div>
-
-
-<footer class="footer">
-  <div class="fixed-bottom bg-dark text-light text-center">
-  <span class="d-md-none" style="font-size: 0.7rem">Copyright &copy; 2020 Anjuman Khaddam ul Quran Islamabad</span>
-  <span class="d-none d-md-inline" id="copyright">Copyright &copy; 2020 Anjuman Khaddam ul Quran Islamabad</span>
-</footer>
-
+  <!-- Footer -->
+  <footer class="py-0 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; 2019 Anjuman e Khaddam ul Quran Islamabad</p>
+    </div>
+    <!-- /.container -->
+  </footer>
 </body>
 </html>

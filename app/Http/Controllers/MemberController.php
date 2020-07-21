@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Member;
 use App\Receipt;
 use App\Person;
+use App\Infaaq;
 
 class MemberController extends Controller
 {
@@ -17,12 +18,18 @@ class MemberController extends Controller
     public function index() {
       $members = Member::where('status', '<>', 'D')->
         orWhereNull('status')->get();
-      return view('members.index', ['members' => $members]);
+      return view('members.index', ['title' => 'Members', 'members' => $members]);
     }
 
     public function show($mid) {
-      $member = Member::findOrFail($mid);
-      return view('members.show', ['member' => $member]);
+      $member = Member::with('receipts')->findOrFail($mid);
+      $member->receipts = $member->receipts->sortByDesc('fdate');
+      $infaaq = Infaaq::infaaqByMember($member->regno);
+
+      return view('members.show', [
+        'title' => 'Member', 
+        'member' => $member,
+        'infaaq' => $infaaq]);
     }
 
     public function create() {

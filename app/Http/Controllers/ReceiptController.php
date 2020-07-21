@@ -24,9 +24,25 @@ class ReceiptController extends Controller
 
 
   public function index(Request $request) {
-    $receipts = Receipt::where(['site_id' => $this->sid, 'period_id' => $this->pid])->get();
+    if ($request->filter) {
+      $filter = strtolower($request->filter);
+      if (in_array($filter, ['infaaq', 'fee'])) {
+        session(['filter' => $filter == 'fee' ? 3 : 2]);
+      } else {
+        $request->session()->forget('filter');
+      }
+    }
+    $filter = $request->session()->get('filter');
+
+    $condition = ['site_id' => $this->sid, 'period_id' => $this->pid];
+    if ($request->session()->has('filter'))  {
+      $condition = array_merge($condition, ['income_id' => $request->session()->get('filter', null)]);
+    }
+    
+    $receipts = Receipt::where($condition)->get();
     return view('receipts.index', [
       'title' => 'Receipts',
+      'filter' => $filter,
       'receipts' => $receipts]);
   }
 

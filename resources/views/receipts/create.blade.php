@@ -3,8 +3,13 @@
 @php
 use Carbon\Carbon;
 @endphp
+
+@section('sidebar')
+
+@endsection
   
 @section('content')
+<div class="container">
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
@@ -212,9 +217,28 @@ use Carbon\Carbon;
     </div>
 </form>
 
+</div>
+
 <script>
  $(document).ready(function() {
 
+
+    function getInfaqDetails(mid) {
+        /*
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN' : $('meta[name="_token:]').attr('content')
+            }
+        });
+        */
+        $.ajax({
+            url: "{{ url('api/members/5/infaaq') }}",
+            method : 'get',
+            success : function(result) {
+                console.log(result);
+            }
+        });
+    }
 
     // Check the value of income type
     const inf = "General";
@@ -312,6 +336,10 @@ use Carbon\Carbon;
       $('#title').val(title);
       $('#member').val(mbo[f].value);
       $('#regno').val(mbo[f].value);
+
+      // get infaaq details for this member
+      console.log('Get infaaq details...');
+      getInfaqDetails(mbo[f].value);
   });
 
   $('#regno').on('change', function(e) {

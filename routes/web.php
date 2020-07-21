@@ -20,13 +20,18 @@ Route::get('/', function () {
 */
 
 Route::get('/hello', function() {
+    App::setLocale('ur');
     return view('hello');
 });
 
 // ajax testing
-Route::get('/mlist','InfaaqController@mlist');
-Route::get('/getmsg','InfaaqController@hi');
-Route::post('/getmsg','InfaaqController@hello')->name('ajaxRequest.post');
+Route::get('/test',function() {
+    return view('welcome');
+});
+Route::get('api/mlist','InfaaqController@mlist');
+Route::get('api/getmsg','InfaaqController@hi');
+Route::post('api/getmsg','InfaaqController@hello')->name('ajaxRequest.post');
+Route::get('api/infaaq/{id}','InfaaqController@infaaq');
 
  // AJAX
 

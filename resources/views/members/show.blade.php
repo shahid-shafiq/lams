@@ -3,6 +3,12 @@
 @section('content')
 
 {{-- $member --}}
+
+<div class="container">
+
+<div class="row">
+<div class="col">
+
 <div class="row">
     <div class="col-xs-3 col-sm-3 col-md-3 margin-tb">
         <div class="">
@@ -66,13 +72,15 @@
 </div>
 
 <div class="row">
-    <div class="col-xs-8 col-sm-8 col-md-8">
+    <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Address:</strong>
             {{ $member->person->address }}
         </div>
     </div>
+</div>
 
+<div class="row">
     <div class="col-xs-4 col-sm-4 col-md-4">
         <div class="form-group">
             <strong>City:</strong>
@@ -90,9 +98,49 @@
     </div>
 </div>
 
+</div>
+<?php 
+//dump($infaaq)
+?>
+<div$infaaq class="col mt-5">
+<?php
+if (count(['infaaq'])) {
+foreach ($infaaq['infaaq'] as $item) {
+?>
+<div style="font-size:9px; height:17px;">
+    <div>
+        {{ $item['year'] }}
+        <?php
+        foreach ($item['month'] as $m) {
+        ?>
+        <div class="-month" style="
+        border:1px solid;
+        margin:0; padding:0;
+        width:15px;height:15px;
+        display:inline-block;
+        border-color:
+        {{ $m === 0 ? 'red' : 'green' }}
+        ;
+        background-color:
+        {{ $m === 0 ? 'red' : 'green' }}
+        ;"
+        tooltop="{{ $m }}">&nbsp;</div>
+        <?php
+        }
+        ?>
+    </div>
+</div>
+<?php
+}
+}
+?>
+
+</div>
+</div>
+
 @if ($member->receipts->count())
 <div class="row">
-    <div class="col-xs-3 col-sm-3 col-md-3 margin-tb">
+    <div class="col-xs-6 col-sm-6 col-md-6 margin-tb">
         <div class="">
             <h2>Infaaq Info</h2>
         </div>
@@ -103,15 +151,21 @@
             <a class="btn btn-sm btn-primary" href="{{ route('receipts.create') }}">New Infaaq</a>
         </div>
     </div>
+</div>
 
+
+
+<div class="row">
 
 <div class="col-xs-8 col-sm-8 col-md-8 margin-tb">
     <table class="table table-striped table-bordered table-hover table-sm">
         <thead>
             <tr style="background-color : rgba(0,0,0,0.15)">
-                <th scope="row" width="17%"><?= __('Date') ?></th>
+                <th scope="row" width="15%"><?= __('Date') ?></th>
                 <th scope="row" width="12%"><?= __('Receipt No.') ?></th>
                 <th scope="row" width="*"><?= __('Description') ?></th>
+                <th scope="row" width="15%"><?= __('From') ?></th>
+                <th scope="row" width="15%"><?= __('To') ?></th>
                 <th scope="row" width="10%"><?= __('Amount') ?></th>
             </tr>
         </thead>
@@ -122,6 +176,8 @@
                 <td><?= ($receipt->rdate) ?></th>
                 <td><?= ($receipt->no) ?></th>
                 <td><?= ($receipt->description) ?></th>
+                <td><?= ($receipt->fdate) ?></th>
+                <td><?= ($receipt->tdate) ?></th>
                 <td><?= ($receipt->amount)  ?></td>
             </tr>
         @endforeach
@@ -129,6 +185,8 @@
     </table>
 </div>
 @endif
+
+</div>
 
 </div>
 

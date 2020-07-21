@@ -76,4 +76,51 @@ class Infaaq extends Receipt
       }
       return $data;
     }
+
+    public static function infaaqByMember($regno) {
+      $receipts = Receipt::where('m_id', $regno)->
+        orderBy('fdate')->get();
+
+      $data = array();
+      $cy = 0;
+      $ym = [0,0,0,0,0,0,0,0,0,0,0,0];
+
+      if (count($receipts)) {
+        foreach ($receipts as $receipt) {
+          $from = Carbon::createFromDate($receipt->fdate);
+          $to = Carbon::createFromDate($receipt->tdate);      
+
+          $dt = $from;
+          if ($cy === 0) {
+            $cy = $dt->year;
+          }
+
+          // iterate over date range (fdate-tdate)
+          while ($dt <= $to) {
+            $y = $dt->year;
+            if ($y !== $cy) {
+              $rec['year'] = $cy;
+              $rec['month'] = $ym;
+              $data[] = $rec;
+              $ym = [0,0,0,0,0,0,0,0,0,0,0,0];
+              $cy = $y;
+            }
+            $m = $dt->month;
+            $ym[$m-1] = $receipt->no;
+              
+            $dt->addMonth(1);
+          }
+        }
+
+        $rec['year'] = $cy;
+        $rec['month'] = $ym;
+        $data[] = $rec;
+      }
+
+      //$data['member'] = $memberId;
+      $inf["member"] = $regno;
+      $inf["infaaq"] = $data;
+
+      return $inf;
+    }
 }

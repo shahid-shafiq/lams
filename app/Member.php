@@ -19,7 +19,7 @@ class Member extends Model
     }
 
     public function receipts() {
-      return $this->hasMany('App\Receipt', 'm_id')->orderBy('no', 'desc');
+      return $this->hasMany('App\Receipt', 'm_id', 'regno');// ->orderBy('rdate', 'desc');
     }
 
     public static function nextRegno() {

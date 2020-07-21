@@ -25,7 +25,17 @@
 <a class="btn btn-primary" href="{{ route('logout') }}">Logout</a>
 @else
 <a class="btn btn-primary" href="{{ route('login') }}">Login</a>
-
 @endif
 
+
+<div class="content" id="app">
+    <div class="title m-b-md">
+        Laravel
+    </div>
+
+    <example-component></example-component>
+    <flash class="alert-flash" message="Hello World"></flash>
+</div>
+
+<script src="js/app.js"></script>
 @endsection
