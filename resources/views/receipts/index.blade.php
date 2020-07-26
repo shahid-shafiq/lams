@@ -33,25 +33,25 @@ print($cd->lastOfMonth()->toDateString());
 <div class="container">
   <div class="row p-1">
     <div class="row col-4">
-      <div class="col d-none d-lg-inline"><h2>Receipts</h2></div>
+      <div class="col d-none d-lg-inline"><h2>{{ __('Receipts') }}</h2></div>
       <div class="col">
       
         <div class="dropdown ">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{ ($filter == 0) ? 'All' :
-             (($filter == 2) ? 'Infaaq' : 'Fee')
+          {{ ($filter == 0) ? __('All') :
+             (($filter == 2) ? __('Infaaq') : __('Fee'))
             }}
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="{{ route('receipts.index', 'filter=all') }}">All
+            <a class="dropdown-item" href="{{ route('receipts.index', 'filter=all') }}">{{__('All')}}
             @if ($filter == 0)
             <i class="material-icons">done</i>
             @endif</a>
-            <a class="dropdown-item" href="{{ route('receipts.index', 'filter=infaaq') }}">Infaaq
+            <a class="dropdown-item" href="{{ route('receipts.index', 'filter=infaaq') }}">{{__('Infaaq')}}
             @if ($filter == 2)
             <i class="material-icons">done</i>
             @endif</a>
-            <a class="dropdown-item" href="{{ route('receipts.index', 'filter=fee') }}">Fee
+            <a class="dropdown-item" href="{{ route('receipts.index', 'filter=fee') }}">{{__('Fee')}}
             @if ($filter == 3)
             <i class="material-icons">done</i>
             @endif</a>
@@ -68,7 +68,7 @@ print($cd->lastOfMonth()->toDateString());
     </div>
     <div class="col-4 text-right">
       <div class="col">
-        <a class="btn btn-success" href="{{ route('receipts.create') }}">New Receipt</a>
+        <a class="btn btn-success" href="{{ route('receipts.create') }}">{{__('New Receipt')}}</a>
       </div>
     </div>
   </div>
@@ -83,12 +83,12 @@ NO RECEIPTS
 
   <table id="myTable" class="table table-striped table-bordered table-hover table-sm">
     <tr>
-      <th>No</th>
-      <th>Date</th>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Amount</th>
-      <th>Actions</th>
+      <th>{{__('No')}}</th>
+      <th>{{__('Date')}}</th>
+      <th>{{__('Title')}}</th>
+      <th>{{__('Description')}}</th>
+      <th>{{__('Amount')}}</th>
+      <th>{{__('Actions')}}</th>
     </tr>
     @foreach ($receipts as $receipt)
     <tr class="data">

@@ -26,9 +26,14 @@ class MemberController extends Controller
       $member->receipts = $member->receipts->sortByDesc('fdate');
       $infaaq = Infaaq::infaaqByMember($member->regno);
 
+      $prev = Member::find($mid-1);
+      $next = Member::find($mid+1);
+
       return view('members.show', [
         'title' => 'Member', 
         'member' => $member,
+        'prev' => $prev,
+        'next' => $next,
         'infaaq' => $infaaq]);
     }
 

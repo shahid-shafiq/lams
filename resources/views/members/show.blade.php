@@ -7,20 +7,37 @@
 <div class="container">
 
 <div class="row">
-<div class="col">
-
-<div class="row">
-    <div class="col-xs-3 col-sm-3 col-md-3 margin-tb">
+    <div class="col-xs-7 col-sm-7 col-md-7 margin-tb">
         <div class="">
             <h2>Member</h2>
         </div>
     </div>
-    <div class="col-xs-3 col-sm-3 col-md-3 margin-tb">
-        <div class="">
+    <div class="col-xs-3 col-sm-3 col-md-3 margin-tb p-1">
+        <div class="d-inline">
+        @if ($prev)
+            <a class="btn btn-sm btn-info" href="{{ route('members.show', $prev->id) }}"> Prev</a>
+        @else
+            <a class="btn btn-sm btn-secondary disabled" href="#"> Prev</a>
+        @endif
+        </div>
+        <div class="d-inline">
+        @if ($next)
+            <a class="btn btn-sm btn-info" href="{{ route('members.show', $next->id) }}"> Next</a>
+        @else
+            <a class="btn btn-sm btn-secondary disabled" href="#"> Next</a>
+        @endif
+            
+        </div>
+        <div class="d-inline">
             <a class="btn btn-sm btn-primary" href="{{ route('members.index') }}"> Back</a>
         </div>
     </div>
 </div>
+
+<div class="row">
+<div class="col">
+
+
 
 <div class="row">
     <div class="col-xs-4 col-sm-4 col-md-4">
@@ -100,9 +117,9 @@
 
 </div>
 <?php 
-//dump($infaaq)
+//dump($infaaq['last'])
 ?>
-<div$infaaq class="col mt-5">
+<div class="col mt-5">
 <?php
 if (count(['infaaq'])) {
 foreach ($infaaq['infaaq'] as $item) {
@@ -140,7 +157,7 @@ foreach ($infaaq['infaaq'] as $item) {
 
 @if ($member->receipts->count())
 <div class="row">
-    <div class="col-xs-6 col-sm-6 col-md-6 margin-tb">
+    <div class="col-xs-7 col-sm-7 col-md-7 margin-tb">
         <div class="">
             <h2>Infaaq Info</h2>
         </div>
@@ -157,7 +174,7 @@ foreach ($infaaq['infaaq'] as $item) {
 
 <div class="row">
 
-<div class="col-xs-8 col-sm-8 col-md-8 margin-tb">
+<div class="col-xs-10 col-sm-10 col-md-10 margin-tb">
     <table class="table table-striped table-bordered table-hover table-sm">
         <thead>
             <tr style="background-color : rgba(0,0,0,0.15)">

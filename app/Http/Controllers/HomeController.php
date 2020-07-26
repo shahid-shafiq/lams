@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App;
 use App\Receipt;
 use App\Bill;
 use App\Site;

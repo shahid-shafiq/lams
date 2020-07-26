@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   
-  <title>AKQ - {{ $title ?? '' ?? '' ?? '' }}</title>
+  <title>AKQ - {{ $title ?? '' }}</title>
 
   <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
 
@@ -90,6 +90,7 @@
     <span class="text-white bold"><strong>{{ Auth::user()->username }}</strong></span>
     <span class="ml-2 text-white bold"><strong>{{ Auth::user()->site->title }}</strong></span>
     <span class="ml-2 mb-2 text-primary"><strong>{{ Auth::user()->profile->period->title }}</strong></span>
+    <span class="ml-2 mb-2 text-info"><strong>{{ App::getLocale() }}</strong></span>    
   </div>
   @endauth
 </div>

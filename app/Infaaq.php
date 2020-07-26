@@ -84,6 +84,7 @@ class Infaaq extends Receipt
       $data = array();
       $cy = 0;
       $ym = [0,0,0,0,0,0,0,0,0,0,0,0];
+      $nd = null;
 
       if (count($receipts)) {
         foreach ($receipts as $receipt) {
@@ -95,7 +96,7 @@ class Infaaq extends Receipt
             $cy = $dt->year;
           }
 
-          // iterate over date range (fdate-tdate)
+          // iterate over date range (fdate -- tdate)
           while ($dt <= $to) {
             $y = $dt->year;
             if ($y !== $cy) {
@@ -110,6 +111,7 @@ class Infaaq extends Receipt
               
             $dt->addMonth(1);
           }
+          $nd = $dt;
         }
 
         $rec['year'] = $cy;
@@ -119,6 +121,7 @@ class Infaaq extends Receipt
 
       //$data['member'] = $memberId;
       $inf["member"] = $regno;
+      $inf["last"] = $nd;
       $inf["infaaq"] = $data;
 
       return $inf;

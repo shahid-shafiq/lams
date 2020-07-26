@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App;
 use Auth;
 
 class AuthController extends Controller
@@ -35,6 +36,9 @@ class AuthController extends Controller
             session(['user.name' => $user->username]);
             session(['period.id' => $user->period_id]);
             session(['site.id' => $user->site_id]);
+
+            $locale = "ur_PK";
+            App::setLocale($locale);
 
             return redirect()->intended(route('home'));
         } else {

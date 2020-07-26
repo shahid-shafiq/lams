@@ -14,13 +14,13 @@ use Carbon\Carbon;
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
         @if ($mode == 'edit')
-        <h2>Edit Receipt</h2>
+        <h2>{{__('Edit Receipt')}}</h2>
         @else
             <h2>Add New Receipt</h2>
         @endif
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('receipts.index') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('receipts.index') }}"> {{__('Back')}}</a>
         </div>
     </div>
 </div>
@@ -48,23 +48,23 @@ use Carbon\Carbon;
      <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <strong>No:</strong>
+                <strong>{{__('No')}}:</strong>
                 @if ($mode == 'edit')
-                <input type="text" readonly name="no" value="{{$receipt->no}}" class="form-control" placeholder="Receipt no.">
+                <input type="text" readonly name="no" value="{{$receipt->no}}" class="form-control" placeholder="{{__('Receipt no.')}}">
                 @else
-                <input type="text" name="no" value="{{$receipt->no}}" class="form-control" placeholder="Receipt no.">
+                <input type="text" name="no" value="{{$receipt->no}}" class="form-control" placeholder="{{__('Receipt no.')}}">
                 @endif
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <strong>Date:</strong>
+                <strong>{{__('Date')}}:</strong>
                 <input type="date" name="rdate" value="{{$receipt->rdate}}" class="form-control" placeholder="receipt date">
             </div>
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4">
             <div class="form-group">
-                <strong>Department:</strong>
+                <strong>{{__('Department')}}:</strong>
                 <select name="department" value="{{$receipt->department_id}}" class="form-control" placeholder="Department">
                 @foreach ($departments as $item)
                     <option value="{{$item->id}}" 
@@ -78,8 +78,8 @@ use Carbon\Carbon;
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4">
             <div class="form-group">
-                <strong>Income:</strong>
-                <select name="income" id="income" value="{{$receipt->income_id}}" class="form-control" placeholder="Receipt no.">
+                <strong>{{__('Income')}}:</strong>
+                <select name="income" id="income" value="{{$receipt->income_id}}" class="form-control">
                 @foreach ($incomes as $item)
                     <option value="{{$item->id}}" 
                         @if ($item->id ===  $receipt->income_id)
@@ -92,7 +92,7 @@ use Carbon\Carbon;
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4">
             <div id="account" class="form-group" style="display:none">
-                <strong>Account:</strong>
+                <strong>{{__('Account')}}:</strong>
                 <select name="account" value="{{$receipt->account_id}}" class="form-control" placeholder="Account">
                 @foreach ($accounts as $item)
                     <option value="{{$item->id}}" 
@@ -105,7 +105,7 @@ use Carbon\Carbon;
             </div>
 
             <div id="course" class="form-group" style="display:none">
-                <strong>Course:</strong>
+                <strong>{{__('Course')}}:</strong>
                 <select name="course" value="{{$receipt->account_id}}" class="form-control" placeholder="Course">
                 @foreach ($courses as $item)
                     <option value="{{$item->id}}" 
@@ -119,25 +119,25 @@ use Carbon\Carbon;
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Title:</strong>
+                <strong>{{__('Title')}}:</strong>
                 <input type="text" id="title" value="{{$receipt->title}}" class="form-control" name="title" placeholder="Title">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Description:</strong>
+                <strong>{{__('Description')}}:</strong>
                 <input type="text" class="form-control" value="{{$receipt->description}}" name="description" placeholder="Description">
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <strong>Amount:</strong>
+                <strong>{{__('Amount')}}:</strong>
                 <input type="decimal" name="amount" value="{{$receipt->amount}}" class="form-control" placeholder="Amount">
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <strong>Payment:</strong>
+                <strong>{{__('Payment')}}:</strong>
                 <select name="payment" value="{{$receipt->payment_id}}" class="form-control" placeholder="Payment">
                 @foreach ($payments as $item)
                   <option value="{{$item->id}}" 
@@ -155,7 +155,7 @@ use Carbon\Carbon;
 
         <div class="col-xs-4 col-sm-4 col-md-4">
             <div class="form-group">
-                <strong>Member:</strong>
+                <strong>{{__('Member')}}:</strong>
                 <?php
                     $memval = "";
                     if ($receipt->member) {
@@ -173,7 +173,7 @@ use Carbon\Carbon;
 
         <div class="col-xs-4 col-sm-4 col-md-4" style="display:none">
             <div class="form-group">
-                <strong>Member:</strong>
+                <strong>{{__('Member')}}:</strong>
                 <select type="select" name="member" id="member" value="{{$receipt->m_id}}" class="form-control" placeholder="Member">
                 @foreach ($members as $item)
                   <option value="{{$item->regno}}"
@@ -198,14 +198,14 @@ use Carbon\Carbon;
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3">
             <div class="form-group">
-                <strong>From:</strong>
-                <input type="month" name="fdate" value="{{Carbon::createFromDate($receipt->fdate)->format('Y-m')}}" class="form-control" placeholder="Date">
+                <strong>{{__('Infaaq From')}}:</strong>
+                <input type="month" name="fdate" id="fdate" value="{{Carbon::createFromDate($receipt->fdate)->format('Y-m')}}" class="form-control" placeholder="Date">
             </div>
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3">
             <div class="form-group">
-                <strong>To:</strong>
-                <input type="month" name="tdate" value="{{Carbon::createFromDate($receipt->tdate)->format('Y-m')}}" class="form-control" placeholder="Date">
+                <strong>{{__('Infaaq To')}}:</strong>
+                <input type="month" name="tdate" id="tdate" value="{{Carbon::createFromDate($receipt->tdate)->format('Y-m')}}" class="form-control" placeholder="Date">
             </div>
         </div>
       </div>
@@ -223,7 +223,13 @@ use Carbon\Carbon;
  $(document).ready(function() {
 
 
+    function setFromDate(ndt) {
+        document.getElementById('fdate').value = ndt.substr(0, 7);
+        document.getElementById('tdate').value = ndt.substr(0, 7);
+    }
+
     function getInfaqDetails(mid) {
+        //console.log(`api/infaaq/${mid}`);
         /*
         $.ajaxSetup({
             headers: {
@@ -231,11 +237,16 @@ use Carbon\Carbon;
             }
         });
         */
+       let apiurl = "{{ url('api/infaaq') }}"+'/'+mid;
+       console.log(apiurl);
+
         $.ajax({
-            url: "{{ url('api/members/5/infaaq') }}",
+            url: apiurl,
             method : 'get',
             success : function(result) {
                 console.log(result);
+                console.log(result['last']);
+                setFromDate(result['last']);
             }
         });
     }
@@ -358,6 +369,7 @@ use Carbon\Carbon;
       $('#title').val(title);
 
       console.log('Title set to :: ' + title)
+      getInfaqDetails(mbo.value);
   });
 
  });
