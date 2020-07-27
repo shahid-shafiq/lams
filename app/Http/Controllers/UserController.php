@@ -129,7 +129,7 @@ class UserController extends Controller
         'receipts_pagesize' => $request->receipt_pagesize,
         'bills_pagesize' => $request->bill_pagesize,
         'vouchers_pagesize' => $request->voucher_pagesize,
-        'locale' => $request->receipt_pagesize,
+        'locale' => $request->locale,
       ]);
 
       $profile->save();

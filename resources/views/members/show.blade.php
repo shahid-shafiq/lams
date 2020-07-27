@@ -9,27 +9,27 @@
 <div class="row">
     <div class="col-xs-7 col-sm-7 col-md-7 margin-tb">
         <div class="">
-            <h2>Member</h2>
+            <h2>{{__('Member')}}</h2>
         </div>
     </div>
     <div class="col-xs-3 col-sm-3 col-md-3 margin-tb p-1">
         <div class="d-inline">
         @if ($prev)
-            <a class="btn btn-sm btn-info" href="{{ route('members.show', $prev->id) }}"> Prev</a>
+            <a class="btn btn-sm btn-info" href="{{ route('members.show', $prev->id) }}"> {{__('Prev')}}</a>
         @else
-            <a class="btn btn-sm btn-secondary disabled" href="#"> Prev</a>
+            <a class="btn btn-sm btn-secondary disabled" href="#"> {{__('Prev')}}</a>
         @endif
         </div>
         <div class="d-inline">
         @if ($next)
-            <a class="btn btn-sm btn-info" href="{{ route('members.show', $next->id) }}"> Next</a>
+            <a class="btn btn-sm btn-info" href="{{ route('members.show', $next->id) }}"> {{__('Next')}}</a>
         @else
-            <a class="btn btn-sm btn-secondary disabled" href="#"> Next</a>
+            <a class="btn btn-sm btn-secondary disabled" href="#"> {{__('Next')}}</a>
         @endif
             
         </div>
         <div class="d-inline">
-            <a class="btn btn-sm btn-primary" href="{{ route('members.index') }}"> Back</a>
+            <a class="btn btn-sm btn-primary" href="{{ route('members.index') }}"> {{__('Back')}}</a>
         </div>
     </div>
 </div>
@@ -42,13 +42,13 @@
 <div class="row">
     <div class="col-xs-4 col-sm-4 col-md-4">
         <div class="form-group">
-            <strong>Registration No:</strong>
+            <strong>{{__('Registration No')}}:</strong>
             {{ sprintf("AKQ/M/%03d", $member->regno) }}
         </div>
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4">
         <div class="form-group">
-            <strong>Infaaq:</strong>
+            <strong>{{__('Infaaq')}}:</strong>
             {{ $member->pledge }}
         </div>
     </div>
@@ -58,14 +58,14 @@
 <div class="row">
     <div class="col-xs-8 col-sm-8 col-md-8">
         <div class="form-group">
-            <strong>Registration Date:</strong>
+            <strong>{{__('Registration Date')}}:</strong>
             {{ $member->regdate }}
         </div>
     </div>
 
     <div class="col-xs-4 col-sm-4 col-md-4">
         <div class="form-group">
-            <strong>Application Date:</strong>
+            <strong>{{__('Application Date')}}:</strong>
             {{ $member->appdate }}
         </div>
     </div>
@@ -75,14 +75,14 @@
 <div class="row">
     <div class="col-xs-4 col-sm-4 col-md-4">
         <div class="form-group">
-            <strong>Name:</strong>
+            <strong>{{__('Name')}}:</strong>
             {{ $member->person->fullname }}
         </div>
     </div>
 
     <div class="col-xs-4 col-sm-4 col-md-4">
         <div class="form-group">
-            <strong>Mobile:</strong>
+            <strong>{{__('Mobile')}}:</strong>
             {{ $member->person->mobile }}
         </div>
     </div>
@@ -91,7 +91,7 @@
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>Address:</strong>
+            <strong>{{__('Address')}}:</strong>
             {{ $member->person->address }}
         </div>
     </div>
@@ -100,7 +100,7 @@
 <div class="row">
     <div class="col-xs-4 col-sm-4 col-md-4">
         <div class="form-group">
-            <strong>City:</strong>
+            <strong>{{__('City')}}:</strong>
             {{ $member->person->city }}
         </div>
     </div>
@@ -109,7 +109,7 @@
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>Email:</strong>
+            <strong>{{__('Email')}}:</strong>
             {{ $member->person->email }}
         </div>
     </div>
@@ -159,13 +159,13 @@ foreach ($infaaq['infaaq'] as $item) {
 <div class="row">
     <div class="col-xs-7 col-sm-7 col-md-7 margin-tb">
         <div class="">
-            <h2>Infaaq Info</h2>
+            <h2>{{__('Infaaq Info')}}</h2>
         </div>
     </div>
 
     <div class="col-xs-3 col-sm-3 col-md-3 margin-tb">
         <div class="">
-            <a class="btn btn-sm btn-primary" href="{{ route('receipts.create') }}">New Infaaq</a>
+            <a class="btn btn-sm btn-primary" href="{{ route('receipts.create') }}">{{__('New Infaaq')}}</a>
         </div>
     </div>
 </div>
@@ -181,8 +181,8 @@ foreach ($infaaq['infaaq'] as $item) {
                 <th scope="row" width="15%"><?= __('Date') ?></th>
                 <th scope="row" width="12%"><?= __('Receipt No.') ?></th>
                 <th scope="row" width="*"><?= __('Description') ?></th>
-                <th scope="row" width="15%"><?= __('From') ?></th>
-                <th scope="row" width="15%"><?= __('To') ?></th>
+                <th scope="row" width="15%"><?= __('Infaaq From') ?></th>
+                <th scope="row" width="15%"><?= __('Infaaq To') ?></th>
                 <th scope="row" width="10%"><?= __('Amount') ?></th>
             </tr>
         </thead>

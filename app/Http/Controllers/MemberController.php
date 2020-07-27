@@ -7,12 +7,14 @@ use App\Member;
 use App\Receipt;
 use App\Person;
 use App\Infaaq;
+use App;
 
 class MemberController extends Controller
 {
   public function __construct() {
     parent::__construct();
     $this->middleware('auth');
+    App::setLocale("ur_PK");
   }
     
     public function index() {

@@ -10,11 +10,11 @@
 <table id="myTable" class="table table-striped table-bordered table-hover table-sm">
   <thead class="thead-dark">
   <tr>
-    <th>No</th>
-    <th>Date</th>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Amount</th>
+    <th>{{__('No')}}</th>
+    <th>{{__('Date')}}</th>
+    <th>{{__('Title')}}</th>
+    <th>{{__('Description')}}</th>
+    <th>{{__('Amount')}}</th>
   </tr>
   </thead>
   <tbody style="font-size:0.9rem">

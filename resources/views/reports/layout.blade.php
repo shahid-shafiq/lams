@@ -55,7 +55,7 @@
   <div class="row">
     <div class="col">
       <div class="d-inline h2">
-      Reports >> 
+      {{__('Reports')}} >> 
       </div>
       <div class="d-inline w-20 h4">
       <select class="text-secondary"
@@ -84,23 +84,23 @@
     <ul class="nav nav-tabs">
         <li class="nav-item">
             <a href="{{route('reports')}}" 
-            class="nav-link text-secondary {{Route::current()->getName() == 'reports' ? 'active' : ''}}">Net Profit</a>
+            class="nav-link text-secondary {{Route::current()->getName() == 'reports' ? 'active' : ''}}">{{__('Net Profit')}}</a>
         </li>
         <li class="nav-item">
             <a href="{{route('reports.income')}}" 
-            class="nav-link text-secondary {{Route::current()->getName() == 'reports.income' ? 'active' : ''}}">Income</a>
+            class="nav-link text-secondary {{Route::current()->getName() == 'reports.income' ? 'active' : ''}}">{{__('Income')}}</a>
         </li>
         <li class="nav-item">
             <a href="{{route('reports.expense')}}" 
-            class="nav-link text-secondary {{Route::current()->getName() == 'reports.expense' ? 'active' : ''}}">Expense</a>
+            class="nav-link text-secondary {{Route::current()->getName() == 'reports.expense' ? 'active' : ''}}">{{__('Expenses')}}</a>
         </li>
         <li class="nav-item">
             <a href="{{route('reports.vouchers')}}" 
-            class="nav-link text-secondary {{Route::current()->getName() == 'reports.vouchers' ? 'active' : ''}}">Vouchers</a>
+            class="nav-link text-secondary {{Route::current()->getName() == 'reports.vouchers' ? 'active' : ''}}">{{__('Vouchers')}}</a>
         </li>
         <li class="nav-item">
             <a href="{{route('reports.infaaq')}}" 
-            class="nav-link text-secondary {{Route::current()->getName() == 'reports.infaaq' ? 'active' : ''}}">Infaaq</a>
+            class="nav-link text-secondary {{Route::current()->getName() == 'reports.infaaq' ? 'active' : ''}}">{{__('Infaaq')}}</a>
         </li>
         <li class="float-right">
         @yield('pdflink')

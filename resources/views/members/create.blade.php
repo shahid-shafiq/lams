@@ -14,7 +14,7 @@
         </h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('members.index') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('members.index') }}"> {{__('Back')}}</a>
         </div>
     </div>
 </div>
@@ -42,26 +42,26 @@
     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <strong>Registration No:</strong>
+                <strong>{{__('Registration No')}}:</strong>
                 <input type="text" readonly name="regno" value="{{$member->regno}}" class="form-control" readonly>
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <strong>Pledge:</strong>
+                <strong>{{__('Pledge')}}:</strong>
                 <input type="decimal" name="pledge" value="{{$member->pledge}}" class="form-control" placeholder="Infaaq">
             </div>
         </div>
 
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <strong>Registration Date:</strong>
+                <strong>{{__('Registration Date')}}:</strong>
                 <input type="date" readonly name="regdate" value="{{$member->regdate}}" class="form-control">
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <strong>Application Date:</strong>
+                <strong>{{__('Application Date')}}:</strong>
                 <input type="date" name="appdate" value="{{$member->appdate}}" class="form-control">
             </div>
         </div>
@@ -70,7 +70,7 @@
     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <strong>Member:</strong>
+                <strong>{{__('Member')}}:</strong>
                 <input type="text" name="persons" list="peopleList" id="persons" class="form-control" placeholder="Person">
                 <datalist id="peopleList">
                 @foreach ($people as $item)
@@ -92,7 +92,7 @@
 
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            <button type="submit" class="btn btn-primary">{{ $mode == 'edit' ? 'Update' : 'Submit' }}</button>
+            <button type="submit" class="btn btn-primary">{{ $mode == 'edit' ? __('Update') : __('Submit') }}</button>
         </div>
     </div>
 </form>

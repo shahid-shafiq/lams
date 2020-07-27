@@ -6,7 +6,7 @@
   <div class="table-wrapper">
     <div class="table-title">
       <div class="row">
-        <div class="col-sm-6"><h2>Bills</h2></div>
+        <div class="col-sm-6"><h2>{{__('Bills')}}</h2></div>
         
         <div class="col-sm-4">
           <div class="search-box">
@@ -15,7 +15,7 @@
           </div>
         </div>
         <div class="pull-right">
-            <a class="btn btn-success" href="{{ route('bills.create') }}">New Bill</a>
+            <a class="btn btn-success" href="{{ route('bills.create') }}">{{__('New Bill')}}</a>
         </div>
       </div>
     </div>
@@ -29,12 +29,12 @@
 
 <table id="myTable" class="table table-striped table-bordered table-hover table-sm">
   <tr>
-    <td>No</td>
-    <td>Date</td>
-    <td>Title</td>
-    <td>Description</td>
-    <td>Amount</td>
-    <th>Actions</th>
+    <td>{{__('No')}}</td>
+    <td>{{__('Date')}}</td>
+    <td>{{__('Title')}}</td>
+    <td>{{__('Description')}}</td>
+    <td>{{__('Amount')}}</td>
+    <th>{{__('Actions')}}</th>
   </tr>
   @foreach ($bills as $bill)
   <tr>

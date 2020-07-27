@@ -10,12 +10,14 @@ use App\Account;
 use App\Member;
 use App\Course;
 use App\Payment;
+use App;
 
 class BillController extends Controller
 {
   public function __construct() {
     parent::__construct();
     $this->middleware('auth');
+    //App::setLocale("ur_PK");
   }
   
   public function index() { 

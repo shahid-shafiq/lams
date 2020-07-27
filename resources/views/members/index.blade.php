@@ -6,15 +6,15 @@
   <div class="table-wrapper">
     <div class="table-title">
       <div class="row">
-        <div class="col-sm-6"><h2>Members</h2></div>
+        <div class="col-sm-6"><h2>{{__('Members')}}</h2></div>
         <div class="col-sm-4">
           <div class="search-box">
             <i class="material-icons">&#xE8B6;</i>
-            <input id="myInput" class="form-control" type="text" placeholder="Search&hellip;">
+            <input id="myInput" class="form-control" type="text" placeholder="{{__('Search')}}&hellip;">
           </div>
         </div>
         <div class="pull-right">
-            <a class="btn btn-success" href="{{ route('members.create') }}">New Member</a>
+            <a class="btn btn-success" href="{{ route('members.create') }}">{{__('New Member')}}</a>
         </div>
       </div>
     </div>
@@ -29,10 +29,10 @@
 <table id="myTable" class="table table-striped table-bordered table-hover table-sm">
   <thead>
     <tr>
-      <th>Regno</th>
-      <th>Name <i class="fa fa-sort"></i></th>
-      <th>Pledge</th>
-      <th>Actions</th>
+      <th>{{__('Regno')}}</th>
+      <th>{{__('Name')}} <i class="fa fa-sort"></i></th>
+      <th>{{__('Pledge')}}</th>
+      <th>{{__('Actions')}}</th>
     </tr>
   </thead>
   <tbody>

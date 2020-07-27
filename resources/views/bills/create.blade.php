@@ -5,13 +5,13 @@
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
         @if ($mode == 'edit')
-        <h2>Edit Bill</h2>
+        <h2>{{__('Edit Bill')}}</h2>
         @else
-            <h2>Add New Bill</h2>
+            <h2>{{__('Add New Bill')}}</h2>
         @endif
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('bills.index') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('bills.index') }}"> {{__('Back')}}</a>
         </div>
     </div>
 </div>
@@ -38,23 +38,23 @@
      <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <strong>No:</strong>
+                <strong>{{__('No')}}:</strong>
                 @if ($mode == 'edit')
-                <input type="text" readonly name="no" value="{{$bill->no}}" class="form-control" placeholder="Receipt no.">
+                <input type="text" readonly name="no" value="{{$bill->no}}" class="form-control" placeholder="{{__('Bill No.')}}">
                 @else
-                <input type="text" name="no" value="{{$bill->no}}" class="form-control" placeholder="Receipt no.">
+                <input type="text" name="no" value="{{$bill->no}}" class="form-control" placeholder="{{__('Bill No.')}}">
                 @endif
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <strong>Date:</strong>
+                <strong>{{__('Date')}}:</strong>
                 <input type="date" name="bdate" value="{{$bill->bdate}}" class="form-control">
             </div>
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4">
             <div class="form-group">
-                <strong>Department:</strong>
+                <strong>{{__('Department')}}:</strong>
                 <select name="department" class="form-control" placeholder="Department">
                 @foreach ($departments as $item)
                     <option value="{{$item->id}}" 
@@ -68,7 +68,7 @@
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4">
             <div class="form-group">
-                <strong>Income:</strong>
+                <strong>{{__('Income')}}:</strong>
                 <select name="expense" id="expense" class="form-control" placeholder="Receipt no.">
                 @foreach ($expenses as $item)
                     <option value="{{$item->id}}" 
@@ -82,7 +82,7 @@
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4">
             <div id="account" class="form-group">
-                <strong>Account:</strong>
+                <strong>{{__('Account')}}:</strong>
                 <select name="account" class="form-control" placeholder="Account">
                 @foreach ($accounts as $item)
                   <option value="{{$item->id}}" 
@@ -96,25 +96,25 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Title:</strong>
+                <strong>{{__('Title')}}:</strong>
                 <input type="text" id="title" class="form-control" name="title" value="{{$bill->title}}" placeholder="Title">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Description:</strong>
+                <strong>{{__('Description')}}:</strong>
                 <input type="text" class="form-control" name="description" value="{{$bill->description}}" placeholder="Description">
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <strong>Amount:</strong>
+                <strong>{{__('Amount')}}:</strong>
                 <input type="decimal" name="amount" value="{{$bill->amount}}" class="form-control" placeholder="Amount">
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <strong>Payment:</strong>
+                <strong>{{__('Payment')}}:</strong>
                 <select name="payment" class="form-control" placeholder="Payment">
                 @foreach ($payments as $item)
                     <option value="{{$item->id}}" 

@@ -17,6 +17,7 @@ class ReportController extends Controller
     public function __construct() {
         parent::__construct();
         $this->middleware('auth');
+        app()->setLocale("ur_PK");
     }
 
     private function selectPeriod(Request $request) {

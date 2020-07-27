@@ -34,11 +34,12 @@ class AuthController extends Controller
             }
 
             session(['user.name' => $user->username]);
+            session(['user.locale' => $user->profile->locale]);
             session(['period.id' => $user->period_id]);
             session(['site.id' => $user->site_id]);
 
-            $locale = "ur_PK";
-            App::setLocale($locale);
+            //$locale = $user->profile->locale; //"ur_PK";
+            //App::setLocale($locale);
 
             return redirect()->intended(route('home'));
         } else {
