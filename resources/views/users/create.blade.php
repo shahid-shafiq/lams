@@ -5,13 +5,13 @@
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
           @if ($mode == 'edit')
-          <h2>Edit User</h2>
+          <h2>{{__('Edit User')}}</h2>
           @else
-              <h2>Create New User</h2>
+          <h2>{{__('Create New User')}}</h2>
           @endif
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('users.index') }}"> {{__('Back')}}</a>
         </div>
     </div>
 </div>
@@ -43,7 +43,7 @@
 <div class="row">
   <div class="col-xs-8 col-sm-8 col-md-8 p-3">
     <div class="form-group">
-      <strong>Username:</strong>
+      <strong>{{__('Username')}}:</strong>
       <input type="text" name="username" class="form-control" placeholder="Username" value="{{$user->username}}"
       @if ($mode == 'edit')
         readonly 
@@ -51,26 +51,26 @@
       >
     </div>
     <div class="form-group">
-      <strong>Password:</strong>
+      <strong>{{__('Password')}}:</strong>
       <input type="password" name="password" class="form-control" value="{{ $user->password }}" placeholder="Password">
     </div>
     <div class="form-group">
-      <strong>Language:</strong>
+      <strong>{{__('Language')}}:</strong>
       <input type="text" name="locale" class="form-control" value ="{{$user->locale}}" placeholder="Language">
     </div>
     <div class="form-group">
-      <strong>USer Status:</strong>
+      <strong>{{__('User Status')}}:</strong>
       <div class="form-check form-check-inline ml-5">
         <input class="form-check-input" type="radio" name="active" id="radio1" value="1" {{ $user->active ? 'checked' : ''}}>
-        <label class="form-check-label" for="radio1">Active</label>
+        <label class="form-check-label" for="radio1">{{__('Active')}}</label>
       </div>
     <div class="form-check form-check-inline">
       <input class="form-check-input" type="radio" name="active" id="radio2" value="0" {{ !$user->active ? 'checked' : ''}}>
-      <label class="form-check-label" for="radio2">Inactive</label>
+      <label class="form-check-label" for="radio2">{{__('Inactive')}}</label>
     </div>
     </div>
     <div class="form-group">
-        <strong>Site:</strong>
+        <strong>{{__('Site')}}:</strong>
         <select type="select" name="site" class="form-control">
         @foreach ($sites as $item)
           <option value="{{$item->id}}"
@@ -80,7 +80,7 @@
         </select>
     </div>
     <div class="form-group">
-        <strong>Period:</strong>
+        <strong>{{__('Period')}}:</strong>
         <select type="select" name="period" class="form-control">
         @foreach ($periods as $item)
           <option value="{{$item->id}}"
@@ -94,7 +94,7 @@
 
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-    <button type="submit" class="btn btn-primary">{{ $mode == 'edit' ? 'Update' : 'Submit' }}</button>
+    <button type="submit" class="btn btn-primary">{{ $mode == 'edit' ? __('Update') : __('Submit') }}</button>
   </div>
 </div>
         

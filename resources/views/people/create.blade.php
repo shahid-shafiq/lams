@@ -1,20 +1,21 @@
 @extends('layout')
   
 @section('content')
+<div class="container">
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
         <h2>
         @if ($mode == 'edit')
-            Edit
+            {{__('Edit')}}
         @else
-            Add New
+            {{__('Add New')}}
         @endif
-            Person
+            {{__('Person')}}
         </h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('persons.index') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('persons.index') }}"> {{__('Back')}}</a>
         </div>
     </div>
 </div>
@@ -42,57 +43,57 @@
     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <strong>Name:</strong>
+                <strong>{{__('Name')}}:</strong>
                 <input type="text" name="fullname" value="{{$person->fullname}}" class="form-control" placeholder="Name">
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <strong>Father's Name:</strong>
+                <strong>{{__("Father's Name")}}:</strong>
                 <input type="text" name="fathername" value="{{$person->fathername}}" class="form-control" placeholder="Father's name">
             </div>
         </div>
 
         <div class="col-xs-10 col-sm-10 col-md-10">
             <div class="form-group">
-                <strong>Address:</strong>
+                <strong>{{__('Address')}}:</strong>
                 <input type="text" name="address" value="{{$person->address}}" class="form-control" placeholder="Address">
             </div>
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2">
             <div class="form-group">
-                <strong>City:</strong>
+                <strong>{{__('City')}}:</strong>
                 <input type="text" name="city" value="{{$person->city}}" class="form-control" placeholder="City">
             </div>
         </div>
 
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <strong>Mobile:</strong>
+                <strong>{{__('Mobile')}}:</strong>
                 <input type="text" name="mobile" value="{{$person->mobile}}" class="form-control" placeholder="Mobile">
             </div>
         </div>
 
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <strong>Email:</strong>
+                <strong>{{__('Email')}}:</strong>
                 <input type="email" name="email" value="{{$person->email}}" class="form-control" placeholder="Email">
             </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Alternate address:</strong>
+                <strong>{{__('Alternate address')}}:</strong>
                 <input type="text" name="altaddress" value="{{$person->altaddress}}" class="form-control" placeholder="Address">
             </div>
         </div>
 
         <div class="col-xs-2 col-sm-2 col-md-2">
             <div class="form-group">
-                <strong>Gender:</strong>
+                <strong>{{__('Gender')}}:</strong>
                 <select name="gender" value="{{$person->gender}}" class="form-control" placeholder="City">
-                    <option value='1' {{$person->gender == 1 ? 'selected' : ''}}>Male</option>
-                    <option value='2' {{$person->gender == 2 ? 'selected' : ''}}>Female</option>
+                    <option value='1' {{$person->gender == 1 ? 'selected' : ''}}>{{__('Male')}}</option>
+                    <option value='2' {{$person->gender == 2 ? 'selected' : ''}}>{{__('Female')}}</option>
                 </select>
             </div>
         </div>
@@ -105,4 +106,5 @@
     </div>
 </form>
 
+</div>
 @endsection

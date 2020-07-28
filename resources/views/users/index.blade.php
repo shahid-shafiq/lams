@@ -6,15 +6,15 @@
   <div class="table-wrapper">
     <div class="table-title">
       <div class="row">
-        <div class="col-sm-6"><h2>Users</h2></div>
+        <div class="col-sm-6"><h2>{{__('Users')}}</h2></div>
         <div class="col-sm-4">
           <div class="search-box">
             <i class="material-icons">&#xE8B6;</i>
-            <input id="myInput" class="form-control" type="text" placeholder="Search&hellip;">
+            <input id="myInput" class="form-control" type="text" placeholder="{{__('Search')}}&hellip;">
           </div>
         </div>
         <div class="pull-right">
-            <a class="btn btn-success" href="{{ route('users.create') }}">New User</a>
+            <a class="btn btn-success" href="{{ route('users.create') }}">{{__('New User')}}</a>
           </div>
       </div>
     </div>
@@ -29,12 +29,12 @@
 <table id="myTable" class="table table-striped table-bordered table-hover table-sm">
   <thead>
     <tr>
-      <th>Username <i class="fa fa-sort"></i></th>
-      <th>Role</th>
-      <th>Status</th>
-      <th>Period</th>
-      <th>Site</th>
-      <th>Actions</th>
+      <th>{{__('Username')}} <i class="fa fa-sort"></i></th>
+      <th>{{__('Role')}}</th>
+      <th>{{__('Status')}}</th>
+      <th>{{__('Period')}}</th>
+      <th>{{__('Site')}}</th>
+      <th>{{__('Actions')}}</th>
     </tr>
   </thead>
   <tbody>

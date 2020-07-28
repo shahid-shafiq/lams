@@ -267,6 +267,12 @@
   "Special Duty Allowance" : "خصوصی ڈیوٹی الاؤنس",
   "Filter" : "مقطار",
   "All" : "تمام",
+
+  "Receipt-Rows per Page" : "آمدن سطریں فی صفحہ",
+  "Bill-Rows per Page" : "اخراجات سطریں فی صفحہ",
+  "Bill-Rows per Voucher" : "واؤچر پر اخراجات سطریں",
+  "Site" : "مقام",
+  "Language" : "زبان",
   
   "END OF FILE" : "اختتام"
 }

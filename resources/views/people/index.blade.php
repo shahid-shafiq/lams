@@ -6,15 +6,15 @@
   <div class="table-wrapper">
     <div class="table-title">
       <div class="row">
-        <div class="col-sm-6"><h2>People</h2></div>
+        <div class="col-sm-6"><h2>{{__('People')}}</h2></div>
         <div class="col-sm-4">
           <div class="search-box">
             <i class="material-icons">&#xE8B6;</i>
-            <input id="myInput" class="form-control" type="text" placeholder="Search&hellip;">
+            <input id="myInput" class="form-control" type="text" placeholder="{{__('Search')}}&hellip;">
           </div>
         </div>
         <div class="pull-right">
-            <a class="btn btn-success" href="{{ route('persons.create') }}">New Person</a>
+            <a class="btn btn-success" href="{{ route('persons.create') }}">{{__('New Person')}}</a>
         </div>
       </div>
     </div>
@@ -30,11 +30,11 @@
   <thead>
     <tr>
       <th>ID</th>
-      <th>Name <i class="fa fa-sort"></i></th>
-      <th>Mobile</th>
-      <th>Address</th>
-      <th>City</th>
-      <th>Actions</th>
+      <th>{{__('Name')}} <i class="fa fa-sort"></i></th>
+      <th>{{__('Mobile')}}</th>
+      <th>{{__('Address')}}</th>
+      <th>{{__('City')}}</th>
+      <th>{{__('Actions')}}</th>
     </tr>
   </thead>
   <tbody>

@@ -1,6 +1,7 @@
 @extends('layout')
   
 @section('content')
+<div class="container">
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
@@ -14,7 +15,7 @@
         </h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('periods.index') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('periods.index') }}"> {{__('Back')}}</a>
         </div>
     </div>
 </div>
@@ -42,20 +43,20 @@
     <div class="row">
         <div class="col-xs-8 col-sm-8 col-md-8">
             <div class="form-group">
-                <strong>Title:</strong>
+                <strong>{{__('Title')}}:</strong>
                 <input type="text" name="title" value="{{$period->title}}" class="form-control" placeholder="Title">
             </div>
         </div>
         <div class="col-xs-8 col-sm-8 col-md-8">
             <div class="form-group">
-                <strong>Period Start Date:</strong>
+                <strong>{{__('Period Start Date')}}:</strong>
                 <input type="date" name="start" value="{{$period->start}}" class="form-control" placeholder="Start">
             </div>
         </div>
 
         <div class="col-xs-8 col-sm-8 col-md-8">
             <div class="form-group">
-                <strong>Period End Date:</strong>
+                <strong>{{__('Period End Date')}}:</strong>
                 <input type="date" name="end" value="{{$period->end}}" class="form-control">
             </div>
         </div>
@@ -64,11 +65,13 @@
     <div class="row">
         <div class="col-xs-8 col-sm-8 col-md-8 text-center">
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">{{ $mode == 'edit' ? 'Update' : 'Submit' }}</button>
+                <button type="submit" class="btn btn-primary">{{ $mode == 'edit' ? __('Update') : __('Submit') }}</button>
             </div>
         </div>
     </div>
 </form>
+
+</div>
 
 <script>
  $(document).ready(function() {

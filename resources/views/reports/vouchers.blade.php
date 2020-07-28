@@ -13,7 +13,7 @@
     <th>{{__('Date')}}</th>
     <th>{{__('Title')}}</th>
     <th>{{__('Description')}}</th>
-    <th>{{__('Amount')}}</th>
+    <th>{{__('checkdate')}}</th>
   </tr>
   </thead>
   <tbody style="font-size:0.9rem">

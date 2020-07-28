@@ -7,6 +7,12 @@ use App\Person;
 
 class PersonController extends Controller
 {
+  public function __construct() {
+    parent::__construct();
+    //$this->middleware('auth');
+    app()->setLocale('ur_PK');
+  }
+
   public function index() {
     return view('people.index', ['title' => 'Persons', 'people' => Person::all()]);
   }
