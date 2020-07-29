@@ -54,4 +54,10 @@ class Controller extends BaseController
     public function setPeriod($id) {
       session(['period.id' => $id]);
     }
+
+    public function setLocale($locale) {
+      session(['user.locale' => $locale]);
+    }
+
+    
 }

@@ -25,42 +25,53 @@
   <script src="{{ asset('/js/main.js') }}"></script>
 </head>
 <body>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-3">
-  <a class="navbar-brand mr-3" href="#">
-    <img style="width:28px;" src="{{asset('images/logo.png')}}" />
-    <span class="text-light">AKQ</span>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <img style="width:18px; margin-right:0.5rem" src="{{ asset('images/logo.png') }}">
+  <a class="navbar-brand" href="#">AKQ
+  <span class='d-inline d-lg-none text-light'>{{ '- '. ($title ?? '') }}</span>
   </a>
-  @auth
-  <a class="navbar-brand mr-3" href="{{ route('profile') }}">
-  <i class="material-icons">account_circle</i>
-  </a>
-  @endauth
+ 
   <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="main-navigation">
-    <ul class="navbar-nav">
+    <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('home') }}">Home</a>
+        <a class="nav-link" href="{{ route('home') }}">{{__('Home')}}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('users.index') }}">Users</a>
+        <a class="nav-link" href="{{ route('users.index') }}">{{__('Users')}}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('persons.index') }}">People</a>
+        <a class="nav-link" href="{{ route('persons.index') }}">{{__('People')}}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('periods.index') }}">Periods</a>
+        <a class="nav-link" href="{{ route('periods.index') }}">{{__('Periods')}}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('balances.index') }}">Balances</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('logout') }}"><i class="material-icons">power_settings_new</i></a>
+        <a class="nav-link" href="{{ route('balances.index') }}">{{__('Balances')}}</a>
       </li>
     </ul>
+    @auth
+    <div class="ml-2">
+      <a class="text-white" href="{{ route('profile') }}" title="{{__('Profile')}}" data_toggle="tooltip"><i class="material-icons">account_circle</i></a>
+    </div>
+    <div class="ml-2">
+      <a class="text-white" href="{{ route('logout') }}" title="{{__('Logout')}}" data_toggle="tooltip"><i class="material-icons">power_settings_new</i></a>
+    </div>
+    @endauth
   </div>
 </nav>
+<div class="container-flex bg-secondary">
+@auth
+  <div class="ml-3 d-inline">
+    <span class="text-white bold"><strong>{{ Auth::user()->username }}</strong></span>
+    <span class="ml-2 text-white bold"><strong>{{ Auth::user()->site->title }}</strong></span>
+    <span class="ml-2 mb-2 text-primary"><strong>{{ Auth::user()->profile->period->title }}</strong></span>
+    <span class="ml-2 mb-2 text-info"><strong>{{ App::getLocale() }}</strong></span>    
+  </div>
+  @endauth
+</div>
 
 @section('sidebar')
 

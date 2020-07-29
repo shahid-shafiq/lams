@@ -35,33 +35,32 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('home') }}">Home</a>
+        <a class="nav-link" href="{{ route('home') }}">{{__('Home')}}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('receipts.index') }}">Receipts</a>
+        <a class="nav-link" href="{{ route('receipts.index') }}">{{__('Receipts')}}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('bills.index') }}">Bills</a>
+        <a class="nav-link" href="{{ route('bills.index') }}">{{__('Bills')}}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('members.index') }}">Members</a>
+        <a class="nav-link" href="{{ route('members.index') }}">{{__('Members')}}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('reports') }}">Reports</a>
+        <a class="nav-link" href="{{ route('reports') }}">{{__('Reports')}}</a>
       </li>
 
     @auth
     <?php
     $isadmin = Auth::user()->role == 'admin';
     ?>
-    {{$isadmin}}
     @if ($isadmin)
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin') }}">Admin</a>
+        <a class="nav-link" href="{{ route('admin') }}">{{__('Admin')}}</a>
       </li>
     @endif
     @endauth
-     
+    <!-- 
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Dropdown
@@ -73,13 +72,14 @@
           <a class="dropdown-item" href="#">Something else here</a>
         </div>
       </li>
+    -->
     </ul>
     @auth
     <div class="ml-2">
-      <a class="text-white" href="{{ route('profile') }}"><i class="material-icons">account_circle</i></a>
+      <a class="text-white" href="{{ route('profile') }}" title="{{__('Profile')}}" data_toggle="tooltip"><i class="material-icons">account_circle</i></a>
     </div>
     <div class="ml-2">
-      <a class="text-white" href="{{ route('logout') }}"><i class="material-icons">power_settings_new</i></a>
+      <a class="text-white" href="{{ route('logout') }}" title="{{__('Logout')}}" data_toggle="tooltip"><i class="material-icons">power_settings_new</i></a>
     </div>
     @endauth
   </div>

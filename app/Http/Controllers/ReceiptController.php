@@ -10,7 +10,6 @@ use App\Account;
 use App\Member;
 use App\Course;
 use App\Payment;
-use App;
 
 use Carbon\Carbon;
 use App\Custom\Urdutils;
@@ -21,7 +20,6 @@ class ReceiptController extends Controller
   public function __construct() {
     parent::__construct();
     $this->middleware('auth');
-    App::setLocale("ur_PK");
   }
 
 

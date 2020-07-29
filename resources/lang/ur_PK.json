@@ -1,6 +1,4 @@
 {
-  "Username": "صارف",
-  "Password": "پاس ورڈ",
   "Hello" : "مرحبا",
 
 
@@ -85,7 +83,7 @@
   "List Employees" : "فہرست ملازمین",
   "List People" : "فہرست اشخاص",
   "New Person" : "نیا شخص",
-  "List Departments" : "فیرست شعبہ جات",
+  "List Departments" : "فہرست شعبہ جات",
   "New Department" : "نیا شعبہ",
   "List Posts" : "",
   "New Post" : "",
@@ -98,7 +96,6 @@
   "Basic Pay" : "بنیادی تنخواہ",
   "Delete Employee" : "",
   "Person" : "شخصیت",
-  "Department" : "شعبہ",
   "Post" : "عہدہ",
   "Payscale" : "تنخواہ کا پیمانہ",
   "Username" : "صارف",
@@ -177,6 +174,7 @@
   "Delete User" : "صارف حذف",
   "Password" : "پاس ورڈ",
   "Administration" : "نظم و نسق",
+  "Admin" : "منتظم",
   "Login" : "رسائی",
   "Name" : "نام",
   "Regno" : "رجسٹریشن",
@@ -273,6 +271,18 @@
   "Bill-Rows per Voucher" : "واؤچر پر اخراجات سطریں",
   "Site" : "مقام",
   "Language" : "زبان",
+
+  "Balances" : "کھاتاجات",
+  "Setup Balance" : "نیا کھاتہ",
+  "Opening" : "ابتدائی رقم",
   
+  "Duration" : "دورانیہ",
+  "Home" : "سرورق",
+
+  "User Profile" : "تخصیصات صارف",
+  "Profile" : "تخصیصات",
+
+  "Logout" : "خروج",
+
   "END OF FILE" : "اختتام"
 }

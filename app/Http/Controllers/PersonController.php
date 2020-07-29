@@ -10,7 +10,7 @@ class PersonController extends Controller
   public function __construct() {
     parent::__construct();
     //$this->middleware('auth');
-    app()->setLocale('ur_PK');
+    //app()->setLocale('ur_PK');
   }
 
   public function index() {

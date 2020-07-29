@@ -15,7 +15,6 @@ class UserController extends Controller
   public function __construct() {
     parent::__construct();
     $this->middleware('auth');
-    app()->setLocale('ur_PK');
   }
 
   public function index() {
@@ -119,9 +118,11 @@ class UserController extends Controller
     
     $site = $request->get('site');
     $period = $request->get('period');
+    $locale = $request->get('locale');
 
     $this->setPeriod($period);
     if ($site) $this->setSite($site);
+    if ($locale) $this->setLocale($locale);
 
     $profile = Auth::user()->profile;
     if ($profile) {
