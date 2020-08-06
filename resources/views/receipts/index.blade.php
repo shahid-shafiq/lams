@@ -63,7 +63,7 @@ print($cd->lastOfMonth()->toDateString());
     <div class="row col-4">
       <div class="search-box mt-1">
         <i class="material-icons">&#xE8B6;</i>
-        <input id="myInput" class="form-control" type="text" placeholder="Search&hellip;">
+        <input id="myInput" class="form-control" type="text" placeholder="{{__('Search')}}&hellip;">
       </div>
     </div>
     <div class="col-4 text-right">

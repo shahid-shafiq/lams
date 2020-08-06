@@ -51,6 +51,9 @@
       <li class="nav-item">
         <a class="nav-link" href="{{ route('balances.index') }}">{{__('Balances')}}</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('bank.index') }}">{{__('Bank')}}</a>
+      </li>
     </ul>
     @auth
     <div class="ml-2">

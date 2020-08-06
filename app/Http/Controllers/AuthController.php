@@ -31,7 +31,21 @@ class AuthController extends Controller
             if ($user->profile) {
                 $user->profile->period_id = $user->period_id;
                 $user->profile->save();
+            } else {
+                // create default profile
+                $user->profile()->create([
+                    'locale' => $user->locale,
+                    'period_id' => $user->period_id,
+                ]);
+
+                // update date
+                $user = App\User::find($user->id);
             }
+            
+            //print($u);
+            //print('<br>');
+            //print($u->profile);
+            //return;
 
             session(['user.name' => $user->username]);
             session(['user.locale' => $user->profile->locale]);

@@ -12,6 +12,7 @@
   
   <form action="{{ route('update.profile') }}" method="POST">
   {{ csrf_field() }}
+  <input type="hidden" name="back" value="{{$back}}"/>
 
   <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-6">

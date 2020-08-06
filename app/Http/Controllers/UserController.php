@@ -107,6 +107,7 @@ class UserController extends Controller
       'title' => 'Profile',
       'periods' => $periods,
       'sites' => $sites,
+      'back' => url()->previous(),
       'site' => Site::find($this->sid),
       'period' => Period::find($this->pid),
       'user' => Auth::user(),
@@ -137,6 +138,7 @@ class UserController extends Controller
       $profile->save();
     }
 
-    return redirect( route('home') );
+    return redirect( $request->back );
+    //return redirect( route('home') );
   }
 }

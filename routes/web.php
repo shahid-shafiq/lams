@@ -68,6 +68,9 @@ Route::get('reports/infaaq/{output?}', 'ReportController@infaaq')->name('reports
 Route::get('reports/dues/{output?}', 'ReportController@dues')->name('reports.dues');
 Route::get('reports/{output?}', 'ReportController@index')->name('reports');
 
+//bank transactions
+Route::resource('bank', 'TransController');
+
 //pdf reports
 //Route::get('reports/pdf', 'PDFController@profitpdf')->name('reports.pdf');
 //Route::get('reports/income/pdf', 'PDFController@incomepdf')->name('income.pdf');

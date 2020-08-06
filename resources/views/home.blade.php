@@ -81,7 +81,7 @@
                         $dlbl = $dptlist->firstWhere('id', $income->income_id)->title;
                     }
                     $inctitle = $inclist->firstWhere('id', $income->income_id)->title;
-                    $link = strcasecmp($inctitle, "fee") != 0 ? true : false;
+                    $link = strcasecmp($inctitle, "fee") == 0 ? true : false;
                 ?>
                     @if ($dlbl !== '')
                     <tr><td colspan="2" class="level2-label">{{ $dlbl }}</td></tr>
@@ -108,8 +108,9 @@
                     foreach ($expenses as $expense):
                         if ($d != $expense->department_id) {
                             $d = $expense->department_id;
+                            $dpl = $dptlist->firstWhere('id', $d);
                 ?>
-                <tr><td colspan="2" class="level2-label">{{ $dptlist->firstWhere('id', $d)->title }}</td></tr>
+                <tr><td colspan="2" class="level2-label">{{ $dpl ? $dpl->title : 'DeptX' }}</td></tr>
                 <tr>
                     <td colspan='2' class="level3-label" style='text-align: right'>
                 <?php
@@ -119,8 +120,10 @@
                     <td colspan='2' class="level3-label" style='text-align: right'>
                 <?php
                         }
+
+                    $expl = $explist->firstWhere('id', $expense->expense_id);
                 ?>
-                    {{ $explist->firstWhere('id', $expense->expense_id)->title }}
+                    {{ $expl ? $expl->title : __('Expense') }}
                     </td>
                     <td class="value">{{ number_format($expense->expense_sum) }}</td>
                 </tr>

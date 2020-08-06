@@ -8,13 +8,13 @@
       <div class="row">
         <div class="col-sm-6"><h2>{{__('Bills')}}</h2></div>
         
-        <div class="col-sm-4">
+        <div class="col-sm-4 mt-1">
           <div class="search-box">
             <i class="material-icons">&#xE8B6;</i>
-            <input id="myInput" class="form-control" type="text" placeholder="Search&hellip;">
+            <input id="myInput" class="form-control" type="text" placeholder="{{__('Search')}}&hellip;">
           </div>
         </div>
-        <div class="pull-right">
+        <div class="pull-right mt-1">
             <a class="btn btn-success" href="{{ route('bills.create') }}">{{__('New Bill')}}</a>
         </div>
       </div>
@@ -37,7 +37,7 @@
     <th>{{__('Actions')}}</th>
   </tr>
   @foreach ($bills as $bill)
-  <tr>
+  <tr class="data">
     <td>{{ $bill->no }}</td>
     <td>{{ $bill->bdate }}</td>
     <td>{{ $bill->title }}</td>
@@ -62,5 +62,21 @@
 </table>
 
 @endif
+
+<script>
+  $(document).ready(function() {
+    $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#myTable tr.data").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+
+    function refresh(obj) { self.location.search = '?filter='+ obj.value; }
+  });
+    
+  
+  console.log('Ok');
+</script>
 
 @endsection
