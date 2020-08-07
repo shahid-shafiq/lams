@@ -299,6 +299,35 @@ use Carbon\Carbon;
       }
   }
 
+  function updateInfaaqDates(fd, td) {
+    console.log(fd);
+    console.log(td);
+    fds = fd.getFullYear()+'-'+(fd.getMonth()+1).toString().padStart(2, '0');
+    tds = td.getFullYear()+'-'+(td.getMonth()+1).toString().padStart(2, '0');
+    document.getElementById('fdate').value = fds;
+    document.getElementById('tdate').value = tds;
+  }
+
+  $('#fdate').on('change', function(e) {
+    //console.log('from date changed');
+    let fd = new Date($('#fdate').val());
+    let td = new Date($('#tdate').val());
+    if (fd > td) {
+        td = fd;
+        updateInfaaqDates(fd, td);
+    }
+  });
+
+  $('#tdate').on('change', function(e) {
+    //console.log('to date changed');
+    let fd = new Date($('#fdate').val());
+    let td = new Date($('#tdate').val());
+    if (td < fd) {
+        fd = td;
+        updateInfaaqDates(fd, td);
+    }
+  });
+
   $("#income").on('change', function(e) {
       let idx = e.target.selectedIndex;
       let inc = this.options[idx].text;

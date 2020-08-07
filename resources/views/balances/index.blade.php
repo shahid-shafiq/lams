@@ -8,13 +8,13 @@
       <div class="row">
         <div class="col-sm-6"><h2>{{__('Balances')}}</h2></div>
         <div class="col-sm-4">
-          <div class="search-box">
+          <div class="search-box mt-2">
             <i class="material-icons">&#xE8B6;</i>
             <input id="myInput" class="form-control" type="text" placeholder="{{__('Search')}}&hellip;">
           </div>
         </div>
         @if (true | !$current)
-        <div class="pull-right">
+        <div class="pull-right mt-1">
             <a class="btn btn-success" href="{{ route('balances.create') }}">{{__('Setup Balance')}}</a>
         </div>
         @endif

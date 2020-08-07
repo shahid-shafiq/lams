@@ -26,56 +26,52 @@ print($cd->lastOfMonth()->toDateString());
 
 @endsection
 
-
-
 @section('content')
 
 <div class="container">
-  <div class="row p-1">
-    <div class="row col-4">
-      <div class="col d-none d-lg-inline"><h2>{{ __('Receipts') }}</h2></div>
-      <div class="col">
-      
+  <div class="row p-1 ml-0">
+    <div class="col">
+      <div class="row">
+        <div class="d-none d-lg-inline mr-2"><h2>{{ __('Receipts') }}</h2></div>
         <div class="dropdown ">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{ ($filter == 0) ? __('All') :
-             (($filter == 2) ? __('Infaaq') : __('Fee'))
-            }}
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="{{ route('receipts.index', 'filter=all') }}">{{__('All')}}
-            @if ($filter == 0)
-            <i class="material-icons">done</i>
-            @endif</a>
-            <a class="dropdown-item" href="{{ route('receipts.index', 'filter=infaaq') }}">{{__('Infaaq')}}
-            @if ($filter == 2)
-            <i class="material-icons">done</i>
-            @endif</a>
-            <a class="dropdown-item" href="{{ route('receipts.index', 'filter=fee') }}">{{__('Fee')}}
-            @if ($filter == 3)
-            <i class="material-icons">done</i>
-            @endif</a>
-            </a>
-          </div>
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{ ($filter == 0) ? __('All') :
+                (($filter == 2) ? __('Infaaq') : __('Fee'))
+                }}
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="{{ route('receipts.index', 'filter=all') }}">{{__('All')}}
+                @if ($filter == 0)
+                <i class="material-icons">done</i>
+                @endif</a>
+                <a class="dropdown-item" href="{{ route('receipts.index', 'filter=infaaq') }}">{{__('Infaaq')}}
+                @if ($filter == 2)
+                <i class="material-icons">done</i>
+                @endif</a>
+                <a class="dropdown-item" href="{{ route('receipts.index', 'filter=fee') }}">{{__('Fee')}}
+                @if ($filter == 3)
+                <i class="material-icons">done</i>
+                @endif</a>
+                </a>
+              </div>
+            </div>
         </div>
       </div>
-    </div>
-    <div class="row col-4">
+    <!--div class="col">qw</div-->
+    <div class="col">
       <div class="search-box mt-1">
         <i class="material-icons">&#xE8B6;</i>
         <input id="myInput" class="form-control" type="text" placeholder="{{__('Search')}}&hellip;">
       </div>
     </div>
-    <div class="col-4 text-right">
-      <div class="col">
-        <a class="btn btn-success" href="{{ route('receipts.create') }}">{{__('New Receipt')}}</a>
-      </div>
+    <div class="col text-right">
+      <a class="btn btn-success" href="{{ route('receipts.create') }}">{{__('New Receipt')}}</a>
     </div>
   </div>
 
 <!-- Table Row -->
 @if ($receipts->count() < 1)
-  <div class="row">
+  <div class="row p-1 ml-0">
 NO RECEIPTS
   </div>
 @else

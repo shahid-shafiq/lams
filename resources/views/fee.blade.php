@@ -16,6 +16,7 @@ th.total {
 }
 </style>
 
+<div class="container">
 <div class="row">
         <div class="col-xs-3 col-sm-3 col-md-3 margin-tb">
             <div class="">
@@ -77,6 +78,7 @@ th.total {
               <th><?= number_format($t+$ftot) ?></th></tr>
         </tbody>
     </table>
+</div>
 </div>
 
 @endsection
