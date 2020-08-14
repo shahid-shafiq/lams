@@ -8,6 +8,9 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  @if (app()->getLocale() == 'ur_PK')
+  <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/jameel-khushkhat-l" type="text/css"/>
+  @endif
   
   <title>AKQ - {{ $title ?? '' }}</title>
 
@@ -23,8 +26,14 @@
   <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
   <script src="{{ asset('/js/main.js') }}"></script>
+  <style>
+    body.ur_PK {
+      font-family: "JameelKhushkhatLRegular";
+      font-size: 1.2em;
+    }
+  </style>
 </head>
-<body>
+<body class="{!! app()->getLocale(); !!}">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <img style="width:18px; margin-right:0.5rem" src="{{ asset('images/logo.png') }}">
   <a class="navbar-brand" href="#">AKQ

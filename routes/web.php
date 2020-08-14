@@ -28,6 +28,10 @@ Route::get('/hello', function() {
 Route::get('/test',function() {
     return view('welcome');
 });
+Route::get('/vue',function() {
+    return view('vue');
+});
+
 Route::get('api/mlist','InfaaqController@mlist');
 Route::get('api/getmsg','InfaaqController@hi');
 Route::post('api/getmsg','InfaaqController@hello')->name('ajaxRequest.post');

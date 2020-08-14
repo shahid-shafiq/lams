@@ -122,13 +122,16 @@
 <div class="col mt-5">
 <?php
 if (count(['infaaq'])) {
+    $ms = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 foreach ($infaaq['infaaq'] as $item) {
 ?>
 <div style="font-size:9px; height:17px;">
     <div>
         {{ $item['year'] }}
         <?php
+        $mi = 0;
         foreach ($item['month'] as $m) {
+            
         ?>
         <div class="-month" style="
         border:1px solid;
@@ -141,8 +144,9 @@ foreach ($infaaq['infaaq'] as $item) {
         background-color:
         {{ $m === 0 ? 'red' : 'green' }}
         ;"
-        tooltop="{{ $m }}">&nbsp;</div>
+        tooltop="{{ $m }}" data-toggle="tooltip" title="{{ $ms[$mi] }}">&nbsp;</div>
         <?php
+            $mi += 1;
         }
         ?>
     </div>
