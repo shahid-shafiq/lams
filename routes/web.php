@@ -54,6 +54,7 @@ Route::post('login', 'AuthController@authenticate')->name('authenticate');
 Route::resource('receipts', 'ReceiptController');
 Route::resource('bills', 'BillController');
 Route::resource('members', 'MemberController');
+Route::post('members/{member}/remove', 'MemberController@remove')->name('members.remove');
 
 Route::resource('persons', 'PersonController');
 Route::resource('users', 'UserController');

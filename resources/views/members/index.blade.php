@@ -37,21 +37,25 @@
   </thead>
   <tbody>
   @foreach ($members as $member)
+  <?php
+  $delclass = $member->status === 'D' ? 'text-secondary' : '';
+  ?>
     <tr class="data">
-      <td>{{ $member->regno }}</td>
-      <td>{{ $member->person->fullname }}</td>
-      <td>{{ $member->pledge }}</td>
+      <td class="{{$delclass}}">{{ $member->regno }}</td>
+      <td class="{{$delclass}}">{{ $member->person->fullname }}</td>
+      <td class="{{$delclass}}">{{ $member->pledge }}</td>
       <td>
       <form action="{{ route('members.destroy', $member->id) }}" method="POST">
         {{ csrf_field() }}
         {{ method_field('DELETE') }}
 
-        <a href="{{ route('members.show', $member->id) }}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">pageview</i></a>
-        <a href="{{ route('members.edit', $member->id) }}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">edit</i></a>
-        <input class="material-icons delete btn-outline-danger" style="border:none" 
-          onclick="return confirm('Delete record?')" type="submit" value="delete"></input>
-
-        
+        <a href="{{ route('members.show', $member->id) }}" class="view {{$delclass}}" title="View" data-toggle="tooltip"><i class="material-icons">pageview</i></a>
+        <a href="{{ route('members.edit', $member->id) }}" class="edit {{$delclass}}" title="Edit" data-toggle="tooltip"><i class="material-icons">edit</i></a>
+        @if ($member->status !== 'D')
+        <input class="material-icons btn-outline-danger" style="border:none" 
+          onclick="return confirm('Delete record?')" type="submit" value="delete_outline" title="Delete" data-toggle="tooltip">
+        </input>
+        @endif        
       </form>
       </td>
   </tr>

@@ -42,14 +42,20 @@
     <tr class="data">
       <td>{{ $user->username }}</td>
       <td>{{ $user->role }}</td>
-      <td>{{ $user->status }}</td>
+      <td>
+        @if ($user->active)<i class="material-icons" style="color:green;">check</i>
+        @else<i class="material-icons" style="color:red;">lock_outline</i>
+        @endif
+      </td>
       <td>{{ $user->period->title }}</td>
       <td>{{ $user->site->title }}</td>
       <td>
         <form action="{{ route('users.destroy', $user->id) }}" method="POST">
         {{-- @csrf  
         @method('DELETE') ---}}
+        <!--
         <a href="{{ route('users.show',$user->id) }}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">pageview</i></a>
+        -->
         <a href="{{ route('users.edit',$user->id) }}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">edit</i></a>
         <a href="{{ route('users.destroy',$user->id) }}" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">delete</i></a>
 

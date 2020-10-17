@@ -1,6 +1,9 @@
 @extends('layout')
   
 @section('content')
+
+<div class="container">
+
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
@@ -133,6 +136,7 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
         </div>
     </div>  
-   
 </form>
+
+</div>
 @endsection

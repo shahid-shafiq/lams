@@ -16,8 +16,8 @@ class MemberController extends Controller
   }
     
     public function index() {
-      $members = Member::where('status', '<>', 'D')->
-        orWhereNull('status')->get();
+      //$members = Member::where('status', '<>', 'D')->orWhereNull('status')->get();
+      $members = Member::get();
       return view('members.index', ['title' => 'Members', 'members' => $members]);
     }
 
@@ -72,9 +72,22 @@ class MemberController extends Controller
     public function destroy($id)
     {
       $member = Member::findOrFail($id);
-      $member->delete();
+      // the record is only marked as deleted and is not destroyed from DB
+      //$member->delete();
+      $member->status = 'D';
+      $member->save();
+  
+      //return view('members.show', ['member' => $member]);
       return redirect()->route('members.index')
             ->with('success','Member deleted successfully');
+    }
+
+    public function remove($id)
+    {
+      $member = Member::findOrFail($id);
+      //$member->delete();
+      return redirect()->route('members.index')
+            ->with('success','Member removed successfully');
     }
 
     public function edit($id)

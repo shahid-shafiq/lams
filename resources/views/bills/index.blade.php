@@ -52,9 +52,9 @@
 
         <a href="{{ route('bills.show',$bill->id) }}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">pageview</i></a>
         <a href="{{ route('bills.edit',$bill->id) }}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">edit</i></a>
-        <input class="material-icons delete btn-outline-danger" style="border:none" 
-        onclick="return confirm('Delete record?')" type="submit" value="delete"></input>
-        
+        <input class="material-icons btn-outline-danger" style="border:none" 
+          onclick="return confirm('Delete record?')" type="submit" value="delete_outline" title="Delete" data-toggle="tooltip">
+        </input>        
       </form>
     </td>
   </tr>

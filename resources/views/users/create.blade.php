@@ -30,7 +30,7 @@
         </ul>
     </div>
 @endif
-{{ $user }}
+{{-- $user --}}
 
 @if ($mode == 'edit')
 <form action="{{ route('users.update', $user->id) }}" method="POST">
@@ -53,6 +53,24 @@
     <div class="form-group">
       <strong>{{__('Password')}}:</strong>
       <input type="password" name="password" class="form-control" value="{{ $user->password }}" placeholder="Password">
+    </div>
+    <div class="form-group">
+        <strong>{{__('Role')}}:</strong>
+        <select type="select" name="role" class="form-control">
+        <?php $roles = [
+            (object)['id'=>'user', 'title'=>'User'],
+            (object)['id'=>'admin', 'title'=>'Admin'],
+            (object)['id'=>'manager', 'title'=>'Manager'],
+            (object)['id'=>'operator', 'title'=>'Operator'] 
+            //['id':'manager', 'title':'Manager'}, 
+            //['id':'operator', 'title':'Operator'}
+            ]; ?>
+        @foreach ($roles as $item)
+          <option value="{{$item->id}}"
+          {{ $item->id == $user->role ? 'selected' : ''}}
+          >{{$item->title}}</option>
+        @endforeach
+        </select>
     </div>
     <div class="form-group">
       <strong>{{__('Language')}}:</strong>

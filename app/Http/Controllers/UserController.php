@@ -58,6 +58,8 @@ class UserController extends Controller
       'site_id' => $request->site,
       'period_id' => $request->period,
       'locale' => $request->locale,
+      'role' => $request->role,
+      'active' => $request->active
     ]);
 
     $user->save();
@@ -75,6 +77,8 @@ class UserController extends Controller
       'site_id' => $request->site,
       'period_id' => $request->period,
       'locale' => $request->locale,
+      'role' => $request->role,
+      'active' => $request->active
     ]);
 
     if ($user->password != $request->password) {
@@ -83,11 +87,18 @@ class UserController extends Controller
 
     $user->save();
     $profile = $user->profile;
-    $profile->fill([
-      'locale' => $request->locale,
-      'period_id' => $request->period,
-    ]);
-    $profile->save();
+    if (!$profile) {
+      $user->profile()->create([
+        'locale' => $request->locale,
+        'period_id' => $request->period,
+      ]);
+    } else {
+      $profile->fill([
+        'locale' => $request->locale,
+        'period_id' => $request->period,
+      ]);
+      $profile->save();
+    }
 
     return redirect( route('users.index') );
   }
