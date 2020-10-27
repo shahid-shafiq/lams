@@ -59,6 +59,7 @@ class Receipt extends Model
   public static function nextNumber($sid, $pid) {
       $row = Receipt::where(
         ['site_id' => $sid, 'period_id' => $pid])
+        ->orderBy('rdate', 'desc')
         ->orderBy('no', 'desc')
         ->limit(1)->get();
 
