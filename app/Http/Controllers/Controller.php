@@ -6,6 +6,10 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+
+use App\Site;
+use App\Period;
+
 use Auth;
 
 class Controller extends BaseController
@@ -49,10 +53,12 @@ class Controller extends BaseController
 
     public function setSite($id) {
       session(['site.id' => $id]);
+      session(['site' => Site::find($id)]);
     }
 
     public function setPeriod($id) {
       session(['period.id' => $id]);
+      session(['period' => Period::find($id)]);
     }
 
     public function setLocale($locale) {

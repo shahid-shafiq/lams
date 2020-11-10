@@ -34,27 +34,27 @@
         <div class="col-xs-8 col-sm-8 col-md-8">
             <div class="form-group">
                 <strong>Opening:</strong>
-                <input type="decimal" name="opening" value="{{$balance->opening}}" class="form-control" placeholder="Opening">
+                <input type="decimal" name="opening" value="{{$balance->opening}}" class="form-control" placeholder="{{__('Opening')}}">
             </div>
         </div>
         <div class="col-xs-8 col-sm-8 col-md-8">
             <div class="form-group">
                 <strong>Income:</strong>
-                <input type="decimal" name="income" value="{{$balance->income}}" class="form-control" placeholder="Income">
+                <input type="decimal" name="income" value="{{$balance->income}}" class="form-control" placeholder="{{__('Income')}}">
             </div>
         </div>
 
         <div class="col-xs-8 col-sm-8 col-md-8">
             <div class="form-group">
                 <strong>Expense:</strong>
-                <input type="decimal" name="expense" value="{{$balance->expense}}" class="form-control" placeholder="Expense">
+                <input type="decimal" name="expense" value="{{$balance->expense}}" class="form-control" placeholder="{{__('Expense')}}">
             </div>
         </div>
 
         <div class="col-xs-8 col-sm-8 col-md-8">
             <div class="form-group">
                 <strong>Balance:</strong>
-                <input type="decimal" name="balance" value="{{$balance->balance}}" class="form-control" placeholder="Expense">
+                <input type="decimal" name="balance" value="{{$balance->balance}}" class="form-control" placeholder="{{__('Balance')}}">
             </div>
         </div>
     </div>

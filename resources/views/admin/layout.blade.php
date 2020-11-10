@@ -78,8 +78,13 @@
 @auth
   <div class="ml-3 d-inline">
     <span class="text-white bold"><strong>{{ Auth::user()->username }}</strong></span>
+    <!--
     <span class="ml-2 text-white bold"><strong>{{ Auth::user()->site->title }}</strong></span>
     <span class="ml-2 mb-2 text-primary"><strong>{{ Auth::user()->profile->period->title }}</strong></span>
+    -->
+    <span class="ml-2 text-white bold"><strong>{{ session('site')->title }}</strong></span>
+    <span class="ml-2 mb-2 text-primary"><strong>{{ session('period')->title }}</strong></span>
+
     <span class="ml-2 mb-2 text-info"><strong>{{ App::getLocale() }}</strong></span>    
   </div>
   @endauth

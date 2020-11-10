@@ -49,8 +49,10 @@ class AuthController extends Controller
 
             session(['user.name' => $user->username]);
             session(['user.locale' => $user->profile->locale]);
-            session(['period.id' => $user->period_id]);
-            session(['site.id' => $user->site_id]);
+            //session(['period.id' => $user->period_id]);
+            //session(['site.id' => $user->site_id]);
+            $this->setSite($user->site_id);
+            $this->setPeriod($user->period_id);
 
             //$locale = $user->profile->locale; //"ur_PK";
             //App::setLocale($locale);
