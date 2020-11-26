@@ -3,7 +3,7 @@
 @section('content')
 
   <?php 
-    use App\Custom\UrduNumber;
+  use App\Custom\UrduNumber;
 
       //echo $ixr->pid;
       //echo UrduNumber::getUrdu(1432);
@@ -15,7 +15,7 @@
       }
       else echo "Non-Numeric!!";
     }
-  ?>
+?>
 
 <div class="row">
     <div class="col">
@@ -49,6 +49,7 @@
         </table>
     </div>
 </div>
+
 @endsection
 
 @section('pdflink')

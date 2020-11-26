@@ -78,13 +78,13 @@
                     $dlbl = '';
                     if ($d != $income->department_id) {
                         $d = $income->department_id;
-                        $dlbl = $dptlist->firstWhere('id', $income->income_id)->title;
+                        $dlbl = $dptlist->firstWhere('id', $d);
                     }
                     $inctitle = $inclist->firstWhere('id', $income->income_id)->title;
                     $link = strcasecmp($inctitle, "fee") == 0 ? true : false;
                 ?>
                     @if ($dlbl !== '')
-                    <tr><td colspan="2" class="level2-label">{{ $dlbl }}</td></tr>
+                    <tr><td colspan="2" class="level2-label">{{ $dlbl ? $dlbl->title : 'DeptX' }}</td></tr>
                     @endif
                     <tr>
                     <td colspan='2' class='level3-label'>

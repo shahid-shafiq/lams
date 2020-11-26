@@ -165,6 +165,13 @@ class UrduNumber {
 		
     public static function getUrdu($val) {
         if ((gettype($val) == "integer") || (gettype($val) == "double")) {
+            // must be positive
+            if ($val < 0) {
+                $neg = "منفی";
+                $num = UrduNumber::getUrdu(abs($val));
+                return $neg . " " . $num; 
+            }
+
             //echo "integer or double";
             if ($val < 100000000000000000 ) { //self::MAX_VALUE 
                 if ($val <= self::$limits[self::LIMIT_HUNDRED]) {
