@@ -10,6 +10,8 @@ use App\Account;
 use App\Member;
 use App\Course;
 use App\Payment;
+use App\Site;
+use App\Period;
 
 use Carbon\Carbon;
 use App\Custom\Urdutils;
@@ -44,6 +46,54 @@ class ReceiptController extends Controller
       'title' => 'Receipts',
       'filter' => $filter,
       'receipts' => $receipts]);
+  }
+
+  public function output(Request $request, $output = null) {
+    $search = $search = $request->search;
+
+    $condition = ['site_id' => $this->sid, 'period_id' => $this->pid];
+    if ($request->session()->has('filter'))  {
+      $filter = $request->session()->get('filter', null);
+      $condition = array_merge($condition, ['income_id' => $request->session()->get('filter', null)]);
+    } else {
+      $filter = null;
+    }
+
+    if ($search !== "")  {
+      //$condition = array_merge($condition, ['title like' => 'منیر احمد']);
+      $receipts = Receipt::where('title', 'like', '%'.$search.'%')->where($condition)->orderByDesc('no')->get();
+    } else {
+      $receipts = Receipt::where($condition)->orderByDesc('no')->get();
+    }
+
+    /*
+    echo $receipts->count();
+    echo "<br>";
+    echo $receipts;
+    return;
+    */
+    
+    //$receipts = Receipt::where($condition)->orderByDesc('no')->get();
+
+    if ($output === "pdf") {
+      $site = Site::find($this->sid);
+      $period = Period::find($this->pid);
+
+      return response(
+          view('receipts.pdf.income', [
+          'period' => $period,
+          'data' => $receipts,
+          'profile' => Auth()->user()->profile,
+          'site' => $site
+          ]), 200)
+          ->header('Content-Type', 'application/pdf');
+
+    } else {
+      return view('receipts.index', [
+        'title' => 'Receipts',
+        'filter' => $filter,
+        'receipts' => $receipts]);
+    }
   }
 
   public function show($id) {

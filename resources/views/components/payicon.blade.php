@@ -24,8 +24,8 @@
         @break
 
         @case(4)
-        <!-- Bank Deposit -->
-        <img class="payicon" data-toggle="tooltip" title="Bank Deposit" alt="Deposit" src="{{ asset('images/icons8-bank-building-80.png') }}"/>
+        <!-- Mobile Deposit -->
+        <img class="payicon" data-toggle="tooltip" title="Mobile Deposit" alt="Deposit" src="{{ asset('images/icons8-mobile-payment-64.png') }}"/>
         @break
     @endswitch
 </div>

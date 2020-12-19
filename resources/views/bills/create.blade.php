@@ -61,7 +61,7 @@
                 <select name="department" class="form-control" placeholder="Department">
                 @foreach ($departments as $item)
                     <option value="{{$item->id}}" 
-                        @if ($item->id ===  $bill->department_id)
+                        @if ($item->id == $bill->department_id)
                             selected
                         @endif
                     >{{$item->title}}</option>
@@ -75,7 +75,7 @@
                 <select name="expense" id="expense" class="form-control" placeholder="Receipt no.">
                 @foreach ($expenses as $item)
                     <option value="{{$item->id}}" 
-                        @if ($item->id ===  $bill->expense_id)
+                        @if ($item->id == $bill->expense_id)
                             selected
                         @endif
                     >{{$item->title}}</option>
@@ -89,7 +89,7 @@
                 <select name="account" class="form-control" placeholder="Account">
                 @foreach ($accounts as $item)
                   <option value="{{$item->id}}" 
-                    @if ($item->id ===  $bill->account_id)
+                    @if ($item->id == $bill->account_id)
                         selected
                     @endif
                    >{{$item->title}}</option>
@@ -121,7 +121,7 @@
                 <select name="payment" class="form-control" placeholder="Payment">
                 @foreach ($payments as $item)
                     <option value="{{$item->id}}" 
-                    @if ($item->id ===  $bill->payment_id)
+                    @if ($item->id == $bill->payment_id)
                         selected
                     @endif
                    >{{$item->title}}</option>

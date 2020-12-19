@@ -94,7 +94,7 @@
         @endif
     </div>
 
-    @if ($receipt->income_id === 2)
+    @if ($receipt->income_id == 2 && $receipt->member)
     <div class="row">
         <div class="col-xs-4 col-sm-4 col-md-4">
             <div class="form-group">

@@ -58,7 +58,7 @@
                 <select name="trans" class="form-control" placeholder="Transaction">
                 @foreach ($translist as $item)
                   <option value="{{$item->id}}" 
-                    @if ($item->id ===  $trans->trans_id)
+                    @if ($item->id == $trans->trans_id)
                         selected
                     @endif
                    >{{$item->description}}</option>

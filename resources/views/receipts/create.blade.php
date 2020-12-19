@@ -68,7 +68,7 @@ use Carbon\Carbon;
                 <select name="department" value="{{$receipt->department_id}}" class="form-control" placeholder="Department">
                 @foreach ($departments as $item)
                     <option value="{{$item->id}}" 
-                        @if ($item->id ===  $receipt->department_id)
+                        @if ($item->id == $receipt->department_id)
                             selected
                         @endif
                     >{{$item->title}}</option>
@@ -82,7 +82,7 @@ use Carbon\Carbon;
                 <select name="income" id="income" value="{{$receipt->income_id}}" class="form-control">
                 @foreach ($incomes as $item)
                     <option value="{{$item->id}}" 
-                        @if ($item->id ===  $receipt->income_id)
+                        @if ($item->id == $receipt->income_id)
                             selected
                         @endif
                     >{{$item->title}}</option>
@@ -96,7 +96,7 @@ use Carbon\Carbon;
                 <select name="account" value="{{$receipt->account_id}}" class="form-control" placeholder="Account">
                 @foreach ($accounts as $item)
                     <option value="{{$item->id}}" 
-                        @if ($item->id ===  $receipt->account_id)
+                        @if ($item->id == $receipt->account_id)
                             selected
                         @endif
                     >{{$item->title}}</option>
@@ -109,7 +109,7 @@ use Carbon\Carbon;
                 <select name="course" value="{{$receipt->account_id}}" class="form-control" placeholder="Course">
                 @foreach ($courses as $item)
                     <option value="{{$item->id}}" 
-                        @if ($item->id ===  $receipt->account_id)
+                        @if ($item->id == $receipt->account_id)
                             selected
                         @endif
                     >{{$item->title}}</option>
@@ -141,7 +141,7 @@ use Carbon\Carbon;
                 <select name="payment" value="{{$receipt->payment_id}}" class="form-control" placeholder="Payment">
                 @foreach ($payments as $item)
                   <option value="{{$item->id}}" 
-                        @if ($item->id ===  $receipt->payment_id)
+                        @if ($item->id == $receipt->payment_id)
                             selected
                         @endif
                     >{{$item->title}}</option>

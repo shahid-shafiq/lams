@@ -34,36 +34,42 @@ print($cd->lastOfMonth()->toDateString());
       <div class="row">
         <div class="d-none d-lg-inline mr-2"><h2>{{ __('Receipts') }}</h2></div>
         <div class="dropdown ">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              {{ ($filter == 0) ? __('All') :
-                (($filter == 2) ? __('Infaaq') : __('Fee'))
-                }}
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="{{ route('receipts.index', 'filter=all') }}">{{__('All')}}
-                @if ($filter == 0)
-                <i class="material-icons">done</i>
-                @endif</a>
-                <a class="dropdown-item" href="{{ route('receipts.index', 'filter=infaaq') }}">{{__('Infaaq')}}
-                @if ($filter == 2)
-                <i class="material-icons">done</i>
-                @endif</a>
-                <a class="dropdown-item" href="{{ route('receipts.index', 'filter=fee') }}">{{__('Fee')}}
-                @if ($filter == 3)
-                <i class="material-icons">done</i>
-                @endif</a>
-                </a>
-              </div>
-            </div>
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{ ($filter == 0) ? __('All') :
+            (($filter == 2) ? __('Infaaq') : __('Fee'))
+            }}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="{{ route('receipts.index', 'filter=all') }}">{{__('All')}}
+            @if ($filter == 0)
+            <i class="material-icons">done</i>
+            @endif</a>
+            <a class="dropdown-item" href="{{ route('receipts.index', 'filter=infaaq') }}">{{__('Infaaq')}}
+            @if ($filter == 2)
+            <i class="material-icons">done</i>
+            @endif</a>
+            <a class="dropdown-item" href="{{ route('receipts.index', 'filter=fee') }}">{{__('Fee')}}
+            @if ($filter == 3)
+            <i class="material-icons">done</i>
+            @endif</a>
+            </a>
+          </div>
         </div>
+        <div class="ml-2"><a id="pdf" href="#" class="btn btn-primary btn-sml">PDF</a></div>
       </div>
-    <!--div class="col">qw</div-->
+        
+    </div>
+    <!--div class="col">qw</div
+    target="_blank"
+    {{ route('receipts.output', 'pdf') }}
+    -->
     <div class="col">
       <div class="search-box mt-1">
         <i class="material-icons">&#xE8B6;</i>
         <input id="myInput" class="form-control" type="text" placeholder="{{__('Search')}}&hellip;">
       </div>
     </div>
+
     <div class="col text-right">
       <a class="btn btn-success" href="{{ route('receipts.create') }}">{{__('New Receipt')}}</a>
     </div>
@@ -116,6 +122,7 @@ NO RECEIPTS
 
 <script>
   $(document).ready(function() {
+
     $("#myInput").on("keyup", function() {
       var value = $(this).val().toLowerCase();
       $("#myTable tr.data").filter(function() {
@@ -124,8 +131,20 @@ NO RECEIPTS
     });
 
     function refresh(obj) { self.location.search = '?filter='+ obj.value; }
+
+    $("#pdf").click(function() {
+      console.log('Showing...' + $("#myInput").val());
+      window.open("{{ route('receipts.output', 'pdf') }}" + "?search=" + $("#myInput").val());
+    });
+
+    function show(event) {
+      console.log('showinf');
+    }
   });
-    
+
+  function show(event) {
+      console.log('showinf');
+    }
   
   console.log('Ok');
 </script>
