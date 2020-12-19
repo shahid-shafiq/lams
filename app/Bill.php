@@ -59,7 +59,6 @@ class Bill extends Model
       $bill->period_id = $pid;     
       $bill->no = Bill::nextNumber($sid, $pid);
       $bill->bdate = Bill::currDate($sid, $pid);
-      $bill->department_id = 1;
       $bill->payment_id = 1;
       $bill->expense_id = 1;
       $bill->account_id = 1;

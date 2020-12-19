@@ -84,6 +84,7 @@ NO RECEIPTS
       <th>{{__('Title')}}</th>
       <th>{{__('Description')}}</th>
       <th>{{__('Amount')}}</th>
+      <th></th>
       <th>{{__('Actions')}}</th>
     </tr>
     @foreach ($receipts as $receipt)
@@ -92,9 +93,8 @@ NO RECEIPTS
       <td>{{ $receipt->rdate }}</td>
       <td>{{ $receipt->title }}</td>
       <td>{{ $receipt->description }}</td>
-      <td>{{ $receipt->amount }}
-        <x-payicon size="5" payment="{{$receipt->payment->id }}"/>
-      </td>
+      <td>{{ $receipt->amount }}</td>
+      <td><x-payicon size="5" payment="{{$receipt->payment->id }}"/></td>
       <td>
         <form action="{{ route('receipts.destroy', $receipt->id) }}" method="POST">
           {{ csrf_field() }}

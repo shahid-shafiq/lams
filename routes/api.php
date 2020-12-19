@@ -28,8 +28,8 @@ Route::get('receipts', function() {
   return App\Member::all(); 
 });
 
-Route::get('members/{id}/person', 'MemberController@person');
-Route::get('members/{id}/infaaq', 'MemberController@infaaq');
+Route::get('members/{id}/person', 'api/MemberController@person');
+Route::get('members/{id}/infaaq', 'api/MemberController@infaaq');
 
 Route::resource('periods', 'PeriodController', ['only' => ['index', 'store', 'show']]);
 Route::resource('receipts', 'ReceiptController', ['only' => ['index', 'store', 'show']]);

@@ -39,7 +39,7 @@ class ReceiptController extends Controller
       $condition = array_merge($condition, ['income_id' => $request->session()->get('filter', null)]);
     }
     
-    $receipts = Receipt::where($condition)->get();
+    $receipts = Receipt::where($condition)->orderByDesc('no')->get();
     return view('receipts.index', [
       'title' => 'Receipts',
       'filter' => $filter,
@@ -54,7 +54,6 @@ class ReceiptController extends Controller
 
   public function create() {
     $receipt = Receipt::newReceipt($this->sid, $this->pid);
-    $receipt->rdate = date('Y-m-d');
 
     return view('receipts.create', [
       'title' => 'Receipt',
@@ -64,7 +63,7 @@ class ReceiptController extends Controller
       'accounts' => Account::all(),
       'payments' => Payment::all(),
       'incomes' => Income::all(),
-      'courses' => Course::all(),
+      'courses' => Course::orderBy('id')->get(),
       'members' => Member::memberListNames(),
       'regnos' => Member::memberListReg()
       ]);

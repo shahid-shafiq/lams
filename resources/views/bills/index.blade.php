@@ -29,11 +29,12 @@
 
 <table id="myTable" class="table table-striped table-bordered table-hover table-sm">
   <tr>
-    <td>{{__('No')}}</td>
-    <td>{{__('Date')}}</td>
-    <td>{{__('Title')}}</td>
-    <td>{{__('Description')}}</td>
-    <td>{{__('Amount')}}</td>
+    <th>{{__('No')}}</th>
+    <th>{{__('Date')}}</th>
+    <th>{{__('Title')}}</th>
+    <th>{{__('Description')}}</th>
+    <th>{{__('Amount')}}</th>
+    <th></th>
     <th>{{__('Actions')}}</th>
   </tr>
   @foreach ($bills as $bill)
@@ -42,9 +43,8 @@
     <td>{{ $bill->bdate }}</td>
     <td>{{ $bill->title }}</td>
     <td>{{ $bill->description }}</td>
-    <td>{{ $bill->amount }}
-      <x-payicon size="5" payment="{{$bill->payment->id }}"/>
-    </td>
+    <td>{{ $bill->amount }}</td>
+    <td><x-payicon size="5" payment="{{$bill->payment->id }}"/></td>
     <td>
       <form action="{{ route('bills.destroy', $bill->id) }}" method="POST">
         {{ csrf_field() }}

@@ -21,7 +21,7 @@ class BillController extends Controller
   }
   
   public function index() { 
-    $bills = Bill::where(['site_id' => $this->sid, 'period_id' => $this->pid])->get();
+    $bills = Bill::where(['site_id' => $this->sid, 'period_id' => $this->pid])->orderByDesc('no')->get();
     return view('bills.index', ['title' => 'Bills', 'bills' => $bills]);
   }
 

@@ -74,7 +74,6 @@ class Receipt extends Model
       $receipt->period_id = $pid;     
       $receipt->no = Receipt::nextNumber($sid, $pid);
       $receipt->rdate = Receipt::currDate($sid, $pid);
-      $receipt->department_id = 1;
       $receipt->payment_id = 1;
       $receipt->income_id = 1;
       $receipt->account_id = 1;

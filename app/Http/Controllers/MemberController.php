@@ -16,8 +16,14 @@ class MemberController extends Controller
   }
     
     public function index() {
-      //$members = Member::where('status', '<>', 'D')->orWhereNull('status')->get();
-      $members = Member::get();
+      if (Auth()->user()->role=='admin') {
+        $members = Member::get();
+      } else {
+        //$members = Member::get();
+        $members = Member::where('status', '<>', 'D')->orWhereNull('status')->get();
+      }
+      
+      //$members = Member::get();
       return view('members.index', ['title' => 'Members', 'members' => $members]);
     }
 
