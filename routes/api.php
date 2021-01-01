@@ -9,6 +9,8 @@ use App\Period;
 use App\Bill;
 use App\Person;
 
+use App\Http\Controllers\Api\MemberController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes

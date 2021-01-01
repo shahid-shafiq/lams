@@ -44,4 +44,24 @@ class Urdutils {
     
     return $des;
   }
+
+  /*
+  The dates are Carbon objects
+  */
+  public static function FeeDescription($fd, $td) {
+    if ($fd->year == $td->year) {
+        if ($fd->month == $td->month) {
+            $des = "فیس ماہ " . Urdutils::monthUrdu($fd->month) . " " . $fd->year;   
+        } else {
+            $des = " " . "فیس " . Urdutils::monthUrdu($fd->month) . " " . "تا" . " " . Urdutils::monthUrdu($td->month) . " " . $fd->year; 
+        }
+    } else {
+        $des = " " . "فیس ";
+        $des .= " " . Urdutils::monthUrdu($fd->month) . " " . $fd->year;
+        $des .= " " . "تا ";
+        $des .= " " . Urdutils::monthUrdu($td->month) . " " . $td->year; 
+    }
+    
+    return $des;
+  }
 }

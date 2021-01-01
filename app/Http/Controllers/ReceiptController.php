@@ -12,6 +12,7 @@ use App\Course;
 use App\Payment;
 use App\Site;
 use App\Period;
+use App\Student;
 
 use Carbon\Carbon;
 use App\Custom\Urdutils;
@@ -119,6 +120,28 @@ class ReceiptController extends Controller
       ]);
   }
 
+  public function help(Request $request, $hid = null) {
+    echo "Helping...";
+  }
+
+  public function hello(Request $request, $check = null) {
+    $receipt = Receipt::newReceipt($this->sid, $this->pid);
+
+    return view('receipts.hello', [
+      'title' => 'Receipt',
+      'receipt' => $receipt,
+      'mode' => 'create',
+      'departments' => Department::all(),
+      'accounts' => Account::all(),
+      'payments' => Payment::all(),
+      'incomes' => Income::all(),
+      'courses' => Course::orderBy('id')->get(),
+      'members' => Member::memberListNames(),
+      'regnos' => Member::memberListReg(),
+      'students' => Student::all()
+      ]);
+  }
+
   public function patchData(Receipt $receipt, Request $request) {
     $receipt = new Receipt([
       'no' => $request->get('no'),
@@ -193,13 +216,8 @@ class ReceiptController extends Controller
 
       $inc = $request->get('income');
 
-      if ($inc == '3') {
-        // FEE
-        $receipt->account_id = $request->get('course');
-        
-      } else if ($inc == '2') {
-        // INFAAQ
-
+      if ($inc == '3' || $inc == '2') {
+        // date range
         $fd = Carbon::createFromDate($request->get('fdate'));
         $td = Carbon::createFromDate($request->get('tdate'));
 
@@ -210,12 +228,23 @@ class ReceiptController extends Controller
           $td = $tmp;
         }
 
-        $receipt->m_id = $request->get('member');
         $receipt->fdate = $fd->firstOfMonth()->toDateString();
         $receipt->tdate = $td->lastOfMonth()->toDateString();
-        
-        $receipt->description = Urdutils::InfaqDescription($fd, $td);
-        $receipt->account_id = 1;
+
+        // reference id (Anjuman member no. or student roll no.)
+        $receipt->m_id = $request->get('member');
+
+        if ($inc == '3') {
+          // FEE
+          $receipt->account_id = $request->get('course');
+          if ($receipt->description == '') {
+            $receipt->description = Urdutils::FeeDescription($fd, $td);
+          }
+        } else {
+          // INFAAQ
+          $receipt->description = Urdutils::InfaqDescription($fd, $td);
+          $receipt->account_id = 1;
+        }      
       }
       
       //return view('receipts.show', ['receipt' => $receipt]);

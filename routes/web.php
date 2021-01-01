@@ -32,12 +32,15 @@ Route::get('/vue',function() {
     return view('vue');
 });
 
+
+// AJAX
 Route::get('api/mlist','InfaaqController@mlist');
 Route::get('api/getmsg','InfaaqController@hi');
 Route::post('api/getmsg','InfaaqController@hello')->name('ajaxRequest.post');
 Route::get('api/infaaq/{id}','InfaaqController@infaaq');
 
- // AJAX
+Route::get('api/courses/{cmpid}','FeeController@courses');
+Route::get('api/students/{cmpid}/{crsid}','FeeController@students');
 
 
  // routes
@@ -51,8 +54,10 @@ Route::get('login', 'AuthController@login')->name('login');
 Route::get('logout', 'AuthController@logout')->name('logout');
 Route::post('login', 'AuthController@authenticate')->name('authenticate');
 
-Route::resource('receipts', 'ReceiptController');
 Route::get('receipts/output/{output?}', 'ReceiptController@output')->name('receipts.output');
+Route::get('receipts/hello', 'ReceiptController@hello')->name('receipts.hello');
+//Route::get('receipts/help/{hid?}','ReceiptController@help');
+Route::resource('receipts', 'ReceiptController');
 
 Route::resource('bills', 'BillController');
 Route::resource('members', 'MemberController');
