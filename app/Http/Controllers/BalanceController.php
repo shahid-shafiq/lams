@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Balance;
 use App\Period;
+use App\Receipt;
+use App\Bill;
 
 class BalanceController extends Controller
 {
@@ -30,8 +32,12 @@ class BalanceController extends Controller
 
   public function edit($id) {
     $bal = Balance::findOrFail($id);
+    $sums = (object)[];
+    $sums->inc = Receipt::periodIncome($this->sid, $bal->period_id);
+    $sums->exp = Bill::periodExpense($this->sid, $bal->period_id);
     return view('balances.edit', [
       'title' => 'Balance',
+      'sums' => $sums,
       'balance' => $bal
     ]);
   }
