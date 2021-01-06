@@ -36,7 +36,6 @@ use Carbon\Carbon;
     </div>
 @endif
 
-
 @if ($mode == 'edit')
 <form action="{{ route('receipts.update', $receipt->id) }}" method="POST">
 @method('PATCH')
@@ -49,11 +48,8 @@ use Carbon\Carbon;
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
                 <strong>{{__('No')}}:</strong>
-                @if ($mode == 'edit')
-                <input type="text" readonly name="no" value="{{$receipt->no}}" class="form-control" placeholder="{{__('Receipt no.')}}">
-                @else
-                <input type="text" name="no" value="{{$receipt->no}}" class="form-control" placeholder="{{__('Receipt no.')}}">
-                @endif
+                <input <?= $mode == 'edit' ? 'readonly' : '' ?> 
+                    type="text" name="no" value="{{$receipt->no}}" class="form-control" placeholder="{{__('Receipt no.')}}">
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6">
@@ -91,19 +87,6 @@ use Carbon\Carbon;
             </div>
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4">
-            <div id="account" class="form-group" style="display:none">
-                <strong>{{__('Account')}}:</strong>
-                <select name="account" value="{{$receipt->account_id}}" class="form-control" placeholder="Account">
-                @foreach ($accounts as $item)
-                    <option value="{{$item->id}}" 
-                        @if ($item->id == $receipt->account_id)
-                            selected
-                        @endif
-                    >{{$item->title}}</option>
-                @endforeach
-                </select>
-            </div>
-
             <div id="course_grp" class="form-group" style="display:none">
                 <strong>{{__('Course')}}:</strong>
                 <select name="course" id="course" value="{{$receipt->account_id}}" class="form-control" placeholder="Course">
@@ -209,6 +192,13 @@ use Carbon\Carbon;
                         <strong>{{__('Student')}}:</strong>
                         <select name="student" id="student" value="{{$receipt->m_id}}" class="form-control" placeholder="Account">
                         <option value="">{{__('Select Student') }}</option>
+
+                        @foreach ($students as $item)
+                        <option value="{{$item->student_no}}"
+                        {{ $item->student_no == $receipt->m_id ? 'selected' : ''}}
+                        >{{$item->student_name}}</option>
+                        @endforeach
+
                         </select>
                     </div>
                 </div>
@@ -219,13 +209,13 @@ use Carbon\Carbon;
             <div class="container row" >
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>{{__('Infaaq From')}}:</strong>
+                        <strong>{{__('From')}}:</strong>
                         <input type="month" name="fdate" id="fdate" value="{{Carbon::createFromDate($receipt->fdate)->format('Y-m')}}" class="form-control" placeholder="Date">
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <strong>{{__('Infaaq To')}}:</strong>
+                        <strong>{{__('To')}}:</strong>
                         <input type="month" name="tdate" id="tdate" value="{{Carbon::createFromDate($receipt->tdate)->format('Y-m')}}" class="form-control" placeholder="Date">
                     </div>
                 </div>
@@ -252,17 +242,37 @@ setTimeout(() => { init(); }, 500);
 // it seems the page is not actually ready and does not fire change events
 // so setting half a second timeout before initializing. 
 function init() {
-  let cmpid = 4;//{{session('site')->id}} 
-  console.log('This campus is ' + cmpid);
-  $('#department').val(cmpid).change();
+    var cmpid;
 
+    @if ($mode == 'edit')
+    cmpid = $('#department').val();
+    @else
+    cmpid = {{session('site')->id}};
+    @endif
+
+    console.log('This campus is ' + cmpid);
+    $('#department').val(cmpid).change();
+    
   // Check the value of income type
     const inf = "General";
     let selinc = $('#income')[0].options[$('#income')[0].selectedIndex].text;
     console.log(selinc);
     if (selinc != inf) {
         updateIncomeUI(selinc);
-        // select correct member values
+
+        // select correct course and student/member values
+        @if ($mode == 'edit')
+        setTimeout(() => { 
+            $('#course').val({{$receipt->account_id}}).change();
+
+            // Update student name
+            setTimeout(() => { 
+                $('#student').val({{$receipt->m_id}}).change();
+            }, 500);
+
+        }, 500);
+        @endif
+        
     }
     console.log($('#fdate, #fdatef'));
 }
@@ -358,6 +368,7 @@ $('#course').change(function() {
 // update title based on student selection
 $('#student').change(function() {
     if ($(this).val() != '') {
+        console.log($(this).val());
         $('#member').val($(this).val());
         $('#title').val($('#student option:selected').text());
     }
@@ -387,7 +398,6 @@ function getInfaqDetails(mid) {
 }
 
 function enableAccount() {
-    //$('#account select').prop("disabled", false);  
 }
 
 function enableFeeReceipt() {
@@ -428,11 +438,11 @@ function updateIncomeUI(inc) {
     disableFeeReceipt();
 
     if (inc == 'Fee') {
-    console.log('Enabling courses');
-    enableFeeReceipt();
+        console.log('Enabling courses');
+        enableFeeReceipt();
     } else if (inc == 'Infaq') {
-    enableInfaaqReceipt();
-    console.log('Enabling infaaq');
+        enableInfaaqReceipt();
+        console.log('Enabling infaaq');
     }
 }
 

@@ -105,6 +105,8 @@ class ReceiptController extends Controller
 
   public function create() {
     $receipt = Receipt::newReceipt($this->sid, $this->pid);
+    //$courses = Student::courses($receipt->department_id);
+    $students = Student::students($receipt->department_id, $receipt->account_id);
 
     return view('receipts.create', [
       'title' => 'Receipt',
@@ -115,6 +117,7 @@ class ReceiptController extends Controller
       'payments' => Payment::all(),
       'incomes' => Income::all(),
       'courses' => Course::orderBy('id')->get(),
+      'students' => $students,
       'members' => Member::memberListNames(),
       'regnos' => Member::memberListReg()
       ]);
@@ -192,11 +195,11 @@ class ReceiptController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {     
       $request->validate([
         'rdate'=>'required',
-        'title'=>'required',
-        'amount'=>'required'
+        'title'=>'required'
+        //,'amount'=>'required'
       ]);
 
       // field values required for all types of receipts
@@ -261,7 +264,12 @@ class ReceiptController extends Controller
     public function edit($id)
     {
       $receipt = Receipt::findOrFail($id);
+      $courses = Student::courses($receipt->department_id);
+      $students = Student::students($receipt->department_id, $receipt->account_id);
   
+      $receipt->course = $receipt->account_id;
+      $receipt->student = $receipt->m_id;
+
       return view('receipts.create', [
         'title' => 'Receipt',
         'mode' => 'edit',
@@ -270,7 +278,8 @@ class ReceiptController extends Controller
         'accounts' => Account::all(),
         'payments' => Payment::all(),
         'incomes' => Income::all(),
-        'courses' => Course::all(),
+        'courses' => $courses,
+        'students' => $students,
         'members' => Member::memberListNames(),
         'regnos' => Member::memberListReg()
         ]);
@@ -307,13 +316,8 @@ class ReceiptController extends Controller
 
       $inc = $request->get('income');
 
-      if ($inc == '3') {
-        // FEE
-        $receipt->account_id = $request->get('course');
-        
-      } else if ($inc == '2') {
-        // INFAAQ
-
+      if ($inc == '3' || $inc == '2') {
+        // date range
         $fd = Carbon::createFromDate($request->get('fdate'));
         $td = Carbon::createFromDate($request->get('tdate'));
 
@@ -324,14 +328,24 @@ class ReceiptController extends Controller
           $td = $tmp;
         }
 
-        $receipt->m_id = $request->get('member');
         $receipt->fdate = $fd->firstOfMonth()->toDateString();
         $receipt->tdate = $td->lastOfMonth()->toDateString();
-        
-        $receipt->description = Urdutils::InfaqDescription($fd, $td);
-        $receipt->account_id = 1;
 
-        //echo $receipt->title;
+        // reference id (Anjuman member no. or student roll no.)
+        $receipt->m_id = $request->get('member');
+        echo $request->get('member');
+
+        if ($inc == '3') {
+          // FEE
+          $receipt->account_id = $request->get('course');
+          if ($receipt->description == '') {
+            $receipt->description = Urdutils::FeeDescription($fd, $td);
+          }
+        } else {
+          // INFAAQ
+          $receipt->description = Urdutils::InfaqDescription($fd, $td);
+          $receipt->account_id = 1;
+        }      
       }
 
       $receipt->save();
