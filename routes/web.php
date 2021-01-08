@@ -56,6 +56,7 @@ Route::post('login', 'AuthController@authenticate')->name('authenticate');
 
 Route::get('receipts/output/{output?}', 'ReceiptController@output')->name('receipts.output');
 Route::get('receipts/hello', 'ReceiptController@hello')->name('receipts.hello');
+Route::post('receipts/hello', 'ReceiptController@hellopost')->name('receipts.hellopost');
 //Route::get('receipts/help/{hid?}','ReceiptController@help');
 Route::resource('receipts', 'ReceiptController');
 

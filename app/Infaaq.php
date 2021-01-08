@@ -21,6 +21,7 @@ class Infaaq extends Receipt
       if ($year != null) {
         $members = Member::where('status', '<>', 'D')->orWhereNull('status')
           ->join('receipts', 'receipts.m_id', '=', 'members.regno')
+          ->where('receipts.income_id', '=', '2')
           ->orderBy('regno', 'asc')
           ->orderBy('fdate', 'asc')
           ->get();

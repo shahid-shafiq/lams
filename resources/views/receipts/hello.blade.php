@@ -2,7 +2,11 @@
 
 @section('content')
 
-{{ session('site')->id }}
+{{ "Courses = ".$courses->count() }}
+{{ "Students = ".$students->count() }}<br>
+{{ "Course = ".$receipt->account_id }}
+{{ "Student = ".$receipt->m_id }}<br>
+
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
@@ -16,7 +20,7 @@
 
   <div class="flex-center position-ref">
     <div class="content">
-      <form action="{{ route('receipts.create') }}" method="POST">
+      <form action="{{ route('receipts.hellopost') }}" method="POST">
         <div class="col-xs-4 col-sm-4 col-md-4">
             <div class="form-group">
                 <strong>{{__('Campus')}}:</strong>
@@ -36,9 +40,16 @@
 
             <div class="form-group" style="-display:none">
                 <strong>{{__('Course')}}:</strong>
-                <select name="course" id="course" value="{{$receipt->account_id}}" class="form-control dynamic" 
+                <select name="course" id="course" value="{{$receipt->account_id}}" class="form-control" 
                   data-campus = 'department' data-dependent="student" >
                   <option value="">{{__('Select Course') }}</option>
+                  @foreach ($courses as $item)
+                    <option value="{{$item->course_id}}" 
+                        @if ($item->course_id == $receipt->account_id)
+                            selected
+                        @endif
+                    >{{$item->title}}</option>
+                  @endforeach
                 </select>
             </div>
 
@@ -46,6 +57,13 @@
                 <strong>{{__('Student')}}:</strong>
                 <select name="student" id="student" value="{{$receipt->m_id}}" class="form-control" placeholder="Account">
                   <option value="">{{__('Select Student') }}</option>
+                  @foreach ($students as $item)
+                    <option value="{{$item->student_no}}" 
+                        @if ($item->student_no == $receipt->m_id)
+                            selected
+                        @endif
+                    >{{$item->student_name}}</option>
+                  @endforeach
                 </select>
             </div>
 
@@ -65,9 +83,17 @@
 
           </div>
           {{ csrf_field() }}
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                  <button type="submit" class="btn btn-primary">{{ $mode == 'edit' ? 'Update' : 'Submit' }}</button>
+          </div>
+        </div>
       </form>
     </div>
   </div>
+
+  <button type="button" id="refresh" class="btn btn-info">Refresh</button>
   
 <script>
  $(document).ready(function() {
@@ -77,13 +103,24 @@
 // it seems the page is not actually ready and does not fire change events
 // so setting half a second timeout before initializing. 
 function init() {
+  @if ($mode == 'create')
   let cmpid = {{session('site')->id}} 
   console.log('This campus is ' + cmpid);
   $('#department').val('4').change();
+  @endif
 }
+
+$('#refresh').click(function() {
+  console.log('refreshing...');
+  console.log('Value of receipt->course = ' + {{ $receipt->account_id }})
+  console.log('Value of dummy = ' + $('#dummy').val());
+  console.log('value of course control = ' + $('#course').val());
+  console.log('value of student control = ' + $('#student').val());
+});
 
 // clear contents of courses and students
 function clear_cns(cr, st) {
+  console.log('Clearing...');
   if (cr) {
     $('#course').empty().append($('<option></option>').text("{{__('Select Course')}}"));
   }
@@ -98,6 +135,7 @@ function clear_cns(cr, st) {
 
   // get courses for selected campus 
   $('#department').change(function() {
+    console.log('Department change event');
      if ($(this).val() != '') {
        var cmpid = $(this).val();
        var dependent = $(this).data('dependent');
@@ -138,6 +176,7 @@ function clear_cns(cr, st) {
 
    // get students for selected campus and course
   $('#course').change(function() {
+    console.log('Course change event');
      if ($(this).val() != '') {
        var value = $(this).val();
        var dependent = $(this).data('dependent');

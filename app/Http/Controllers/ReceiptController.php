@@ -127,21 +127,35 @@ class ReceiptController extends Controller
     echo "Helping...";
   }
 
+  public function hellopost(Request $request) {
+    echo $request;
+  }
+
   public function hello(Request $request, $check = null) {
-    $receipt = Receipt::newReceipt($this->sid, $this->pid);
+    $mode = 'edit';
+    if ($mode == 'edit') {
+      $receipt = Receipt::findOrFail(11881);
+      $courses = Student::courses($receipt->department_id);
+      $students = Student::students($receipt->department_id, $receipt->account_id);
+    } else {
+      $receipt = Receipt::newReceipt($this->sid, $this->pid);
+      $courses = Course::orderBy('id')->get();
+      $students = Student::all();
+    }
+    
 
     return view('receipts.hello', [
       'title' => 'Receipt',
       'receipt' => $receipt,
-      'mode' => 'create',
+      'mode' => $mode,
       'departments' => Department::all(),
       'accounts' => Account::all(),
       'payments' => Payment::all(),
       'incomes' => Income::all(),
-      'courses' => Course::orderBy('id')->get(),
+      'courses' => $courses,
       'members' => Member::memberListNames(),
       'regnos' => Member::memberListReg(),
-      'students' => Student::all()
+      'students' => $students
       ]);
   }
 

@@ -43,19 +43,19 @@
 @endsection
 
 @section('pdflink')
-<a target="_blank" href="{{ route('reports.infaaq', 'csv') }}" class="btn btn-secondary btn-sml">CSV</a>
+<a target="_blank"  href="{{ route('reports.infaaq', 'csv') }}" class="btn btn-secondary btn-sml">CSV</a>
 @endsection
 
 @section('pages')
 <div class="d-inline w-20 h5">
-  <select class="text-info"
+  <select id="year" class="text-info"
   style="
     padding: 0.3rem;
     font-weight:bold;
     background-color:rgba(0,0,0,0.0);
     border: none;
   " 
-  onchange = "refreshYear(this)">
+  >
   @foreach ($years as $y)
   <option value="{{$y->year}}"
   {{ $y->year == $year ? 'selected' : ''}}
@@ -65,7 +65,11 @@
   </select>
 </div>
 <script>
-        $(function() {});
-        function refreshYear(obj) { self.location.search = '?year='+ obj.value; }
-    </script>
+    $(function() {
+      $('#year').change(function() {
+        console.log('Year changed to ' + $(this).val());
+        self.location.search = '?year='+ $(this).val();
+      });
+    });
+</script>
 @endsection

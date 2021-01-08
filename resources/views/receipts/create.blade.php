@@ -91,8 +91,8 @@ use Carbon\Carbon;
                 <strong>{{__('Course')}}:</strong>
                 <select name="course" id="course" value="{{$receipt->account_id}}" class="form-control" placeholder="Course">
                 @foreach ($courses as $item)
-                    <option value="{{$item->id}}" 
-                        @if ($item->id == $receipt->account_id)
+                    <option value="{{$item->course_id}}" 
+                        @if ($item->course_id == $receipt->account_id)
                             selected
                         @endif
                     >{{$item->title}}</option>

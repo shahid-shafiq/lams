@@ -181,11 +181,14 @@ class ReportController extends Controller
 
     public function infaaq(Request $request, $output = null)
     {      
+        $session = $request->getSession();
         $pid = $this->selectPeriod($request);
 
         $year = $request->get('year');
         if ($year == null) {
-            $year = date("Y");
+            $year = $session->get("report.year", date("Y"));
+        } else {
+            $session->put("report.year", $year);
         }
 
         $years = Receipt::select(DB::Raw('distinct year(tdate) as year'))
