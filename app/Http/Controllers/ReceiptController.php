@@ -126,6 +126,10 @@ class ReceiptController extends Controller
   public function help(Request $request, $hid = null) {
     echo "Helping...";
   }
+  
+  public function infaaq(Request $request, $hid = null) {
+    return view('receipts.infaaq');
+  }
 
   public function hellopost(Request $request) {
     echo $request;

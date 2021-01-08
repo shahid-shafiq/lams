@@ -36,6 +36,7 @@ class Member extends Model
       $member->regdate = date('Y-m-d');
       $member->appdate = $member->regdate;
       $member->pledge = 100;
+      $member->status = 'A';
       $member->regno = Member::nextRegno();
       return $member;
     }

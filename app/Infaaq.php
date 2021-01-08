@@ -19,18 +19,22 @@ class Infaaq extends Receipt
       $data = array();
       
       if ($year != null) {
-        $members = Member::where('status', '<>', 'D')->orWhereNull('status')
+        $members = Member::where('status', '<>', 'D')
+          ->orWhereNull('status')
           ->join('receipts', 'receipts.m_id', '=', 'members.regno')
           ->where('receipts.income_id', '=', '2')
+          //->whereRaw('year(receipts.fdate) >= ?', [$year-5])
+          //->whereRaw('year(receipts.tdate) <= ?', [$year+2])
           ->orderBy('regno', 'asc')
           ->orderBy('fdate', 'asc')
           ->get();
           
         $crec = 1;
         $cmem = 0;
+        $res = [0,0,0,0,0,0,0,0,0,0,0,0];
         foreach ($members as $member) {
-          if ($member->regno !== $cmem) {
-            if ($cmem !== 0) {
+          if ($member->regno != $cmem) {
+            if ($cmem != 0) {
               for ($m = 0; $m < 12; $m++) {
                 $row[] = $res[$m];
               }
@@ -74,6 +78,14 @@ class Infaaq extends Receipt
             $dt->addMonth(1);
           }
         }
+      }
+
+      // last member entry
+      if ($cmem != 0) {
+        for ($m = 0; $m < 12; $m++) {
+          $row[] = $res[$m];
+        }
+        $data[] = $row;
       }
       return $data;
     }
