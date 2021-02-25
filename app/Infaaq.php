@@ -91,8 +91,9 @@ class Infaaq extends Receipt
     }
 
     public static function infaaqByMember($regno) {
-      $receipts = Receipt::where('m_id', $regno)->
-        orderBy('fdate')->get();
+      $receipts = Receipt::where('m_id', $regno)
+        ->where('income_id', '=', '2')
+        ->orderBy('fdate')->get();
 
       $data = array();
       $cy = 0;
