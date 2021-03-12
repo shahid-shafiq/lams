@@ -29,8 +29,10 @@ class AuthController extends Controller
             $user = Auth::user();
 
             if ($user->profile) {
-                $user->profile->period_id = $user->period_id;
-                $user->profile->save();
+                if ($user->profile->period_id == null) {
+                    $user->profile->period_id = $user->period_id;
+                    $user->profile->save();
+                }
             } else {
                 // create default profile
                 $user->profile()->create([
@@ -52,7 +54,7 @@ class AuthController extends Controller
             //session(['period.id' => $user->period_id]);
             //session(['site.id' => $user->site_id]);
             $this->setSite($user->site_id);
-            $this->setPeriod($user->period_id);
+            $this->setPeriod($user->profile->period_id);
 
             //$locale = $user->profile->locale; //"ur_PK";
             //App::setLocale($locale);
