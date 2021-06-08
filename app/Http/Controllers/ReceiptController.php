@@ -100,7 +100,7 @@ class ReceiptController extends Controller
   public function show($id) {
     $receipt = Receipt::findOrFail($id);
 
-    return view('receipts.show', ['title' => 'Receipts', 'receipt' => $receipt]);
+    return view('receipts.show', ['title' => 'Receipts', 'receipt' => $receipt, 'debug' => false]);
   }
 
   public function create() {
@@ -147,7 +147,6 @@ class ReceiptController extends Controller
       $students = Student::all();
     }
     
-
     return view('receipts.hello', [
       'title' => 'Receipt',
       'receipt' => $receipt,
@@ -268,7 +267,7 @@ class ReceiptController extends Controller
         }      
       }
       
-      //return view('receipts.show', ['receipt' => $receipt]);
+      //return view('receipts.show', ['receipt' => $receipt, 'debug' => true, 'req' => $request]);
       $receipt->save();
       return redirect('/receipts')->with('success', 'Receipt saved!');
     }
@@ -349,23 +348,24 @@ class ReceiptController extends Controller
         $receipt->fdate = $fd->firstOfMonth()->toDateString();
         $receipt->tdate = $td->lastOfMonth()->toDateString();
 
-        // reference id (Anjuman member no. or student roll no.)
-        $receipt->m_id = $request->get('member');
-        echo $request->get('member');
-
         if ($inc == '3') {
           // FEE
+          // reference id (Student roll no.)
+          $receipt->m_id = $request->get('student');
           $receipt->account_id = $request->get('course');
           if ($receipt->description == '') {
             $receipt->description = Urdutils::FeeDescription($fd, $td);
           }
         } else {
           // INFAAQ
+          // reference id (Anjuman member no.)
+          $receipt->m_id = $request->get('member');
           $receipt->description = Urdutils::InfaqDescription($fd, $td);
           $receipt->account_id = 1;
         }      
       }
 
+      //return view('receipts.show', ['receipt' => $receipt, 'debug' => true, 'req' => $request]);
       $receipt->save();
       return redirect('/receipts')->with('success', 'Receipt updated!');
     }

@@ -10,7 +10,6 @@
 @section('content')
 
 <div class="container">
-
     <div class="row">
         <div class="col-xs-3 col-sm-3 col-md-3 margin-tb">
             <div class="">
@@ -120,6 +119,17 @@
         </div>
     </div>
     @endif
-
 </div>
+
+@if ($debug)
+<div>DEBUG</div>
+<div>RECEIPT</div>
+{{$receipt}}
+<div>REQUEST</div>
+{{$req}}
+@endif
+
+
+
+
 @endsection

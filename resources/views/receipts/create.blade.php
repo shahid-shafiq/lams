@@ -191,7 +191,7 @@ use Carbon\Carbon;
                     <div class="form-group">
                         <strong>{{__('Student')}}:</strong>
                         <select name="student" id="student" value="{{$receipt->m_id}}" class="form-control" placeholder="Account">
-                        <option value="">{{__('Select Student') }}</option>
+                        <option value="0">{{__('Select Student') }}</option>
 
                         @foreach ($students as $item)
                         <option value="{{$item->student_no}}"
@@ -256,40 +256,52 @@ function init() {
   // Check the value of income type
     const inf = "General";
     let selinc = $('#income')[0].options[$('#income')[0].selectedIndex].text;
-    console.log(selinc);
+    console.log('income is ' + selinc);
     if (selinc != inf) {
         updateIncomeUI(selinc);
 
-        // select correct course and student/member values
-        @if ($mode == 'edit')
-        setTimeout(() => { 
-            $('#course').val({{$receipt->account_id}}).change();
-
-            // Update student name
+        if (selinc == 'Fee') {
+            // select correct course and student/member values
+            @if ($mode == 'edit')
             setTimeout(() => { 
-                $('#student').val({{$receipt->m_id}}).change();
-            }, 500);
+                $('#course').val({{$receipt->account_id}}).change();
 
-        }, 500);
-        @endif
-        
+                // Update student name
+                @if ($receipt->m_id != null)
+                setTimeout(() => { 
+                    $('#student').val({{$receipt->m_id}}).change();
+                }, 500);
+                @endif
+
+            }, 500);
+            @endif
+        }       
     }
-    console.log($('#fdate, #fdatef'));
+    //console.log($('#fdate, #fdatef'));
 }
 
 // clear contents of courses and students
 function clear_cns(cr, st) {
   if (cr) {
-    $('#course').empty().append($('<option></option>').text("{{__('Select Course')}}"));
+    $('#course').empty().append($('<option value=""></option>').text("{{__('Select Course')}}"));
   }
 
   if (st) {
-    $('#student').empty().append($('<option></option>').text("{{__('Select Student')}}"));
+    $('#student').empty().append($('<option value=""></option>').text("{{__('Select Student')}}"));
   }
 }
 
 // get courses for selected campus 
 $('#department').change(function() {
+    let idx = $('#income')[0].selectedIndex;
+    let inc = $('#income')[0].options[idx].text;
+
+    // skip if not fee receipt
+    if (inc != 'Fee') {
+        console.log('skipping department change');
+        return;
+    }
+
     if ($(this).val() != '') {
     var cmpid = $(this).val();
     //var dependent = $(this).data('dependent');
@@ -368,9 +380,13 @@ $('#course').change(function() {
 // update title based on student selection
 $('#student').change(function() {
     if ($(this).val() != '') {
-        console.log($(this).val());
-        $('#member').val($(this).val());
-        $('#title').val($('#student option:selected').text());
+        selst = $(this).val();
+        console.log('Selected student is >> ' + selst);
+        if (selst != null) {
+            console.log('updaing title to sudent name ' + $('#student option:selected').text());
+            $('#member').val($(this).val());
+            $('#title').val($('#student option:selected').text());
+        }
     }
 });
 
@@ -408,6 +424,11 @@ function enableFeeReceipt() {
     $('#infaaqfee').show();
         $('#studentinfo').show();
         $('#daterange').show();
+
+    // reset value of member id.
+    $('#member').val(0);
+    console.log('Reset member >>> ' + $('#member').val());
+    console.log('Student value is >>> ' + $('#student').val());
 }
 
 function disableFeeReceipt() {
@@ -424,6 +445,8 @@ function enableInfaaqReceipt() {
     $('#infaaqfee').show();
         $('#memberinfo').show();
         $('#daterange').show();
+
+    console.log('Member value is >>> ' + $('#member').val());
 }
 
 function disableInfaaqReceipt() {
@@ -437,6 +460,7 @@ function updateIncomeUI(inc) {
     disableInfaaqReceipt();
     disableFeeReceipt();
 
+    // enable controls based on the income type
     if (inc == 'Fee') {
         console.log('Enabling courses');
         enableFeeReceipt();

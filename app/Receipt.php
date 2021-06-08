@@ -46,6 +46,10 @@ class Receipt extends Model
     return $this->belongsTo('App\Member', 'm_id', 'regno');
   }
 
+  public function student() {
+    return $this->belongsTo('App\Student', 'm_id', 'id');
+  }
+
   public static function currDate($sid, $pid) {
     $row = Receipt::where(
       ['site_id' => $sid, 'period_id' => $pid])
@@ -125,32 +129,4 @@ order by r.department_id, r.account_id;
       return $fee;
   }
 
-/*
-  public function datestr($da) {
-      $ds = $da['year'] . '-' . $da['month'] . '-01';
-      return new \DateTime($ds);
-      //return \DateTime::createFromFormat('Y-m-d', $ds);
-  }
-
-  public function infaqArray($year, $ayanats, &$res) {
-      //$res = ['0','0','0','0','0','0','0','0','0','0','0','0'];
-      
-      foreach ($ayanats as $ayanat) {
-          $from = new DateTime($ayanat->fromdate);
-          $to = new DateTime($ayanat->todate);
-          $int = \DateInterval::createFromDateString('1 month');
-          $period = new \DatePeriod($from, $int, $to);
-          
-          foreach ($period as $dt) {
-              $y = $dt->year;
-              $m = $dt->month;
-              if ($y == $year) {
-                  $res[$m] = $ayanat->receipt_id;
-              }
-          }
-      }
-      
-      return $res;
-  }
-  */
 }
