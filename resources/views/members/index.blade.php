@@ -72,7 +72,7 @@
 
 <script>
   $(document).ready(function() {
-    console.log('JQ - Ok');
+    //console.log('JQ - Ok');
     $("#myInput").on("keyup", function() {
       var value = $(this).val().toLowerCase();
       $("#myTable tr.data").filter(function() {
@@ -80,9 +80,6 @@
       });
     });
   });
-    
-  
-  console.log('Ok');
 </script>
 
 @endsection

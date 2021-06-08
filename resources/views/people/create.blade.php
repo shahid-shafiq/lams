@@ -15,7 +15,11 @@
         </h2>
         </div>
         <div class="pull-right">
+        @if ($member)
+            <a class="btn btn-primary" href="{{ route('members.index') }}"> {{__('Back')}}</a> 
+        @else
             <a class="btn btn-primary" href="{{ route('persons.index') }}"> {{__('Back')}}</a>
+        @endif
         </div>
     </div>
 </div>
@@ -31,7 +35,6 @@
     </div>
 @endif
 
-
 @if ($mode == 'edit')
 <form action="{{ route('persons.update', $person->id) }}" method="POST">
 @method('PATCH')
@@ -40,6 +43,10 @@
 @endif
     {{ csrf_field() }}
   
+    @if ($member)
+    <input type="hidden" name="addmember" id="addmember" value="__new__">
+    @endif
+
     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">

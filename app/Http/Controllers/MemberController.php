@@ -45,9 +45,17 @@ class MemberController extends Controller
 
     public function create() {
       $member = Member::newMember();
+
+      $pid = App()->request->get('person');
+      $person = Person::find($pid);
+      if ($person != null) {
+        $member->person_id = $person->id;
+      }
+
       return view('members.create', [
         'title' => 'Member',
         'mode' => 'create',
+        'person' => $person,
         'member' => $member,
         'people' => Person::orderBy('fullname')->get(),
         ]);
@@ -69,10 +77,18 @@ class MemberController extends Controller
         'regdate' => $request->get('regdate'),
       ]);
   
-      //return view('members.show', ['member' => $member]);
-      $member->save();
-      return redirect()->route('members.index')
-                ->with('success','Member added successfully');
+      $debug = false;
+      if ($debug) {
+        echo "MEMBER<br/>";
+        echo $member;
+        echo "<br/>REQUEST<br/>";
+        echo $request;
+        return;
+      } else {
+        $member->save();
+        return redirect()->route('members.index')->with('success','Member added successfully');
+      }
+      
     }
 
     public function destroy($id)

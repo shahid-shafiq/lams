@@ -29,6 +29,7 @@ class PersonController extends Controller
     return view('people.create', [
       'title' => 'Person',
       'mode' => 'create',
+      'member' => App()->request->get('member') == 1,
       'person' => $person
       ]);
   }
@@ -55,8 +56,14 @@ class PersonController extends Controller
 
     //return view('people.show', ['person' => $person]);
     $person->save();
-    return redirect()->route('persons.index')
+
+    if ($request->get('addmember') == '__new__') {
+      return redirect()->route('members.create', 'person='.$person->id);
+    } else {
+      return redirect()->route('persons.index')
               ->with('success','Person added successfully');
+    }
+    
   }
 
   public function edit($id) {

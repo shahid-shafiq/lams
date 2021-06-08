@@ -33,6 +33,10 @@
     </div>
 @endif
 
+<?php
+$newperson = "***" . __('New Person') . "***";
+?>
+
 {{-- $member --}}
 @if ($mode == 'edit')
 <form action="{{ route('members.update', $member->id) }}" method="POST">
@@ -76,6 +80,7 @@
                 <strong>{{__('Member')}}:</strong>
                 <input type="text" name="persons" list="peopleList" id="persons" class="form-control" placeholder="Person">
                 <datalist id="peopleList">
+                <option value="{{$newperson}}"></option>              
                 @foreach ($people as $item)
                 <option value="{{$item->fullname}}"></option>
                 @endforeach
@@ -83,6 +88,7 @@
             </div>
             <div class="form-group" style="display:none">
                 <select type="text" name="person_id" id="person" class="form-control">
+                <option value="99999">{{ __("New Person") }}</option>
                 @foreach ($people as $item)
                 <option value="{{$item->id}}" {{ $item->id == $member->person_id ? 'selected' : '' }} >{{$item->fullname}}</option>
                 @endforeach
@@ -100,31 +106,41 @@
 
 <script>
  $(document).ready(function() {
-
+    const NEWPERSON = "{{$newperson}}";
+    
      // initialize
-    let selinc = $('#person')[0].options[$('#person')[0].selectedIndex].text;
-    console.log(selinc);
-    $(persons).val(selinc);
+    @if ($mode == "edit" || $person != null)
+        let selinc = $('#person')[0].options[$('#person')[0].selectedIndex].text;
+        console.log(selinc);
+        $(persons).val(selinc);
+    @endif
 
   $('#persons').on('change', function(e) {
-      console.log( e.target.value );
-      let mbs = $('#person')[0];
-      let mbo = mbs.options;
-      let f = -1;
-      for (i = 0; i < mbo.length; i++) {
-        if (e.target.value === mbo[i].text) {
-          console.log('Found - ' + mbo[i].value);
-          f = i;
-          break;
+      if (e.target.value == NEWPERSON) {
+          console.log('New person addition requested');
+          window.location.href = "{{ route('persons.create', 'member=1') }}";
+      } else {
+        console.log( e.target.value );
+        let mbs = $('#person')[0];
+        let mbo = mbs.options;
+        let f = -1;
+        for (i = 0; i < mbo.length; i++) {
+            if (e.target.value === mbo[i].text) {
+            console.log('Found - ' + mbo[i].value);
+            f = i;
+            break;
+            }
+        }
+
+        console.log(f >=0 ? 'FOUND' : 'NOT');
+        if (f != -1) {
+            let inc = mbo[f].text;
+            mbs.value = mbo[f].value;
+
+            //set field related data
+            $('#person').val(mbo[f].value);
         }
       }
-
-      let inc = mbo[f].text;
-      mbs.value = mbo[f].value;
-      console.log(f >=0 ? 'FOUND' : 'NOT');
-
-      //set field related data
-      $('#person').val(mbo[f].value);
   });
 
  });
