@@ -15,7 +15,7 @@
         </h2>
         </div>
         <div class="pull-right">
-        @if ($member)
+        @if ($member ?? '')
             <a class="btn btn-primary" href="{{ route('members.index') }}"> {{__('Back')}}</a> 
         @else
             <a class="btn btn-primary" href="{{ route('persons.index') }}"> {{__('Back')}}</a>
@@ -43,7 +43,7 @@
 @endif
     {{ csrf_field() }}
   
-    @if ($member)
+    @if ($member ?? '')
     <input type="hidden" name="addmember" id="addmember" value="__new__">
     @endif
 
