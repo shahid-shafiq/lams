@@ -143,6 +143,8 @@ class UserController extends Controller
         'receipts_pagesize' => $request->receipt_pagesize,
         'bills_pagesize' => $request->bill_pagesize,
         'vouchers_pagesize' => $request->voucher_pagesize,
+        'edit_billno' => $request->edit_billno == "on",
+        'receipt_seqno' => $request->receipt_seqno == "on",
         'locale' => $request->locale,
       ]);
 

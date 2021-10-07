@@ -72,6 +72,7 @@
   "Title" : "عنوان",
   "Description" : "تصریح",
   "No" : "شمار",
+  "Seq" : "شمار",
   "Category" : "قسم",
   "Amount" : "رقم",
   "Account Id" : "مد حساب",
@@ -289,6 +290,10 @@
   "To" : "تا",
 
   "Student" : "طالب علم",
+
+"Show sequence in receipt report" : "رسیدات کی رپورٹ میں نمبر شمار شامل ہو",
+"Enable bill no. editing" : "بل نمبر میں تبدیلی کی جاسکے",
+
 
   "END OF FILE" : "اختتام"
 }

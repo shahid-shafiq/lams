@@ -11,7 +11,7 @@ class Profile extends Model
 
     protected $fillable = [
         'locale', 'receipts_pagesize', 'bills_pagesize', 
-        'vouchers_pagesize', 'period_id'
+        'vouchers_pagesize', 'period_id', 'edit_billno', 'receipt_seqno'
     ];
 
     public function user() {

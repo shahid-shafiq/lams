@@ -48,8 +48,7 @@
 @else
 <input type="hidden" name="site" value="{{$site->id}}"/>
 @endif
-
-</div>
+  </div>
 
   <div class="row">
     <div class="col-xs-4 col-sm-4 col-md-4">
@@ -75,26 +74,46 @@
           </select>
       </div>
     </div>
+  </div>
 
-    <div class="col-xs-4 col-sm-4 col-md-4">
-      <div class="form-group">
-        <strong>{{__('Language')}}:</strong>
-        <select name="locale" class="form-control">
-        @foreach ($locales as $key=>$val)
-            <option value="{{$key}}" 
-                @if ($key ===  $user->profile->locale)
-                    selected
-                @endif
-            >{{$val}}</option>
-        @endforeach
-        </select>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-check">
+          <input class="form-check-input" id="receipt_seqno" name="receipt_seqno" type="checkbox" {{ $user->profile->receipt_seqno ? "checked" : "" }}>  
+          <label class="form-check-label" for="receipt_seqno">{{__('Show sequence in receipt report')}}</label>
+        </div>
       </div>
     </div>
-  </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-check">
+          <input class="form-check-input" id="edit_billno" name="edit_billno" type="checkbox" {{ $user->profile->edit_billno ? "checked" : "" }}>  
+          <label class="form-check-label" for="edit_billno">{{__('Enable bill no. editing')}}</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-6 col-sm-6 col-md-6">
+        <div class="form-group">
+          <strong>{{__('Language')}}:</strong>
+          <select name="locale" class="form-control">
+          @foreach ($locales as $key=>$val)
+              <option value="{{$key}}" 
+                  @if ($key ===  $user->profile->locale)
+                      selected
+                  @endif
+              >{{$val}}</option>
+          @endforeach
+          </select>
+        </div>
+      </div>
+    </div>
 
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            <button type="submit" class="btn btn-primary">{{__('Update')}}</button>
+        <button type="submit" class="btn btn-primary">{{__('Update')}}</button>
     </div>
   </div>
         

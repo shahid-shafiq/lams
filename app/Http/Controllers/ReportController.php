@@ -114,6 +114,7 @@ class ReportController extends Controller
                 'title' => 'Reports',
                 'periods' => Period::orderBy('id', 'desc')->get(),
                 'period' => $this->period,
+                'profile' => Auth::user()->profile,
                 'receipts' => $receipts,
             ]);
         }

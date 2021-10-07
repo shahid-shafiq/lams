@@ -34,6 +34,9 @@ if (($count % $rows) < $pages) {
     $pages = (int)ceil($count/$rows);
 }
 
+$showseq = ($profile->receipt_seqno != 0);
+$seq = 1; 
+
 $sum = 0;
 $pdf->shrink_tables_to_fit = false;
 $pdf->AddPage();
@@ -86,6 +89,9 @@ for ($page = 0; $page < $pages; $page++) {
     <table dir="rtl" width="100%" autosize="0" class="urdu trans">
         <thead>
             <tr>
+                @if ($showseq)
+                <th ><?= __('No') ?></th>
+                @endif
                 <th ><?= __('Receipt') ?></th>
                 <th><?= __('Date') ?></th>
                 <th><?= __('Income Detail') ?></th>
@@ -109,6 +115,9 @@ for ($page = 0; $page < $pages; $page++) {
               $receipt = (object)$ritem;  
             ?>
             <tr>
+                @if ($showseq)
+                <td><?= ($seq) ?></td>
+                @endif
                 <td><?= ($receipt->no) ?></td>
                 <td style="font-size:15px"><?= Carbon::createFromDate($receipt->rdate)->format('d-m-Y') ?></td>
                 <td align='right'>
@@ -119,6 +128,7 @@ for ($page = 0; $page < $pages; $page++) {
                 <?php 
                     $sum += $receipt->amount;
                     $firstrow = false;
+                    $seq += 1;
                 ?>
             </tr>
             <?php endforeach; ?>
