@@ -17,9 +17,6 @@
     }
 ?>
 
-{{ __("labels.Dec") }}
-<?= app()->getlocale() ?>
-
 <div class="row">
     <div class="col">
         <table class="table table-sm">

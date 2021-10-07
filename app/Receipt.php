@@ -60,6 +60,15 @@ class Receipt extends Model
     else return $row[0]->rdate;
   }
 
+  public static function safeNumber($sid, $rno) {
+    $row = Receipt::where(['site_id' => $sid, 'no' => $rno])->get();
+    if ($row == null || $row->count() == 0) {
+      return $rno;
+    } else {
+      return Receipt::safeNumber($sid, $rno+1);
+    }
+  }
+
   public static function nextNumber($sid, $pid) {
       $row = Receipt::where(
         ['site_id' => $sid, 'period_id' => $pid])
@@ -67,8 +76,15 @@ class Receipt extends Model
         ->orderBy('no', 'desc')
         ->limit(1)->get();
 
-      if ($row == null || $row->count() == 0) return 1;
-      else return $row[0]->no + 1;
+      if ($row == null || $row->count() == 0) {
+        if ($pid > 1) {
+          return Receipt::nextNumber($sid, $pid - 1);
+        }
+        else return 1;
+      }
+      else {
+        return Receipt::safeNumber($sid, $row[0]->no + 1);
+      }
   }
 
   public static function newReceipt($sid, $pid) {
