@@ -42,7 +42,7 @@
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
                 <strong>{{__('No')}}:</strong>
-                @if ($mode == 'edit')
+                @if ($mode == 'edit' && $profile->edit_billno == false)
                 <input type="text" readonly name="no" value="{{$bill->no}}" class="form-control" placeholder="{{__('Bill No.')}}">
                 @else
                 <input type="text" name="no" value="{{$bill->no}}" class="form-control" placeholder="{{__('Bill No.')}}">

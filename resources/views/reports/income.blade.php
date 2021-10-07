@@ -11,7 +11,7 @@
   $seq = 1; 
 ?>
 
-{{ ($showseq) ? "Show" : "Not" }}
+{{-- ($showseq) ? "Show" : "Not" --}}
 <div class="row">
 <table id="myTable" class="table table-striped table-bordered table-hover table-sm">
   <thead class="thead-dark">

@@ -10,6 +10,7 @@ use App\Account;
 use App\Member;
 use App\Course;
 use App\Payment;
+use Auth;
 use App;
 
 class BillController extends Controller
@@ -78,6 +79,7 @@ class BillController extends Controller
         'title' => 'Bills',
         'mode' => 'edit',
         'bill' => $bill,
+        'profile' => Auth::user()->profile,
         'departments' => Department::all(),
         'accounts' => Account::all(),
         'payments' => Payment::all(),
