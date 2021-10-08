@@ -82,6 +82,8 @@ Route::get('reports/vouchers/{output?}', 'ReportController@vouchers')->name('rep
 Route::get('reports/infaaq/{output?}', 'ReportController@infaaq')->name('reports.infaaq');
 Route::get('reports/dues/{output?}', 'ReportController@dues')->name('reports.dues');
 Route::get('reports/{output?}', 'ReportController@index')->name('reports');
+Route::match(['get', 'post'], 'reports/advanced/income/{output?}', 'ReportController@income_advanced')->name('reports.advanced.income');
+Route::match(['get', 'post'], 'reports/advanced/expense/{output?}', 'ReportController@expense_advanced')->name('reports.advanced.expense');
 
 //bank transactions
 Route::resource('bank', 'TransController');

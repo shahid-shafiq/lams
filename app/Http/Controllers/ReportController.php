@@ -120,6 +120,127 @@ class ReportController extends Controller
         }
     }
 
+    private function get_filter_receipts($request, $filter) {
+        $def = true;
+        $query = Receipt::where(['site_id' => $this->sid]);
+
+        if ($filter->brange) {
+            $def = false;
+            $query = $query->where([
+                ['no', '>=', $filter->frange],
+                ['no', '<=', $filter->lrange] 
+            ]);
+        } 
+            
+        if ($filter->bperiod) {
+            $def = false;
+            $query = $query->where([
+                ['period_id', '>=', $filter->fperiod],
+                ['period_id', '<=', $filter->tperiod] 
+            ]);  
+        } 
+        
+        if ($filter->bdate) {
+            $def = false;
+            $query = $query->where([
+                ['rdate', '>=', $filter->fdate],
+                ['rdate', '<=', $filter->tdate] 
+            ]);
+        } 
+            
+        if ($def) {
+            $pid = $this->selectPeriod($request);
+            $query = $query->where(['period_id' => $pid, 'site_id' => $this->sid]);
+        }
+
+        $receipts = $query->limit(2000)->orderby('no', 'asc')->get();
+        return [$receipts, $def];
+    }
+
+    public function income_advanced(Request $request, $output = null)
+    {     
+        if ($request->isMethod('post')) {
+            $filter = new \stdClass();
+            $filter->brange = $request->get('brange');
+            $filter->frange = $request->get('frange');
+            $filter->lrange = $request->get('lrange');
+
+            $filter->bdate = $request->get('bdate');
+            $filter->fdate = $request->get('fdate');
+            $filter->tdate = $request->get('tdate');
+
+            $filter->bperiod = $request->get('bperiod');
+            $filter->fperiod = $request->get('fperiod');
+            $filter->tperiod = $request->get('tperiod');
+
+            $filter->fee = $request->get('fee');
+            $filter->infaaq = $request->get('infaaq');
+            $filter->special = $request->get('special');
+            $filter->sale = $request->get('sale');
+            $filter->other = $request->get('other');
+
+            $res = $this->get_filter_receipts($request, $filter);
+            $receipts = $res[0]; 
+            $request->session()->put('advfilter', $filter);
+        } else if ($request->session()->has('advfilter')) {
+            $filter = $request->session()->get('advfilter');
+            $res = $this->get_filter_receipts($request, $filter);
+            $receipts = $res[0]; 
+        } else {
+            $pid = $this->selectPeriod($request);
+            $receipts = Receipt::where(['period_id' => $pid, 'site_id' => $this->sid])
+                ->orderby('no', 'asc')->get();
+
+            $res = [$receipts, true];
+
+            $filter = new \stdClass();
+            $filter->brange = false;
+            $filter->bdate = false;
+            $filter->bperiod = false;
+        }
+
+        // defaults
+        if ($res[1]) {
+            $filter->frange = $receipts[0]->no;
+            $filter->lrange = $receipts[$receipts->count()-1]->no;
+
+            $filter->fdate = $receipts[0]->rdate;
+            $filter->tdate = $receipts[$receipts->count()-1]->rdate;
+
+            $filter->fperiod = $receipts[0]->period_id;
+            $filter->tperiod = $receipts[$receipts->count()-1]->period_id;
+
+            $filter->infaaq  = true;
+            $filter->fee = true;
+            $filter->special = true;
+            $filter->sale = true;
+            $filter->other = true;
+        }
+
+        if ($output === "pdf") {
+            $site = Site::find($this->sid);
+
+            return response(
+                view('reports.pdf.income', [
+                'period' => null,
+                'data' => $receipts->toArray(),
+                'profile' => Auth::user()->profile,
+                'site' => $site
+                ]), 200)
+                ->header('Content-Type', 'application/pdf');
+
+        } else {
+            return view('reports.advanced.income', [
+                'title' => 'Advanced Reports',
+                'periods' => Period::orderBy('id', 'desc')->get(),
+                //'period' => $this->period,
+                'profile' => Auth::user()->profile,
+                'filter' => $filter,
+                'receipts' => $receipts,
+            ]);
+        }
+    }
+
     public function expense(Request $request, $output = null)
     {      
         $pid = $this->selectPeriod($request);

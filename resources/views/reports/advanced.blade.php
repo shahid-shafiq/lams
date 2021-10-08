@@ -80,66 +80,12 @@
 @show
 {{-- $period->title}}
 {{Route::current()->getName() --}}
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <div class="d-inline h2">
-      {{__('Reports')}} >> 
-      </div>
-      <div class="d-inline w-20 h4">
-      <select class="text-secondary"
-      style="
-        padding:0.75rem; font-weight:bold;
-        background-color:rgba(0,0,0,0.0);
-        border: none;
-      " 
-      onchange = "refresh(this)">
-      @foreach ($periods as $item)
-      <option value="{{$item->id}}"
-      {{ $item->id == $period->id ? 'selected' : ''}}
-      >{{$item->title}}
-      </option>
-      @endforeach
-      </select>
-      </div>
-    </div>
-    <script>
-        $(function() {});
-        function refresh(obj) { self.location.search = '?pid='+ obj.value; }
-    </script>
-</div>
 
-<div class="row">
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a href="{{route('reports')}}" 
-            class="nav-link text-secondary {{Route::current()->getName() == 'reports' ? 'active' : ''}}">{{__('Net Profit')}}</a>
-        </li>
-        <li class="nav-item">
-            <a href="{{route('reports.income')}}" 
-            class="nav-link text-secondary {{Route::current()->getName() == 'reports.income' ? 'active' : ''}}">{{__('Income')}}</a>
-        </li>
-        <li class="nav-item">
-            <a href="{{route('reports.expense')}}" 
-            class="nav-link text-secondary {{Route::current()->getName() == 'reports.expense' ? 'active' : ''}}">{{__('Expenses')}}</a>
-        </li>
-        <li class="nav-item">
-            <a href="{{route('reports.vouchers')}}" 
-            class="nav-link text-secondary {{Route::current()->getName() == 'reports.vouchers' ? 'active' : ''}}">{{__('Vouchers')}}</a>
-        </li>
-        <li class="nav-item">
-            <a href="{{route('reports.infaaq')}}" 
-            class="nav-link text-secondary {{Route::current()->getName() == 'reports.infaaq' ? 'active' : ''}}">{{__('Infaaq')}}</a>
-        </li>
-        <li class="float-right">
-        @yield('pdflink')
-        </li>
-        <li class="float-right">
-        @yield('pages')
-        </li>
-    </ul>
+<div class="container">
+  <div class="row" -style="border: 1px solid red;">
+    @yield('filter')
   </div>
-  <div class="container p-3" style="height:70vh; overflow:auto">
+  <div class="row" -style="border: 1px solid blue;">
     @yield('content')
   </div>
 </div>

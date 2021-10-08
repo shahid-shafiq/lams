@@ -9,7 +9,7 @@
   "The bill has been saved." : "بل کا اندراج محفوظ کر دیا گیا ہے۔",
   "The bill could not be saved. Please, try again." : "بل کا اندراج محفوظ نہیں ہو سکا۔ دوبارہ کوشش کریں۔",
   "The bill has been deleted." : "بل کا اندراج حذف کردیا گیا ہے۔",
-  "The bill could not be deleted. Please, try again." : "بل کا اندراج حذف نہیں ہوسکا۔ دوبارہ کوشش کریں۔",
+  "The bill could not be deleted. Please, try againBasic." : "بل کا اندراج حذف نہیں ہوسکا۔ دوبارہ کوشش کریں۔",
   "The employee has been saved." : "",
   "The employee could not be saved. Please, try again." : "",
   "The employee has been deleted." : "",
@@ -291,9 +291,15 @@
 
   "Student" : "طالب علم",
 
-"Show sequence in receipt report" : "رسیدات کی رپورٹ میں نمبر شمار شامل ہو",
-"Enable bill no. editing" : "بل نمبر میں تبدیلی کی جاسکے",
+  "Show sequence in receipt report" : "رسیدات کی رپورٹ میں نمبر شمار شامل ہو",
+  "Enable bill no. editing" : "بل نمبر میں تبدیلی کی جاسکے",
 
+  "Basic" : "بنیادی",
+  "Detailed Income" : "تفصیلی آمدن رسیدات",
+  "Detailed Expense" : "تفصیلی اخراجات بل",
+
+  "Special" : "خصوصی",
+  "Sale" : "بیع",
 
   "END OF FILE" : "اختتام"
 }
