@@ -135,7 +135,7 @@ $(document).ready(function(){
       <input disabled type="date" class="form-control" id="tdate" name="tdate" placeholder="End" value="{{Carbon::createFromDate($filter->tdate)->format('Y-m-d')}}">
     </div>
   </div>
-
+{{-- dd($filter) --}}
   <div class="form-row">
     <div class="form-group col-md-1">
       <input type="checkbox" id="infaaq" name="infaaq" {{$filter->infaaq ? "checked" : ""}} />
@@ -185,6 +185,7 @@ $(document).ready(function(){
   </tr>
   </thead>
   <tbody style="font-size:0.9rem">
+  @if ($receipts->count() > 0)
   @foreach ($receipts as $receipt)
   <tr>
   @if ($showseq)
@@ -203,6 +204,12 @@ $(document).ready(function(){
   $seq += 1; 
 ?>
   @endforeach
+  @else
+  <tr>
+    <td colspan="5">NO RECORDS FOUND!!
+    </td> 
+  </tr>
+  @endif
   </tbody>
 </table>
 

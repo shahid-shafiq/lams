@@ -14,6 +14,20 @@ use DB;
 
 class ReportController extends Controller
 {
+    const DB_INFAQ = 2;
+    const DB_FEE = 3;
+    const DB_SPECIAL = 4;
+    const DB_SALE = 5;
+    const DB_GENRAL = 1;
+    const DB_ADJUSTMENT = 6;
+
+    const F_INFAQ = 1;
+    const F_FEE = 2;
+    const F_SPECIAL = 4;
+    const F_SALE = 8;
+    const F_OTHER = 16;
+
+
     public function __construct() {
         parent::__construct();
         $this->middleware('auth');
@@ -124,6 +138,14 @@ class ReportController extends Controller
         $def = true;
         $query = Receipt::where(['site_id' => $this->sid]);
 
+        
+
+        $flags = $filter->infaaq == true;           // 1 (DB = 2)
+        $flags |= ($filter->fee == true) << 1;      // 2 (DB = 3)
+        $flags |= ($filter->special == true) << 2;  // 4 (DB = 4)
+        $flags |= ($filter->sale == true) << 3;     // 8 (DB = 5)
+        $flags |= ($filter->other == true) << 4;    // 16
+        
         if ($filter->brange) {
             $def = false;
             $query = $query->where([
@@ -138,7 +160,33 @@ class ReportController extends Controller
                 ['period_id', '>=', $filter->fperiod],
                 ['period_id', '<=', $filter->tperiod] 
             ]);  
-        } 
+        }
+
+        if ($flags < 31) {
+            $income = [];
+            if ($flags & $this::F_INFAQ) {
+                $income[] = $this::DB_INFAQ;
+            }
+
+            if ($flags & $this::F_FEE) {
+                $income[] = $this::DB_FEE;
+            }
+
+            if ($flags & $this::F_SPECIAL) {
+                $income[] = $this::DB_SPECIAL;
+            }
+
+            if ($flags & $this::F_SALE) {
+                $income[] = $this::DB_SALE;
+            }
+
+            if ($flags & $this::F_OTHER) {
+                $income[] = $this::DB_GENRAL;
+                $income[] = $this::DB_ADJUSTMENT;
+            }
+
+            $query = $query->whereIn('income_id', $income);
+        }
         
         if ($filter->bdate) {
             $def = false;
@@ -197,24 +245,32 @@ class ReportController extends Controller
             $filter->brange = false;
             $filter->bdate = false;
             $filter->bperiod = false;
-        }
-
-        // defaults
-        if ($res[1]) {
-            $filter->frange = $receipts[0]->no;
-            $filter->lrange = $receipts[$receipts->count()-1]->no;
-
-            $filter->fdate = $receipts[0]->rdate;
-            $filter->tdate = $receipts[$receipts->count()-1]->rdate;
-
-            $filter->fperiod = $receipts[0]->period_id;
-            $filter->tperiod = $receipts[$receipts->count()-1]->period_id;
-
+            
             $filter->infaaq  = true;
             $filter->fee = true;
             $filter->special = true;
             $filter->sale = true;
             $filter->other = true;
+        }
+
+        // defaults
+        if ($res[1]) {
+            if ($receipts->count() > 0) {
+                $filter->frange = $receipts[0]->no;
+                $filter->lrange = $receipts[$receipts->count()-1]->no;
+
+                $filter->fdate = $receipts[0]->rdate;
+                $filter->tdate = $receipts[$receipts->count()-1]->rdate;
+
+                $filter->fperiod = $receipts[0]->period_id;
+                $filter->tperiod = $receipts[$receipts->count()-1]->period_id;
+            }
+
+            //$filter->infaaq  = true;
+            //$filter->fee = true;
+            //$filter->special = true;
+            //$filter->sale = true;
+            //$filter->other = true;
         }
 
         if ($output === "pdf") {
