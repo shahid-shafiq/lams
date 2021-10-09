@@ -37,6 +37,10 @@ if (($count % $rows) < $pages) {
     $pages = (int)ceil($count/$rows);
 }
 
+if ($pages < 1) {
+    $pages = 1;
+}
+
 $showseq = ($profile->receipt_seqno != 0);
 $seq = 1; 
 
@@ -114,6 +118,9 @@ for ($page = 0; $page < $pages; $page++) {
             </tr>
             <?php endif; ?>
             
+            <?php if (count($receipts) ==  0) { ?>
+                <tr><td>{{__("NO RECORDS FOUND!")}}</td></tr>
+            <?php } else { ?> 
             <?php foreach ($receipts as $ritem): 
               $receipt = (object)$ritem;  
             ?>
@@ -135,6 +142,7 @@ for ($page = 0; $page < $pages; $page++) {
                 ?>
             </tr>
             <?php endforeach; ?>
+            <?php } ?>
             <tr class="border-top: 4px solid black;">
                 <td style="font-weight: bold; font-size:17pt" align="center" colspan="3" ><?= ($page < $pages-1) ? 'C/O' : __('Total income') ?></td>
                 <td style="font-weight: bold; font-size:17pt" align="right"><?= number_format($sum) ?></td>

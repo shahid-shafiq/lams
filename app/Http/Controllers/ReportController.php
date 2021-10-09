@@ -229,9 +229,9 @@ class ReportController extends Controller
 
             $res = $this->get_filter_receipts($request, $filter);
             $receipts = $res[0]; 
-            $request->session()->put('advfilter', $filter);
-        } else if ($request->session()->has('advfilter')) {
-            $filter = $request->session()->get('advfilter');
+            $request->session()->put('recfilter', $filter);
+        } else if ($request->session()->has('recfilter')) {
+            $filter = $request->session()->get('recfilter');
             $res = $this->get_filter_receipts($request, $filter);
             $receipts = $res[0]; 
         } else {
@@ -265,12 +265,6 @@ class ReportController extends Controller
                 $filter->fperiod = $receipts[0]->period_id;
                 $filter->tperiod = $receipts[$receipts->count()-1]->period_id;
             }
-
-            //$filter->infaaq  = true;
-            //$filter->fee = true;
-            //$filter->special = true;
-            //$filter->sale = true;
-            //$filter->other = true;
         }
 
         if ($output === "pdf") {
@@ -293,6 +287,100 @@ class ReportController extends Controller
                 'profile' => Auth::user()->profile,
                 'filter' => $filter,
                 'receipts' => $receipts,
+            ]);
+        }
+    }
+
+    private function get_filter_bills($request, $filter) {
+        $def = true;
+        $query = Bill::where(['site_id' => $this->sid]);
+                    
+        if ($filter->bperiod) {
+            $def = false;
+            $query = $query->where([
+                ['period_id', '>=', $filter->fperiod],
+                ['period_id', '<=', $filter->tperiod] 
+            ]);  
+        }
+       
+        if ($filter->bdate) {
+            $def = false;
+            $query = $query->where([
+                ['bdate', '>=', $filter->fdate],
+                ['bdate', '<=', $filter->tdate] 
+            ]);
+        } 
+            
+        if ($def) {
+            $pid = $this->selectPeriod($request);
+            $query = $query->where(['period_id' => $pid, 'site_id' => $this->sid]);
+        }
+
+        $bills = $query->limit(2000)->orderby('bdate', 'asc')->get();
+        return [$bills, $def];
+    }
+
+    public function expense_advanced(Request $request, $output = null)
+    {     
+        if ($request->isMethod('post')) {
+            $filter = new \stdClass();
+            $filter->bdate = $request->get('bdate');
+            $filter->fdate = $request->get('fdate');
+            $filter->tdate = $request->get('tdate');
+
+            $filter->bperiod = $request->get('bperiod');
+            $filter->fperiod = $request->get('fperiod');
+            $filter->tperiod = $request->get('tperiod');
+
+            $res = $this->get_filter_bills($request, $filter);
+            $bills = $res[0]; 
+            $request->session()->put('billfilter', $filter);
+        } else if ($request->session()->has('billfilter')) {
+            $filter = $request->session()->get('billfilter');
+            $res = $this->get_filter_bills($request, $filter);
+            $bills = $res[0]; 
+        } else {
+            $pid = $this->selectPeriod($request);
+            $bills = Bill::where(['period_id' => $pid, 'site_id' => $this->sid])
+                ->orderby('bdate', 'asc')->get();
+
+            $res = [$bills, true];
+
+            $filter = new \stdClass();
+            $filter->bdate = false;
+            $filter->bperiod = false;
+        }
+
+        // defaults
+        if ($res[1]) {
+            if ($bills->count() > 0) {
+                $filter->fdate = $bills[0]->bdate;
+                $filter->tdate = $bills[$bills->count()-1]->bdate;
+
+                $filter->fperiod = $bills[0]->period_id;
+                $filter->tperiod = $bills[$bills->count()-1]->period_id;
+            }
+        }
+
+        if ($output === 'pdf') {
+            $site = Site::find($this->sid);
+
+            return response(
+                view('reports.pdf.expense', [
+                    'period' => null,
+                    'data' => $bills->toArray(),
+                    'profile' => Auth::user()->profile,
+                    'site' => $site
+                ]), 200)
+                ->header('Content-Type', 'application/pdf');
+        } else {
+            return view('reports.advanced.expense', [
+                'title' => 'Reports',
+                'periods' => Period::orderBy('id', 'desc')->get(),
+                //'period' => $this->period,
+                'bills' => $bills,
+                'filter' => $filter,
+                'profile' => Auth::user()->profile,
             ]);
         }
     }

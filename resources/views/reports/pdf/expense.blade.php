@@ -21,9 +21,11 @@ if ($lines > $maxlines) {
     $lines = $maxlines;
 }
 
-$p = explode(" ", $period->title);
-$m = $p[0];
-$y = $p[1];
+if ($period != null) {
+    $p = explode(" ", $period->title);
+    $m = $p[0];
+    $y = $p[1];
+}
 $count = sizeof($data);
 $rows = $lines;
 $pages = (int)ceil($count/$rows);
@@ -32,6 +34,10 @@ $pages = (int)ceil($count/$rows);
 if (($count % $rows) < $pages) {
     $rows++;
     $pages = (int)ceil($count/$rows);
+}
+
+if ($pages < 1) {
+    $pages = 1;
 }
 
 $sum = 0;
@@ -57,7 +63,7 @@ ob_start();
 <div class="header">
     <table autosize="0" dir="rtl" width="100%" style="border:1px solid white;" class="urdu">
         <tr>
-            <th style="border:2px solid white; font-size:20pt" width="20%"><?=  __("labels.".$m) ?></th>
+            <th style="border:2px solid white; font-size:20pt" width="20%"><?=  ($period != null) ? __("labels.".$m) : "" ?></th>
             <th style="border:2px solid white;" align="center" width="60%">
                 <div style="font-size:24pt" >انجمن خدام القرآن</div>
                 <div style="font-size:13pt" >راولپنڈی / اسلام آباد</div>
@@ -65,7 +71,7 @@ ob_start();
                 <div style="font-size:11pt; font-style:italic" ><?= $site['title'] ?></div>
                 <?php endif; ?>
             </th>
-            <th style="border:2px solid white; font-size:20pt" width="20%"><?= $y ?></th>
+            <th style="border:2px solid white; font-size:20pt" width="20%"><?= ($period != null) ? $y : "" ?></th>
         </tr>
     </table>
     <!--div><?php echo $count.'-'.$pages.'-'.$count/$rows; ?></div-->
@@ -105,6 +111,7 @@ for ($page = 0; $page < $pages; $page++) {
             </tr>
             <?php endif; ?>
             
+            <?php if (count($bills) > 0) { ?>
             <?php foreach ($bills as $item): 
               $bill = (object)$item;
             ?>
@@ -123,6 +130,11 @@ for ($page = 0; $page < $pages; $page++) {
                 $firstrow = false;
             ?>
             <?php endforeach; ?>
+            <?php } else {  ?>
+            <tr>
+                <td>{{__("NO RECORDS FOUND!")}}</td>
+            </tr>
+            <?php }; ?>
             <tr class="border-top: 4px solid black;">
                 <td style="font-weight: bold; font-size:17pt" align="center" colspan="3" ><?= ($page < $pages-1) ? 'C/O' : __('Total expenses') ?></td>
                 <td style="font-weight: bold; font-size:17pt" align="right"><?= number_format($sum) ?></td>

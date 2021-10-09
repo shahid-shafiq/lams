@@ -50,9 +50,9 @@
       <li class="nav-item">
         <a class="nav-link" href="{{ route('reports.advanced.income') }}">{{__('Detailed Income')}}</a>
       </li>
-      <!-- li class="nav-item">
+      <li class="nav-item">
         <a class="nav-link" href="{{ route('reports.advanced.expense') }}">{{__('Detailed Expense')}}</a>
-      </li -->
+      </li>
     </ul>
     @auth
     <div class="ml-2">
