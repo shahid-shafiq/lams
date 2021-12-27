@@ -17,10 +17,10 @@ class MemberController extends Controller
     
     public function index() {
       if (Auth()->user()->role=='admin') {
-        $members = Member::get();
+        $members = Member::orderBy('regno' ,'ASC')->get();
       } else {
         //$members = Member::get();
-        $members = Member::where('status', '<>', 'D')->orWhereNull('status')->get();
+        $members = Member::where('status', '<>', 'D')->orWhereNull('status')->orderBy('regno' ,'ASC')->get();
       }
       
       //$members = Member::get();

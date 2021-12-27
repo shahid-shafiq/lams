@@ -25,7 +25,7 @@
   NO BILLS
   </div>
   @else
-  <div  style="height:80vh; overflow:auto">
+  <div  style="height:78vh; overflow:auto">
 
 <table id="myTable" class="table table-striped table-bordered table-hover table-sm">
   <tr>

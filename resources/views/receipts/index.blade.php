@@ -81,7 +81,7 @@ print($cd->lastOfMonth()->toDateString());
 NO RECEIPTS
   </div>
 @else
-  <div style="height:80vh; overflow:auto">
+  <div style="height:77vh; overflow:auto">
 
   <table id="myTable" class="table table-striped table-bordered table-hover table-sm">
     <tr>

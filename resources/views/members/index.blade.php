@@ -24,7 +24,7 @@
   NO MEMBERS
   </div>
   @else
-  <div  style="height:80vh; overflow:auto">
+  <div  style="height:78vh; overflow:auto">
 
 <table id="myTable" class="table table-striped table-bordered table-hover table-sm">
   <thead>
@@ -51,7 +51,7 @@
 
         <a href="{{ route('members.show', $member->id) }}" class="view {{$delclass}}" title="View" data-toggle="tooltip"><i class="material-icons">pageview</i></a>
         <a href="{{ route('members.edit', $member->id) }}" class="edit {{$delclass}}" title="Edit" data-toggle="tooltip"><i class="material-icons">edit</i></a>
-        @if ($member->status !== 'D')
+        @if (Auth::user()->role == 'admin' && $member->status !== 'D')
         <input class="material-icons btn-outline-danger" style="border:none" 
           onclick="return confirm('Delete record?')" type="submit" value="delete_outline" title="Delete" data-toggle="tooltip">
         </input>
@@ -63,12 +63,13 @@
   </tbody>
 </table>
   <div>
-
-
     </div>
     @endif
   </div>
 </div>
+
+@auth
+@endauth
 
 <script>
   $(document).ready(function() {
