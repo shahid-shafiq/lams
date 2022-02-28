@@ -71,7 +71,7 @@
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4">
             <div class="form-group">
-                <strong>{{__('Income')}}:</strong>
+                <strong>{{__('Expense')}}:</strong>
                 <select name="expense" id="expense" class="form-control" placeholder="Receipt no.">
                 @foreach ($expenses as $item)
                     <option value="{{$item->id}}" 
