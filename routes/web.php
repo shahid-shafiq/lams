@@ -41,6 +41,7 @@ Route::get('api/infaaq/{id}','InfaaqController@infaaq');
 
 Route::get('api/courses/{cmpid}','FeeController@courses');
 Route::get('api/students/{cmpid}/{crsid}','FeeController@students');
+Route::get('api/subaccounts/{expid}','BillController@subaccounts');
 
 
  // routes

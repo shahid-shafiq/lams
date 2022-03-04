@@ -36,7 +36,7 @@ class BillController extends Controller
       'departments' => Department::all(),
       'accounts' => Account::all(),
       'payments' => Payment::all(),
-      'expenses' => Expense::all(),
+      'expenses' => Expense::where(['status' => '1'])->get(),
       ]);
   }
 
@@ -74,6 +74,7 @@ class BillController extends Controller
 
   public function edit($id) {
       $bill = Bill::findOrFail($id);
+      $accounts = Account::where(['expense_id' => $bill->expense_id])->orderBy('id')->get();
 
       return view('bills.create', [
         'title' => 'Bills',
@@ -81,7 +82,7 @@ class BillController extends Controller
         'bill' => $bill,
         'profile' => Auth::user()->profile,
         'departments' => Department::all(),
-        'accounts' => Account::all(),
+        'accounts' => $accounts,
         'payments' => Payment::all(),
         'expenses' => Expense::all(),
         ]);
@@ -115,5 +116,9 @@ class BillController extends Controller
     $bill->delete();
     return redirect()->route('bills.index')
               ->with('success','Bill deleted successfully');
+  }
+
+  public function subaccounts($exp) {
+    return Account::where(['expense_id' => $exp])->orWhere(['id' => '1'])->orderBy('id')->get();
   }
 }
