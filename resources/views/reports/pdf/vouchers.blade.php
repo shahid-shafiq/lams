@@ -113,7 +113,7 @@ for ($page = 0; $page < $pages; $page++) {
     <table dir="rtl" width="100%" autosize="0" class="urdu trans" cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th ><?= __('Bill No') ?></th>
+                <th ><?= __('Bill No.') ?></th>
                 <th ><?= __('Date') ?></th>
                 <th ><?= __('Details') ?></th>
                 <th ><?= __('Amount') ?></th>

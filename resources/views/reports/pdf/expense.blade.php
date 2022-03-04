@@ -92,7 +92,7 @@ for ($page = 0; $page < $pages; $page++) {
         <thead>
             <tr>
                 <!-- previously used widths 14, 45, 20, 15 -->
-                <th ><?= __('Voucher') ?></th>
+                <th ><?= __('Bill No.') ?></th>
                 <th ><?= __('Date') ?></th>
                 <th ><?= __('Expense Detail') ?></th>
                 <th ><?= __('Amount') ?></th>
