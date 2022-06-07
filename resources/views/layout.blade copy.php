@@ -56,10 +56,9 @@
       </li>
 @auth
 <?php
-$isadmin = Auth::user()->role == 'admin';
+$ismanager = Auth::user()->role == 'admin' || Auth::user()->role == 'manager';
 ?>
-{{$isadmin}}
-@if ($isadmin)
+@if ($ismanager)
       <li class="nav-item">
         <a class="nav-link" href="{{ route('admin') }}">Admin</a>
       </li>

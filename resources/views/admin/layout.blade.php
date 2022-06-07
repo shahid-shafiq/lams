@@ -39,7 +39,12 @@
   <a class="navbar-brand" href="#">AKQ
   <span class='d-inline d-lg-none text-light'>{{ '- '. ($title ?? '') }}</span>
   </a>
- 
+
+<?php
+$isadmin = Auth::user()->role == 'admin';
+$ismanager = Auth::user()->role == 'manager';
+?>
+
   <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -48,11 +53,16 @@
       <li class="nav-item">
         <a class="nav-link" href="{{ route('home') }}">{{__('Home')}}</a>
       </li>
+      @if ($isadmin)
       <li class="nav-item">
         <a class="nav-link" href="{{ route('users.index') }}">{{__('Users')}}</a>
       </li>
+      @endif
       <li class="nav-item">
         <a class="nav-link" href="{{ route('persons.index') }}">{{__('People')}}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('members.index') }}">{{__('Members')}}</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ route('periods.index') }}">{{__('Periods')}}</a>
@@ -60,9 +70,11 @@
       <li class="nav-item">
         <a class="nav-link" href="{{ route('balances.index') }}">{{__('Balances')}}</a>
       </li>
+      @if ($isadmin)
       <li class="nav-item">
         <a class="nav-link" href="{{ route('bank.index') }}">{{__('Bank')}}</a>
       </li>
+      @endif
     </ul>
     @auth
     <div class="ml-2">

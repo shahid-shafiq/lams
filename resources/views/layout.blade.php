@@ -61,15 +61,20 @@
       </li>
 
     @auth
-    <?php
-    $isadmin = Auth::user()->role == 'admin';
-    ?>
-    @if ($isadmin)
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin') }}">{{__('Admin')}}</a>
-      </li>
-    @endif
-    @endauth
+<?php
+$isadmin = Auth::user()->role == 'admin';
+$ismanager = Auth::user()->role == 'manager';
+?>
+@if ($ismanager)
+  <li class="nav-item">
+    <a class="nav-link" href="{{ route('admin') }}">{{__('Manager')}}</a>
+  </li>
+@elseif ($isadmin)
+  <li class="nav-item">
+    <a class="nav-link" href="{{ route('admin') }}">{{__('Admin')}}</a>
+  </li>
+@endif
+@endauth
     <!-- 
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
