@@ -65,6 +65,7 @@ Route::resource('receipts', 'ReceiptController');
 
 Route::resource('bills', 'BillController');
 Route::resource('members', 'MemberController');
+Route::resource('membersold', 'MemberOldController');
 Route::post('members/{member}/remove', 'MemberController@remove')->name('members.remove');
 
 Route::resource('persons', 'PersonController');

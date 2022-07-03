@@ -9,11 +9,11 @@
         <div class="pull-left">
         <h2>
         @if ($mode == 'edit')
-            {{__('Edit Member')}}
+            Edit
         @else
-            {{__('New Member')}}
+            Add New
         @endif
-            - {{sprintf("AKQ/M/%03d", $member->regno) }}
+            Member - {{sprintf("AKQ/M/%03d", $member->regno) }}
         </h2>
         </div>
         <div class="pull-right">
@@ -47,90 +47,52 @@ $newperson = "***" . __('New Person') . "***";
     {{ csrf_field() }}
   
     <div class="row">
-        <div class="col-xs-4 col-sm-4 col-md-4">
+        <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <!--strong>{{__('Registration No')}}:</strong-->
-                <input type="hidden" readonly name="regno" value="{{$member->regno}}" class="form-control" readonly>
+                <strong>{{__('Registration No')}}:</strong>
+                <input type="text" readonly name="regno" value="{{$member->regno}}" class="form-control" readonly>
             </div>
         </div>
-    </div>
-    <div class="row">
-
-        <div class="col-xs-5 col-sm-5 col-md-5">
-            <div class="form-group">
-                <strong>{{__('Name')}}:</strong>
-                <input type="text" name="fullname" value="{{$member->fullname}}" class="form-control" placeholder="Name">
-            </div>fathername
-        </div>
-        <div class="col-xs-5 col-sm-5 col-md-5">
-            <div class="form-group">
-                <strong>{{__("Father's Name")}}:</strong>
-                <input type="text" name="fathername" value="{{$member->}}" class="form-control" placeholder="Father's name">
-            </div>
-        </div>
-
-        <div class="col-xs-2 col-sm-2 col-md-2">
-            <div class="form-group">
-                <strong>{{__('Gender')}}:</strong>
-                <select name="gender" value="{{$member->gender}}" class="form-control" placeholder="City">
-                    <option value='1' {{$member->gender == 1 ? 'selected' : ''}}>{{__('Male')}}</option>
-                    <option value='2' {{$member->gender == 2 ? 'selected' : ''}}>{{__('Female')}}</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="col-xs-10 col-sm-10 col-md-10">
-            <div class="form-group">
-                <strong>{{__('Address')}}:</strong>
-                <input type="text" name="address" value="{{$member->address}}" class="form-control" placeholder="Address">
-            </div>
-        </div>
-        <div class="col-xs-2 col-sm-2 col-md-2">
-            <div class="form-group">
-                <strong>{{__('City')}}:</strong>
-                <input type="text" name="city" value="{{$member->city}}" class="form-control" placeholder="City">
-            </div>
-        </div>
-
-        <div class="col-xs-4 col-sm-4 col-md-4">
-            <div class="form-group">
-                <strong>{{__('Mobile')}}:</strong>
-                <input type="text" name="mobile" value="{{$member->mobile}}" class="form-control" placeholder="Mobile">
-            </div>
-        </div>
-
-        <div class="col-xs-8 col-sm-8 col-md-8">
-            <div class="form-group">
-                <strong>{{__('Email')}}:</strong>
-                <input type="email" name="email" value="{{$member->email}}" class="form-control" placeholder="Email">
-            </div>
-        </div>
-
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>{{__('Alternate address')}}:</strong>
-                <input type="text" name="altaddress" value="{{$member->altaddress}}" class="form-control" placeholder="Address">
-            </div>
-        </div>
-
-        <div class="col-xs-3 col-sm-3 col-md-3">
+        <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
                 <strong>{{__('Pledge')}}:</strong>
                 <input type="decimal" name="pledge" value="{{$member->pledge}}" class="form-control" placeholder="Infaaq">
             </div>
         </div>
 
-
-        <div class="col-xs-3 col-sm-3 col-md-3">
+        <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
                 <strong>{{__('Registration Date')}}:</strong>
                 <input type="date" readonly name="regdate" value="{{$member->regdate}}" class="form-control">
             </div>
         </div>
-        <div class="col-xs-3 col-sm-3 col-md-3">
+        <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
                 <strong>{{__('Application Date')}}:</strong>
                 <input type="date" name="appdate" value="{{$member->appdate}}" class="form-control">
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            <div class="form-group">
+                <strong>{{__('Member')}}:</strong>
+                <input type="text" name="persons" list="peopleList" id="persons" class="form-control" placeholder="Person">
+                <datalist id="peopleList">
+                <option value="{{$newperson}}"></option>              
+                @foreach ($people as $item)
+                <option value="{{$item->fullname}}"></option>
+                @endforeach
+                </datalist>
+            </div>
+            <div class="form-group" style="display:none">
+                <select type="text" name="person_id" id="person" class="form-control">
+                <option value="99999">{{ __("New Person") }}</option>
+                @foreach ($people as $item)
+                <option value="{{$item->id}}" {{ $item->id == $member->person_id ? 'selected' : '' }} >{{$item->fullname}}</option>
+                @endforeach
+                </select>
             </div>
         </div>
     </div>

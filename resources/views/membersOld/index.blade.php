@@ -42,7 +42,7 @@
   ?>
     <tr class="data">
       <td class="{{$delclass}}">{{ $member->regno }}</td>
-      <td class="{{$delclass}}">{{ $member->fullname }}</td>
+      <td class="{{$delclass}}">{{ $member->person->fullname }}</td>
       <td class="{{$delclass}}">{{ $member->pledge }}</td>
       <td>
       <form action="{{ route('members.destroy', $member->id) }}" method="POST">
@@ -50,14 +50,12 @@
         {{ method_field('DELETE') }}
 
         <a href="{{ route('members.show', $member->id) }}" class="view {{$delclass}}" title="View" data-toggle="tooltip"><i class="material-icons">pageview</i></a>
-      @if (Auth::user()->role == 'manager' || Auth::user()->role == 'admin')
         <a href="{{ route('members.edit', $member->id) }}" class="edit {{$delclass}}" title="Edit" data-toggle="tooltip"><i class="material-icons">edit</i></a>
         @if (Auth::user()->role == 'admin' && $member->status !== 'D')
         <input class="material-icons btn-outline-danger" style="border:none" 
           onclick="return confirm('Delete record?')" type="submit" value="delete_outline" title="Delete" data-toggle="tooltip">
         </input>
-        @endif
-      @endif  
+        @endif        
       </form>
       </td>
   </tr>

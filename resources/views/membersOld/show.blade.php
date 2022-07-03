@@ -7,21 +7,11 @@
 <div class="container">
 
 <div class="row">
-    <div class="col-xs-1 col-sm-1 col-md-1">
-        <div class="form-group">
-        @if ($member->gender == 2)
-            <img src="{{ asset('/images/icons8-female-user-64.png')}}"/>
-        @else
-            <img src="{{ asset('/images/icons8-male-user-64.png')}}"/>
-        @endif
-        </div>
-    </div>
     <div class="col-xs-7 col-sm-7 col-md-7 margin-tb">
         <div class="">
             <h2>{{__('Member')}}</h2>
         </div>
     </div>
-    
     <div class="col-xs-3 col-sm-3 col-md-3 margin-tb p-1">
         <div class="d-inline">
         @if ($prev)
@@ -46,6 +36,8 @@
 
 <div class="row">
 <div class="col">
+
+
 
 <div class="row">
     <div class="col-xs-4 col-sm-4 col-md-4">
@@ -84,57 +76,44 @@
     <div class="col-xs-4 col-sm-4 col-md-4">
         <div class="form-group">
             <strong>{{__('Name')}}:</strong>
-            {{ $member->fullname }}
+            {{ $member->person->fullname }}
         </div>
     </div>
-
-@if ($member->fathername)
-    <div class="col-xs-4 col-sm-4 col-md-4">
-        <div class="form-group">
-            <strong>{{__("Father's Name")}}:</strong>
-            {{ $member->fathername }}
-        </div>
-    </div>
-@endif
 
     <div class="col-xs-4 col-sm-4 col-md-4">
         <div class="form-group">
             <strong>{{__('Mobile')}}:</strong>
-            {{ $member->mobile }}
+            {{ $member->person->mobile }}
         </div>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-xs-9 col-sm-9 col-md-9">
+    <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>{{__('Address')}}:</strong>
-            {{ $member->address }}
-        </div>
-    </div>
-
-    <div class="col-xs-3 col-sm-3 col-md-3">
-        <div class="form-group">
-            <strong>{{__('City')}}:</strong>
-            {{ $member->city }}
+            {{ $member->person->address }}
         </div>
     </div>
 </div>
 
 <div class="row">
-    
+    <div class="col-xs-4 col-sm-4 col-md-4">
+        <div class="form-group">
+            <strong>{{__('City')}}:</strong>
+            {{ $member->person->city }}
+        </div>
+    </div>
 </div>
 
-@if ($member->email)
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>{{__('Email')}}:</strong>
-            {{ $member->email }}
+            {{ $member->person->email }}
         </div>
     </div>
 </div>
-@endif
 
 </div>
 <?php 

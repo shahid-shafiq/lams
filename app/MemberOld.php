@@ -4,22 +4,20 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Member extends Model
+class MemberOld extends Model
 {
 
-  public $timestamps = true;
-  
-  const CREATED_AT = 'created';
-  const UPDATED_AT = 'modified';
-
-  public $table = "membersext";
+  public $timestamps = false;
   
   protected $fillable = [
-    'pledge', 'status', 'regno', 'fathername', 'contact', 'altaddress',
-    'appdate', 'regdate', 'fullname', 'address', 'city', 'mobile', 'email', 'gender'
+    'person_id', 'pledge', 'status', 'regno', 
+    'appdate', 'regdate'
   ];
 
-    
+    public function person() {
+      return $this->belongsTo('App\Person');
+    }
+
     public function receipts() {
       return $this->hasMany('App\Receipt', 'm_id', 'regno')->where('income_id', '=', '2');// ->orderBy('rdate', 'desc');
     }
@@ -46,16 +44,18 @@ class Member extends Model
     public static function memberListNames() {
       $mlist = Member::where('status', '<>', 'D')->
         orWhereNull('status')->
-        select('regno', 'fullname')->
-        orderBy('fullname')->get();
+        join('people', 'people.id', 'members.person_id')->
+        select('members.regno', 'people.fullname')->
+        orderBy('people.fullname')->get();
       return $mlist;
     }
 
     public static function memberListReg() {
       $mlist = Member::where('status', '<>', 'D')->
         orWhereNull('status')->
-        select('regno', 'fullname')->
-        orderBy('regno')->get();
+        join('people', 'people.id', 'members.person_id')->
+        select('members.regno', 'people.fullname')->
+        orderBy('members.regno')->get();
       return $mlist;
     }
 }

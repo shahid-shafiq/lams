@@ -58,9 +58,9 @@ $ismanager = Auth::user()->role == 'manager';
         <a class="nav-link" href="{{ route('users.index') }}">{{__('Users')}}</a>
       </li>
       @endif
-      <li class="nav-item">
+      <!--li class="nav-item">
         <a class="nav-link" href="{{ route('persons.index') }}">{{__('People')}}</a>
-      </li>
+      </li-->
       <li class="nav-item">
         <a class="nav-link" href="{{ route('members.index') }}">{{__('Members')}}</a>
       </li>
