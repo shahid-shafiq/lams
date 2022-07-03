@@ -60,12 +60,12 @@ $newperson = "***" . __('New Person') . "***";
             <div class="form-group">
                 <strong>{{__('Name')}}:</strong>
                 <input type="text" name="fullname" value="{{$member->fullname}}" class="form-control" placeholder="Name">
-            </div>fathername
+            </div>
         </div>
         <div class="col-xs-5 col-sm-5 col-md-5">
             <div class="form-group">
                 <strong>{{__("Father's Name")}}:</strong>
-                <input type="text" name="fathername" value="{{$member->}}" class="form-control" placeholder="Father's name">
+                <input type="text" name="fathername" value="{{$member->fathername}}" class="form-control" placeholder="Father's name">
             </div>
         </div>
 
