@@ -21,7 +21,7 @@ class Infaaq extends Receipt
       if ($year != null) {
         $members = Member::where('status', '<>', 'D')
           ->orWhereNull('status')
-          ->join('receipts', 'receipts.m_id', '=', 'members.regno')
+          ->join('receipts', 'receipts.m_id', '=', 'regno')
           ->where('receipts.income_id', '=', '2')
           //->whereRaw('year(receipts.fdate) >= ?', [$year-5])
           //->whereRaw('year(receipts.tdate) <= ?', [$year+2])
@@ -49,9 +49,9 @@ class Infaaq extends Receipt
             $cmem = $member->regno;
             $row = array();
 
-            $row[] = $member->person->fullname;
+            $row[] = $member->fullname;
             $row[] = $member->regno;
-            $row[] = $member->person->mobile;
+            $row[] = $member->mobile;
             $row[] = $member->pledge;
 
             $res = [0,0,0,0,0,0,0,0,0,0,0,0];
