@@ -144,7 +144,8 @@ use Carbon\Carbon;
                         <?php
                             $memval = "";
                             if ($receipt->member) {
-                                $memval = $receipt->member->person->fullname;
+                                //echo $receipt->member->fullname;
+                                $memval = $receipt->member->fullname;
                             }
                         ?>
                         <input type="text" name="members" list="memberList" id="members" value="{{ $memval }}" class="form-control" placeholder="Member">

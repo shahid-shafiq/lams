@@ -99,7 +99,7 @@
             <div class="form-group">
                 <strong>{{__('Member')}}:</strong>
                 {{ sprintf("AKQ/M/%'.03d", $receipt->member->regno) }}
-                {{ $receipt->member->person->fullname }}
+                {{ $receipt->member->fullname }}
                 <?php 
                 //print($receipt->member); 
                 ?>

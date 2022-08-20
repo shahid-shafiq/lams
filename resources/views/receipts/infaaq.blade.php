@@ -36,7 +36,7 @@ if ($year != null) {
 function dump_members($members) {
   foreach ($members as $m) {
     prints($m->regno);
-    println($m->person->fullname);
+    println($m->fullname);
   }
 }
 
@@ -67,9 +67,9 @@ function dump_members($members) {
       //prints($cmem);
       $row = array();
 
-      $row[] = $member->person->fullname;
+      $row[] = $member->fullname;
       $row[] = $member->regno;
-      $row[] = $member->person->mobile;
+      $row[] = $member->mobile;
       $row[] = $member->pledge;
 
       $res = [0,0,0,0,0,0,0,0,0,0,0,0];
