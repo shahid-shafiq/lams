@@ -91,8 +91,20 @@ use Carbon\Carbon;
                 <strong>{{__('Course')}}:</strong>
                 <select name="course" id="course" value="{{$receipt->account_id}}" class="form-control" placeholder="Course">
                 @foreach ($courses as $item)
-                    <option value="{{$item->course_id}}" 
-                        @if ($item->course_id == $receipt->account_id)
+                    <option value="{{$item->id}}" 
+                        @if ($item->id == $receipt->account_id)
+                            selected
+                        @endif
+                    >{{$item->title}}</option>
+                @endforeach
+                </select>
+            </div>
+            <div id="income_grp" class="form-group" style="display:none">
+                <strong>{{__('Type')}}:</strong>
+                <select name="subincome" id="subincome" value="{{$receipt->account_id}}" class="form-control" placeholder="Type">
+                @foreach ($subincome as $item)
+                    <option value="{{$item->id}}" 
+                        @if ($item->id == $receipt->account_id)
                             selected
                         @endif
                     >{{$item->title}}</option>
@@ -276,19 +288,30 @@ function init() {
 
             }, 500);
             @endif
-        }       
+        } else if (selinc == 'Special' || selinc == 'Sale') {
+            // select correct course and student/member values
+            @if ($mode == 'edit')
+            setTimeout(() => { 
+                $('#subincome').val({{$receipt->account_id}}).change();
+            }, 500);
+            @endif
+        }      
     }
     //console.log($('#fdate, #fdatef'));
 }
 
 // clear contents of courses and students
-function clear_cns(cr, st) {
+function clear_cns(cr, st, tp) {
   if (cr) {
     $('#course').empty().append($('<option value=""></option>').text("{{__('Select Course')}}"));
   }
 
   if (st) {
     $('#student').empty().append($('<option value=""></option>').text("{{__('Select Student')}}"));
+  }
+
+  if (tp) {
+    $('#subincome').empty().append($('<option value=""></option>').text("{{__('Select Type')}}"));
   }
 }
 
@@ -456,10 +479,19 @@ function disableInfaaqReceipt() {
         $('#daterange').hide();
 }
 
+function disableTypeReceipt() {
+    $('#income_grp').hide();
+}
+
+function enableTypeReceipt() {
+    $('#income_grp').show();
+}
+
 function updateIncomeUI(inc) {
     // clear Fee/Infaaq controls
     disableInfaaqReceipt();
     disableFeeReceipt();
+    disableTypeReceipt();
 
     // enable controls based on the income type
     if (inc == 'Fee') {
@@ -468,6 +500,9 @@ function updateIncomeUI(inc) {
     } else if (inc == 'Infaq') {
         enableInfaaqReceipt();
         console.log('Enabling infaaq');
+    } else if (inc == 'Special' || inc == 'Sale') {
+        enableTypeReceipt();
+        console.log('Enabling income sub types');
     }
 }
 
@@ -516,7 +551,43 @@ $("#income").on('change', function(e) {
     let idx = e.target.selectedIndex;
     let inc = this.options[idx].text;
 
-    updateIncomeUI(inc);    
+    updateIncomeUI(inc);
+    
+    if ($(this).val() != '' && (inc == 'Special' || inc=='Sale')) {
+        console.log( "Update sub income type" );
+
+        var incid = $(this).val();
+        //var dependent = $(this).data('dependent');
+        console.log("Updating sub income type using value " + incid);
+
+        let apiurl = "{{ url('api/subincome') }}"+'/'+incid;
+        console.log(apiurl);
+
+        $.ajax({
+            url: apiurl,
+            method : 'get',
+            // if method is post
+            //data:{select:select, value:value, _token:_token, dependent:dependent},
+            success : function(result) {
+                let data = result;//JSON.parse(result);
+                clear_cns(true, true, true);
+                var sel = $('#subincome');
+                console.log(sel)
+                $.each(data, function(idx, item) {
+                    sel.append(
+                    $('<option></option>').attr("value", item.id).text(item.title)
+                    )
+                });
+
+                 if (data.length == 1) {
+                    console.log('auto selecting single item');
+                    $('#subincome').val(data[0].id);
+                    //$('#subincome').change();
+                }
+                
+            }
+        });
+    }
     return;
 
     console.log( "income changed" );

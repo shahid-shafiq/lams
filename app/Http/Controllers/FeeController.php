@@ -22,7 +22,7 @@ class FeeController extends Controller
         */
 
         //return all courses and user is responsible for integrity
-        return Course::select(['id as course_id', 'title', 'description'])->get();
+        return Course::select(['id as course_id', 'title', 'description'])->orderBy('id', 'asc')->get();
 
         //return Student::courses($cmpid);
     }

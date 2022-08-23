@@ -13,6 +13,7 @@ use App\Payment;
 use App\Site;
 use App\Period;
 use App\Student;
+use App\Subincome;
 
 use Carbon\Carbon;
 use App\Custom\Urdutils;
@@ -117,6 +118,7 @@ class ReceiptController extends Controller
       'payments' => Payment::all(),
       'incomes' => Income::all(),
       'courses' => Course::orderBy('id')->get(),
+      'subincome' => Subincome::all(),
       'students' => $students,
       'members' => Member::memberListNames(),
       'regnos' => Member::memberListReg()
@@ -260,6 +262,9 @@ class ReceiptController extends Controller
           if ($receipt->description == '') {
             $receipt->description = Urdutils::FeeDescription($fd, $td);
           }
+        } elseif ($inc == '4' || $inc == '5') {
+          // SPECIAL or SALE
+          $receipt->account_id = $request->get('subincome');
         } else {
           // INFAAQ
           $receipt->description = Urdutils::InfaqDescription($fd, $td);
@@ -295,6 +300,7 @@ class ReceiptController extends Controller
         'accounts' => Account::all(),
         'payments' => Payment::all(),
         'incomes' => Income::all(),
+        'subincome' => Subincome::subs($receipt->income_id),
         'courses' => $courses,
         'students' => $students,
         'members' => Member::memberListNames(),
@@ -333,7 +339,10 @@ class ReceiptController extends Controller
 
       $inc = $request->get('income');
 
-      if ($inc == '3' || $inc == '2') {
+      if ($inc == '5' || $inc == '4' ) {
+        // SPECIAL or SALE          
+        $receipt->account_id = $request->get('subincome');
+      } else if($inc == '3' || $inc == '2') {
         // date range
         $fd = Carbon::createFromDate($request->get('fdate'));
         $td = Carbon::createFromDate($request->get('tdate'));
@@ -383,6 +392,10 @@ class ReceiptController extends Controller
         $receipt->delete();
         return redirect()->route('receipts.index')
               ->with('success','Bill deleted successfully');
+    }
+
+    public function subincome($inc) {
+      return Subincome::where(['income_id' => $inc])->orWhere(['id' => '1'])->orderBy('id')->get();
     }
 }
  
