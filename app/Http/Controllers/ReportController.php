@@ -264,6 +264,8 @@ class ReportController extends Controller
 
                 $filter->fperiod = $receipts[0]->period_id;
                 $filter->tperiod = $receipts[$receipts->count()-1]->period_id;
+            } else {
+                $filter = null;
             }
         }
 
@@ -359,6 +361,8 @@ class ReportController extends Controller
 
                 $filter->fperiod = $bills[0]->period_id;
                 $filter->tperiod = $bills[$bills->count()-1]->period_id;
+            } else {
+                $filter = null;
             }
         }
 

@@ -9,6 +9,9 @@ use Carbon\Carbon;
 
 
 @section('filter')
+
+@if ($filter != null):
+
 <div class="container">
 
 <script>
@@ -108,6 +111,8 @@ $(document).ready(function(){
 </form>
 
 </div>
+
+@endif
 @endsection
 
 
