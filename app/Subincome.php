@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subincome extends Model
 {
-    use HasFactory;
+    //use HasFactory;
     public $timestamps = false;
     public $table = 'subincome';
 
